@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { PrivateRoute } from './PrivateRoute'
 import Home from '../components/views/Home'
-import Registration from '../components/views/Registration'
+import Registration from '../components/views/Registration/Registration'
 import Login from '../components/views/Login'
 
 export default function Router () {

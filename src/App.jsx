@@ -8,8 +8,9 @@ import { GlobalStyleReset } from './styles/cssReset'
 function App () {
   return (
     <ProvideAuth>
-      <GlobalStyleReset />
       <ThemeProvider theme={theme}>
+        <GlobalStyleReset />
+
         <Router />
       </ThemeProvider>
     </ProvideAuth>

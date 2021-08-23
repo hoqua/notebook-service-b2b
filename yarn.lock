@@ -9368,6 +9368,16 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-client-captcha@^1.0.3:
+  version "1.0.3"
+  resolved "https://nexus.elminda.com/repository/npm-group/react-client-captcha/-/react-client-captcha-1.0.3.tgz#7c31e084fe2b1506f5b6c2c944c3346aaebc9bf6"
+  integrity sha512-uPnU6W/lYg3oEAwK+wo0MYUWWr24gv6QiILGprrDlk6Y/NjJiMOGItBtrDloysGLl0Mz+d1mbc99IWCsVQYWkg==
+
+react-custom-checkbox@^2.0.0:
+  version "2.0.0"
+  resolved "https://nexus.elminda.com/repository/npm-group/react-custom-checkbox/-/react-custom-checkbox-2.0.0.tgz#2c5a027832320723b46b0a4444be3744e518ddd9"
+  integrity sha512-YWwYEfQOMGmWUTHqLE9NHKxToGhxEN/DnYUqNuuFDDhxKqlrx5hyuePwLKn2pzFLmWTOkVNeeTD/L2SW1vaggQ==
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://nexus.elminda.com/repository/npm-group/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
@@ -10764,11 +10774,6 @@ styled-components@^5.3.0:
     hoist-non-react-statics "^3.0.0"
     shallowequal "^1.1.0"
     supports-color "^5.5.0"
-
-styled-media-query@^2.1.2:
-  version "2.1.2"
-  resolved "https://nexus.elminda.com/repository/npm-group/styled-media-query/-/styled-media-query-2.1.2.tgz#d59e8d91bc4bcff210dc511bdcecedf16eb2c5b7"
-  integrity sha512-ds24iBxOrfIhdHP+e23y6kj1gbosgWu+tgAuxvMrYmnp6Sju/LjuY8lfkiVnn6P7mcdhtwpC2Z43o+apT9UdJg==
 
 stylehacks@^4.0.0:
   version "4.0.3"

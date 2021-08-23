@@ -4,5 +4,8 @@ export const theme = {
   },
   bg: {
     light: '#F3F6FB'
+  },
+  typography: {
+    main: '#081128'
   }
 }
