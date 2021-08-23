@@ -10,11 +10,13 @@ import ClientCaptcha from 'react-client-captcha'
 import StyledCheckbox from '../../shared/styled/StyledCheckbox'
 import { NavigationButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
+import { useAuth } from '../../../hooks/auth'
 
 export default function Registration () {
   const [capcha, setCapcha] = useState('')
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
+  const { signUp } = useAuth()
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
@@ -32,13 +34,18 @@ export default function Registration () {
     return invalidValidateObj.prop
   }
 
-  const register = () => {
+  const register = async () => {
     const invalidProp = validate()
     if (invalidProp) {
       setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
       return
     }
-    console.log('no invalid props')
+
+    try {
+      await signUp(formData)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
