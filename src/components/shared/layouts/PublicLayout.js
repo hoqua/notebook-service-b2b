@@ -1,13 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
-import Logo from '../icons/Logo'
+import Logo from '../../../assets/img/logo-small.avif'
+import { useHistory } from 'react-router-dom'
 
 export default function PublicLayout ({ children }) {
+  const history = useHistory()
+
   return (
     <>
       <StyledHeader>
         <InnerHeaderContainer>
-          <Logo />
+          <img
+            src={Logo}
+            alt='small logo'
+            width='194px'
+            height='28px'
+            onClick={() => history.push('/')}
+            style={{ cursor: 'pointer' }}
+          />
         </InnerHeaderContainer>
       </StyledHeader>
       {children}
