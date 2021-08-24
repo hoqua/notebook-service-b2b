@@ -21,11 +21,13 @@
     "eslint-plugin-import": "^2.24.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.24.0"
+    "eslint-plugin-react": "^7.24.0",
+    "source-map-explorer": "^2.5.2"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {
     "production": [

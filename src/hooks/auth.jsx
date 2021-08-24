@@ -1,16 +1,28 @@
 import React, { createContext, useContext } from 'react'
 import { useFetch } from 'use-http'
 
-const API = 'http://oborot.in/nbs/api/'
+const API = 'https://oborot.in/nbs/api/'
 
 function useProvideAuth () {
   const { post: signUp, error: signUpError, loading: signUpLoading } = useFetch(API + 'do-register.php ')
   const { post: signIn, response: user, error: signInError, loading: signInLoading } = useFetch(API + 'login.php')
 
+  const signUpWithBody = ({ firm, name, email, password, phone, telegram }) => {
+    const formData = new FormData()
+    formData.append('cname', firm)
+    formData.append('email', email)
+    formData.append('password', password)
+    formData.append('fio', name)
+    formData.append('phone', phone)
+    formData.append('telegram', telegram)
+
+    return signUp(formData)
+  }
+
   return {
     user,
     signIn: (userName, password) => signIn(`?u=${userName}&p=${password}`),
-    signUp: ({ firm, name, email, password, phone, telegram }) => signUp({ cname: firm, email, password, fio: name, phone, telegram }),
+    signUp: signUpWithBody,
     loading: signUpLoading || signInLoading,
     signUpError,
     signInError

@@ -16,7 +16,7 @@ export default function Registration () {
   const [capcha, setCapcha] = useState('')
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
-  const { signUp } = useAuth()
+  const { signUp, loading } = useAuth()
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
@@ -124,7 +124,7 @@ export default function Registration () {
             <SpacerH25 />
 
             <ActionsContainer>
-              <NavigationButton to='#' onClick={() => register()}>Зарегистрироваться</NavigationButton>
+              <NavigationButton to='#' onClick={() => register()} disabled={loading}>Зарегистрироваться</NavigationButton>
             </ActionsContainer>
             <SpacerH20 />
 
