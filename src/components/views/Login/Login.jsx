@@ -95,7 +95,7 @@ export default function Registration () {
             </div>
 
             <PublicFromActionsContainer>
-              <StyledText>У вас ещё нет аккаунта? <StyledLink to='/register'>Зарегистрируйтесь</StyledLink></StyledText>
+              <StyledText>У вас ещё нет аккаунта? <StyledLink to='/registration'>Зарегистрируйтесь</StyledLink></StyledText>
             </PublicFromActionsContainer>
           </LoginContentWrapper>
 
