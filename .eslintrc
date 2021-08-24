@@ -5,5 +5,7 @@
     "standard-jsx",
     "standard-react"
   ],
-  "rules": { "react/prop-types": 0 }
+  "rules": {
+    "react/prop-types": 0
+  }
 }

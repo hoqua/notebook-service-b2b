@@ -10,17 +10,26 @@ import ClientCaptcha from 'react-client-captcha'
 import StyledCheckbox from '../../shared/styled/StyledCheckbox'
 import { NavigationButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
-import { useAuth } from '../../../hooks/auth'
+import { useSignUp } from '../../../service/Auth'
+import { useShowError } from '../../../hooks/useSnakbar'
 
 export default function Registration () {
   const [capcha, setCapcha] = useState('')
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
-  const { signUp, loading } = useAuth()
+  const { signUp, loading, error } = useSignUp()
+  const [showError] = useShowError()
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
   }, [formData])
+
+  useEffect(() => {
+    if (error) {
+      setFormError({ ...defaultFormErrorsState })
+      showError('Ошибка регистрации!')
+    }
+  }, [error])
 
   const validate = () => {
     const invalidValidateObj = validationSchemaArr.find(validate => {
@@ -38,13 +47,8 @@ export default function Registration () {
     const invalidProp = validate()
     if (invalidProp) {
       setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
-      return
-    }
-
-    try {
+    } else {
       await signUp(formData)
-    } catch (e) {
-      console.log(e)
     }
   }
 
@@ -62,7 +66,10 @@ export default function Registration () {
               <StyledInput
                 type='text'
                 placeholder='Введите название фирмы'
-                onChange={({ target }) => setFormData({ ...formData, firm: target.value })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  firm: target.value
+                })}
                 error={formErrors.firm}
               />
 
@@ -70,14 +77,20 @@ export default function Registration () {
               <StyledInput
                 type='text'
                 placeholder='Введите ваше имя'
-                onChange={({ target }) => setFormData({ ...formData, name: target.value })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  name: target.value
+                })}
                 error={formErrors.name}
               />
 
               <label>Эл. почта (login)</label>
               <StyledInput
                 type='email' placeholder='Введите эл. почту'
-                onChange={({ target }) => setFormData({ ...formData, email: target.value })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  email: target.value
+                })}
                 error={formErrors.email}
               />
 
@@ -85,14 +98,20 @@ export default function Registration () {
               <StyledInput
                 type='password'
                 placeholder='Введите пароль'
-                onChange={({ target }) => setFormData({ ...formData, password: target.value })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  password: target.value
+                })}
                 error={formErrors.password}
               />
 
               <label>Телефон</label>
               <StyledInput
                 type='tel' placeholder='Введите ваш номер телефона'
-                onChange={({ target }) => setFormData({ ...formData, phone: target.value })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  phone: target.value
+                })}
                 error={formErrors.phone}
               />
 
@@ -100,7 +119,10 @@ export default function Registration () {
               <StyledInput
                 type='text'
                 placeholder='Введите ваш логин telegram'
-                onChange={({ target }) => setFormData({ ...formData, telegram: target.value })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  telegram: target.value
+                })}
                 error={formErrors.telegram}
               />
 
@@ -108,7 +130,10 @@ export default function Registration () {
               <StyledInput
                 type='text'
                 placeholder='Введите символы'
-                onChange={({ target }) => setFormData({ ...formData, capcha: target.value === capcha })}
+                onChange={({ target }) => setFormData({
+                  ...formData,
+                  capcha: target.value === capcha
+                })}
                 error={formErrors.capcha}
               />
             </RegistrationForm>
@@ -116,7 +141,10 @@ export default function Registration () {
 
             <StyledCheckbox
               error={formErrors.agreed}
-              onChange={isAgreed => setFormData({ ...formData, agreed: isAgreed })}
+              onChange={isAgreed => setFormData({
+                ...formData,
+                agreed: isAgreed
+              })}
             >
               <StyledText>Я согласен с условиями <StyledLink to='/'>политики конфиденциальности</StyledLink>
               </StyledText>
@@ -124,7 +152,11 @@ export default function Registration () {
             <SpacerH25 />
 
             <ActionsContainer>
-              <NavigationButton to='#' onClick={() => register()} disabled={loading}>Зарегистрироваться</NavigationButton>
+              <NavigationButton
+                to='#' onClick={() => register()}
+                disabled={loading}
+              >Зарегистрироваться
+              </NavigationButton>
             </ActionsContainer>
             <SpacerH20 />
 
