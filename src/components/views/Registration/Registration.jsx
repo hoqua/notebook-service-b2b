@@ -3,7 +3,6 @@ import PublicLayout from '../../shared/layouts/PublicLayout'
 import { PublicContentContainer } from '../../shared/styled/PublicContentContainer'
 import { WrapPageLight } from '../../shared/styled/WrapPageLight'
 import { HeadTile, StyledLink, StyledText } from '../../shared/styled/Typography'
-import { ActionsContainer, RegistrationContainer, RegistrationForm } from './styles'
 import { SpacerH20, SpacerH25, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
 import ClientCaptcha from 'react-client-captcha'
@@ -11,14 +10,19 @@ import StyledCheckbox from '../../shared/styled/StyledCheckbox'
 import { NavigationButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
 import { useSignUp } from '../../../service/Auth'
-import { useShowError } from '../../../hooks/useSnakbar'
+import { useNotify } from '../../../hooks/useSnakbar'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
+import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
+import { validate } from '../../../utils/validators'
+import { Fullpage } from '../../shared/styled/Fullpage'
 
 export default function Registration () {
   const [capcha, setCapcha] = useState('')
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
-  const { signUp, loading, error } = useSignUp()
-  const [showError] = useShowError()
+  const { signUp, data, loading, error } = useSignUp()
+  const { showError, showSuccess } = useNotify()
+  const [, setToken] = useLocalStorage('token')
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
@@ -27,24 +31,20 @@ export default function Registration () {
   useEffect(() => {
     if (error) {
       setFormError({ ...defaultFormErrorsState })
+      setToken('new token')
       showError('Ошибка регистрации!')
     }
   }, [error])
 
-  const validate = () => {
-    const invalidValidateObj = validationSchemaArr.find(validate => {
-      const formValue = formData[validate.prop]
-      const isValid = validate.validator(formValue)
-
-      return !isValid
-    })
-    if (!invalidValidateObj) return null
-
-    return invalidValidateObj.prop
-  }
+  useEffect(() => {
+    if (data) {
+      console.log(data)
+      showSuccess('Вы успешно зарегистрировались!')
+    }
+  }, [data])
 
   const register = async () => {
-    const invalidProp = validate()
+    const invalidProp = validate(formData, validationSchemaArr)
     if (invalidProp) {
       setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
     } else {
@@ -56,10 +56,10 @@ export default function Registration () {
     <PublicLayout>
       <WrapPageLight>
         <PublicContentContainer>
-          <RegistrationContainer>
+          <Fullpage>
             <HeadTile>Регистрация</HeadTile>
 
-            <RegistrationForm>
+            <PublicForm>
               <SpacerH40 />
 
               <label>Название фирмы</label>
@@ -136,7 +136,7 @@ export default function Registration () {
                 })}
                 error={formErrors.capcha}
               />
-            </RegistrationForm>
+            </PublicForm>
             <SpacerH20 />
 
             <StyledCheckbox
@@ -151,20 +151,20 @@ export default function Registration () {
             </StyledCheckbox>
             <SpacerH25 />
 
-            <ActionsContainer>
+            <PublicFromActionsContainer>
               <NavigationButton
                 to='#' onClick={() => register()}
                 disabled={loading}
               >Зарегистрироваться
               </NavigationButton>
-            </ActionsContainer>
+            </PublicFromActionsContainer>
             <SpacerH20 />
 
-            <ActionsContainer>
+            <PublicFromActionsContainer>
               <StyledText>У вас уже есть аккаунт? <StyledLink to='/login'>Войдите</StyledLink></StyledText>
-            </ActionsContainer>
+            </PublicFromActionsContainer>
 
-          </RegistrationContainer>
+          </Fullpage>
         </PublicContentContainer>
       </WrapPageLight>
     </PublicLayout>

@@ -17,5 +17,5 @@ export const StyledInput = styled.input`
     outline: none;
   }
 
-  ${({ error }) => error && 'border-color: #C61717FF;'}
+  ${({ error, theme }) => error && `border-color: ${theme.status.error};`}
 `

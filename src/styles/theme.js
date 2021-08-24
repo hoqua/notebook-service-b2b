@@ -7,5 +7,9 @@ export const theme = {
   },
   typography: {
     main: '#081128'
+  },
+  status: {
+    error: '#f0541e',
+    success: '#009944'
   }
 }

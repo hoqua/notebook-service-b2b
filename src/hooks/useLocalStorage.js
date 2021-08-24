@@ -10,6 +10,7 @@ export function useLocalStorage (key, initialValue) {
       return initialValue
     }
   })
+
   const setValue = (value) => {
     try {
       const valueToStore =
@@ -20,5 +21,6 @@ export function useLocalStorage (key, initialValue) {
       console.log('storage set value', error)
     }
   }
+
   return [storedValue, setValue]
 }

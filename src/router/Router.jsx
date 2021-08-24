@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { PrivateRoute } from './PrivateRoute'
 import Home from '../components/views/Home'
-import Login from '../components/views/Login'
+import Login from '../components/views/Login/Login'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 

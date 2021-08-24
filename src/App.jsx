@@ -1,24 +1,21 @@
 import React from 'react'
-import { ProvideAuth } from './hooks/auth'
+import { ProvideAuth, useProvideAuth } from './hooks/auth'
 import Router from './router/Router'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './styles/theme'
 import { GlobalStyleReset } from './styles/cssReset'
 import { Provider as HttpProvider } from 'use-http'
-import { useAuthOptions } from './service/Auth'
 import SnackbarProvider from 'react-simple-snackbar'
 
 const API = 'https://oborot.in/nbs/api/'
 
 function App () {
-  const options = useAuthOptions()
+  const auth = useProvideAuth()
 
   return (
     <SnackbarProvider>
-
-      <ProvideAuth>
-        <HttpProvider url={API} options={options}>
-
+      <ProvideAuth auth={auth}>
+        <HttpProvider url={API} options={auth.options}>
           <ThemeProvider theme={theme}>
             <GlobalStyleReset />
 

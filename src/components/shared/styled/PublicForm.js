@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const RegistrationForm = styled.form`
+export const PublicForm = styled.form`
   display: grid;
   align-items: center;
 
@@ -23,13 +23,8 @@ export const RegistrationForm = styled.form`
   }
 `
 
-export const ActionsContainer = styled.div`
+export const PublicFromActionsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-`
-
-export const RegistrationContainer = styled.div`
-  width: 100%;
-  height: 100%;
 `

@@ -1,16 +1,21 @@
 import { useSnackbar } from 'react-simple-snackbar'
+import { theme } from '../styles/theme'
 
-export const useShowError = () => useSnackbar(
-  {
-    position: 'top-right',
-    style: {
-      backgroundColor: 'red'
+export const useNotify = () => {
+  const [showError] = useSnackbar(
+    {
+      position: 'top-right',
+      style: {
+        backgroundColor: theme.status.error
+      }
     }
-  }
-)
-export const useShowSuccess = () => useSnackbar({
-  position: 'bottom-right',
-  style: {
-    backgroundColor: 'yellow'
-  }
-})
+  )
+  const [showSuccess] = useSnackbar({
+    position: 'bottom-right',
+    style: {
+      backgroundColor: theme.status.success
+    }
+  })
+
+  return { showError, showSuccess }
+}
