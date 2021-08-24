@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import notebook from '../../../assets/img/notebook.png'
+import notebook from '../../../assets/img/notebook.avif'
 
 const ContentContainer = styled.div`
   background-color: white;
