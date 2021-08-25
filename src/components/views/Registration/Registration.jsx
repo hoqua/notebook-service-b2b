@@ -11,44 +11,38 @@ import { NavigationButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
 import { useSignUp } from '../../../service/Auth'
 import { useNotify } from '../../../hooks/useSnakbar'
-import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
 import { Fullpage } from '../../shared/styled/Fullpage'
+import { useHistory } from 'react-router-dom'
 
 export default function Registration () {
   const [capcha, setCapcha] = useState('')
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
-  const { signUp, data, loading, error } = useSignUp()
+  const { signUp, response, loading } = useSignUp()
+  const history = useHistory()
   const { showError, showSuccess } = useNotify()
-  const [, setToken] = useLocalStorage('token')
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
   }, [formData])
 
-  useEffect(() => {
-    if (error) {
-      setFormError({ ...defaultFormErrorsState })
-      setToken('new token')
-      showError('Ошибка регистрации!')
-    }
-  }, [error])
-
-  useEffect(() => {
-    if (data) {
-      console.log(data)
-      showSuccess('Вы успешно зарегистрировались!')
-    }
-  }, [data])
-
   const register = async () => {
     const invalidProp = validate(formData, validationSchemaArr)
     if (invalidProp) {
       setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
+      return
+    }
+
+    await signUp(formData)
+
+    if (response.ok) {
+      showSuccess('Вы успешно зарегистрировались!')
+      history.push('/login')
+      return null
     } else {
-      await signUp(formData)
+      showError(`Ошибка регистрации. ${response?.data?.err_msg || ''}`)
     }
   }
 

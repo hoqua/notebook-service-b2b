@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNotify } from '../../../hooks/useSnakbar'
-import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import PublicLayout from '../../shared/layouts/PublicLayout'
 import { WrapPageLight } from '../../shared/styled/WrapPageLight'
 import { PublicContentContainer } from '../../shared/styled/PublicContentContainer'
@@ -19,7 +18,6 @@ export default function Registration () {
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
   const { signIn, data, error, loading } = useAuth()
   const { showError } = useNotify()
-  const [, setToken] = useLocalStorage('token')
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
@@ -28,7 +26,6 @@ export default function Registration () {
   useEffect(() => {
     if (error) {
       setFormError({ ...defaultFormErrorsState })
-      setToken('new token')
       showError('Ошибка входа')
     }
   }, [error])

@@ -2,13 +2,12 @@ import React, { createContext, useContext } from 'react'
 import { useFetch } from 'use-http'
 import { useLocalStorage } from './useLocalStorage'
 
-const API = 'https://oborot.in/nbs/api/'
-
 export function useProvideAuth () {
   const [token] = useLocalStorage('token')
-  const { post: signIn, response, error, loading } = useFetch(API + 'login.php')
+  const { get: signIn, response, error, loading } = useFetch('/login.php')
 
   const options = {
+    cachePolicy: 'no-cache',
     interceptors: {
       request: async ({ options, url, path, route }) => {
         // if (isExpired(token)) {

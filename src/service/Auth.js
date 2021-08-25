@@ -14,5 +14,5 @@ export const useSignUp = () => {
     return post(formData)
   }
 
-  return { signUp: signUpWithBody, error, loading, data: response.data }
+  return { signUp: signUpWithBody, error, loading, response }
 }

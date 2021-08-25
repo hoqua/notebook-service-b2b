@@ -7,7 +7,7 @@ import { GlobalStyleReset } from './styles/cssReset'
 import { Provider as HttpProvider } from 'use-http'
 import SnackbarProvider from 'react-simple-snackbar'
 
-const API = 'https://oborot.in/nbs/api/'
+const API = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : 'https://oborot.in/nbs/api/'
 
 function App () {
   const auth = useProvideAuth()
