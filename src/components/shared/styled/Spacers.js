@@ -18,3 +18,7 @@ export const SpacerH25 = styled.div`
 export const SpacerW15 = styled.div`
   width: 15px;
 `
+
+export const SpacerW5 = styled.div`
+  width: 5px;
+`

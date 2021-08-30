@@ -10,8 +10,8 @@ import { NavigationButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
 import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
-import { useAuth } from '../../../hooks/auth'
 import { LoginContentWrapper } from './styles'
+import { useAuth } from '../../../service/AuthService'
 
 export default function Registration () {
   const [formData, setFormData] = useState({ ...defaultFormState })

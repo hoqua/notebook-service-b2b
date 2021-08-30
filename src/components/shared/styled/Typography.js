@@ -5,7 +5,7 @@ export const HeadTile = styled.h1`
   font-size: 1.5rem;
   `
 export const StyledText = styled.p`
-  color: #818895;
+  color: ${({ theme }) => theme.typography.light};
   font-size: .8rem;
 `
 export const StyledLink = styled(Link)`

@@ -1,29 +1,44 @@
 import React, { Suspense, lazy } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { PrivateRoute } from './PrivateRoute'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Home from '../components/views/Home'
 import Login from '../components/views/Login/Login'
+import Main from '../components/views/Main'
+import { useAuth } from '../service/AuthService'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 
 export default function Router () {
+  const auth = useAuth()
+
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
-          <Route exact path='/'><Home /></Route>
-          <Route path='/login'><Login /></Route>
-          <Route path='/registration'><Registration /></Route>
-
-          <PrivateRoute path='/protected'>
-            <ProtectedPage />
-          </PrivateRoute>
+          {auth.token ? privateRoutes() : publicRoutes()}
         </Switch>
       </Suspense>
     </BrowserRouter>
   )
 }
 
-function ProtectedPage () {
-  return <h3>Protected</h3>
+const publicRoutes = () => {
+  return (
+    <>
+      <Route exact path='/'><Home /></Route>
+      <Route path='/login'><Login /></Route>
+      <Route path='/registration'><Registration /></Route>
+
+      <Route><Redirect to='/' /></Route>
+    </>
+  )
+}
+
+const privateRoutes = () => {
+  return (
+    <>
+      <Route exact path='/'><Main /></Route>
+
+      <Route><Redirect to='/' /></Route>
+    </>
+  )
 }

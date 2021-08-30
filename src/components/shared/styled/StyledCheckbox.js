@@ -1,9 +1,10 @@
 import React from 'react'
 import Checkbox from 'react-custom-checkbox'
-import { theme } from '../../../styles/theme'
 import CheckMark from '../icons/CheckMark'
+import { useTheme } from 'styled-components'
 
 export default function StyledCheckbox ({ onChange, children, error }) {
+  const theme = useTheme()
   return (
     <Checkbox
       icon={
@@ -20,7 +21,7 @@ export default function StyledCheckbox ({ onChange, children, error }) {
         </div>
       }
       onChange={onChange}
-      borderColor={error ? '#C61717FF' : '#EAEEF1'}
+      borderColor={error ? '#C61717FF' : theme.brand.gray}
       style={{
         cursor: 'pointer',
         overflow: 'hidden'
