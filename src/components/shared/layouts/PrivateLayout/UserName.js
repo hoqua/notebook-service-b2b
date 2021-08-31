@@ -8,9 +8,8 @@ export default function UserName ({ onClick }) {
       <div style={{ display: 'flex' }}>
         <div style={{ textAlign: 'right' }}>
           <StyledHeaderTitle>Серебряков Александр</StyledHeaderTitle>
-          <StyledLink onClick={onClick}>Выйти</StyledLink>
+          <StyledLink to='#' onClick={onClick}>Выйти</StyledLink>
         </div>
-
       </div>
     </>
   )

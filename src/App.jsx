@@ -23,7 +23,6 @@ function App () {
           </ThemeProvider>
         </HttpProvider>
       </ProvideAuth>
-
     </SnackbarProvider>
   )
 }

@@ -4,6 +4,7 @@ import Home from '../components/views/Home'
 import Login from '../components/views/Login/Login'
 import Main from '../components/views/Main'
 import { useAuth } from '../service/AuthService'
+import SuspenseView from '../components/views/SuspenseView'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 
@@ -12,7 +13,7 @@ export default function Router () {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<SuspenseView />}>
         <Switch>
           {auth.token ? privateRoutes() : publicRoutes()}
         </Switch>

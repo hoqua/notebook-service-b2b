@@ -1,7 +1,7 @@
 import React from 'react'
 import Checkbox from 'react-custom-checkbox'
-import CheckMark from '../icons/CheckMark'
 import { useTheme } from 'styled-components'
+import { ReactComponent as CheckMark } from '../../../assets/icons/check-mark.svg'
 
 export default function StyledCheckbox ({ onChange, children, error }) {
   const theme = useTheme()
@@ -17,7 +17,7 @@ export default function StyledCheckbox ({ onChange, children, error }) {
             alignItems: 'center'
           }}
         >
-          <CheckMark color='#fff' height={15} />
+          <CheckMark fill='#fff' height='18px' />
         </div>
       }
       onChange={onChange}

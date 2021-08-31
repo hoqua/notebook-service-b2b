@@ -1,8 +1,8 @@
 import React from 'react'
 import styled, { useTheme } from 'styled-components'
-import Grid from '../../icons/Grid'
-import Cart from '../../icons/Cart'
-import User from '../../icons/User'
+import { ReactComponent as User } from '../../../../assets/icons/user.svg'
+import { ReactComponent as ShoppingCart } from '../../../../assets/icons/shoping-cart.svg'
+import { ReactComponent as Grid } from '../../../../assets/icons/grid.svg'
 
 export default function Navigation () {
   const theme = useTheme()
@@ -14,11 +14,11 @@ export default function Navigation () {
         </NavItem>
 
         <NavItem>
-          <Cart />
+          <ShoppingCart />
         </NavItem>
 
         <NavItem>
-          <User />
+          <User title='user icon' />
         </NavItem>
       </div>
     </>
