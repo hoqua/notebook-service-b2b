@@ -7,15 +7,13 @@ import { Provider as HttpProvider } from 'use-http'
 import SnackbarProvider from 'react-simple-snackbar'
 import { ProvideAuth, useAuthProvidable } from './service/AuthService'
 
-const API = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : 'https://oborot.in/nbs/api/'
-
 function App () {
   const auth = useAuthProvidable()
 
   return (
     <SnackbarProvider>
       <ProvideAuth auth={auth}>
-        <HttpProvider url={API} options={auth.options}>
+        <HttpProvider url={auth.API} options={auth.options}>
           <ThemeProvider theme={theme}>
             <GlobalStyleReset />
 

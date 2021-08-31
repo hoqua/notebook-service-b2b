@@ -16,32 +16,22 @@ import { useAuth } from '../../../service/AuthService'
 export default function Registration () {
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
-  const { signIn, data, error, loading } = useAuth()
+  const { signIn, loading } = useAuth()
   const { showError } = useNotify()
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
   }, [formData])
 
-  useEffect(() => {
-    if (error) {
-      setFormError({ ...defaultFormErrorsState })
-      showError('Ошибка входа')
-    }
-  }, [error])
-
-  useEffect(() => {
-    if (data) {
-      console.log(data)
-    }
-  }, [data])
-
-  const register = async () => {
+  const login = async () => {
     const invalidProp = validate(formData, validationSchemaArr)
-    if (invalidProp) {
-      setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
-    } else {
+    if (invalidProp) return setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
+
+    try {
       await signIn(formData.email, formData.password)
+    } catch (e) {
+      setFormError({ ...defaultFormErrorsState })
+      showError(e.message)
     }
   }
 
@@ -82,7 +72,7 @@ export default function Registration () {
 
               <PublicFromActionsContainer>
                 <NavigationButton
-                  to='#' onClick={() => register()}
+                  to='#' onClick={() => login()}
                   disabled={loading}
                 >
                   Войти

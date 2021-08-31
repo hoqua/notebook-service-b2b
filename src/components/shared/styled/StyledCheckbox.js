@@ -21,7 +21,7 @@ export default function StyledCheckbox ({ onChange, children, error }) {
         </div>
       }
       onChange={onChange}
-      borderColor={error ? '#C61717FF' : theme.brand.gray}
+      borderColor={error ? theme.status.error : theme.brand.gray}
       style={{
         cursor: 'pointer',
         overflow: 'hidden'
