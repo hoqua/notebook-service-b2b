@@ -14,3 +14,9 @@ export const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.brand.dark};
   font-size: .8rem;
 `
+
+export const StyledTitle = styled.p`
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1rem;
+`

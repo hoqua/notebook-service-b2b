@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 export const StyledHeaderTitle = styled.p`
   font-size: 0.9rem;
   font-weight: 500;
