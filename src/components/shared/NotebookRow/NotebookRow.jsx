@@ -65,7 +65,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
 
       {isExpand && <NotebookRowDetails notebook={notebook} />}
       <ExpandButton onClick={() => setIsExpand(!isExpand)}>
-        {isExpand ? <ArrowDown /> : <ArrowUp />}
+        {isExpand ? <ArrowUp /> : <ArrowDown />}
       </ExpandButton>
     </StyledNotebookRowWrapper>
   )

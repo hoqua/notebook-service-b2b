@@ -42,6 +42,7 @@ const privateRoutes = () => {
       <Route exact path='/showcase'><Showcase /></Route>
       <Route exact path='/'><Main /></Route>
 
+      <Route><Redirect to='/' /></Route>
     </ProvideSession>
   )
 }
