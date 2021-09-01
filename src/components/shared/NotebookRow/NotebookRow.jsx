@@ -3,8 +3,8 @@ import { StyledTopNavLink } from '../styled/StyledNavLink'
 import { ReactComponent as ShoppingCart } from '../../../assets/icons/shoping-cart.svg'
 import { StyledText } from '../styled/Typography'
 import notebookPlaceholder from '../../../assets/img/notebook-placeholder.png'
-import styled, { useTheme } from 'styled-components'
-import { NotebookRowItem, StyledNotebookRow, StyledNotebookRowWrapper } from './styles'
+import { useTheme } from 'styled-components'
+import { ExpandButton, NotebookRowItem, StyledNotebookRow, StyledNotebookRowWrapper } from './styles'
 import { NotebookRowDetails } from './NotebookRowDetails'
 import { ReactComponent as ArrowDown } from '../../../assets/icons/arrow-down.svg'
 import { ReactComponent as ArrowUp } from '../../../assets/icons/arrow-up.svg'
@@ -70,23 +70,3 @@ export const NotebookRow = ({ notebook, onClick }) => {
     </StyledNotebookRowWrapper>
   )
 }
-
-const ExpandButton = styled.button`
-  position: absolute;
-  right: 25px;
-  bottom: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-  width: 20px;
-  border: 1px solid ${({ theme }) => theme.brand.dark};
-  border-radius: 4px;
-  background: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover{
-    background-color: ${({ theme }) => theme.brand.gray};
-  }
-`
