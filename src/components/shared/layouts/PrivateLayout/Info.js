@@ -31,8 +31,10 @@ export default function Info () {
               )
             : (
               <>
-                <StyledText>Ваш менеджер: <StyledHeaderTitle>{session.user.mngr_name}</StyledHeaderTitle></StyledText>
-                <PhoneTitle><Phone /> {session.user.mngr_phone}</PhoneTitle>
+                <span style={{ display: 'flex', gap: '5px' }}>
+                  <StyledText>Ваш менеджер:</StyledText><StyledHeaderTitle>{session.user.mngr_name}</StyledHeaderTitle>
+                </span>
+                <PhoneTitle st><Phone /> {session.user.mngr_phone}</PhoneTitle>
               </>
               )}
 

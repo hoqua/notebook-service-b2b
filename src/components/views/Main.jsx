@@ -21,7 +21,7 @@ export default function Main () {
               <SpacerH25 />
 
               <StyledSideNavLink to='/'>Не готовые</StyledSideNavLink>
-              <StyledSideNavLink to='/vit'>Витрина</StyledSideNavLink>
+              <StyledSideNavLink to='/showcase'>Витрина</StyledSideNavLink>
               <StyledSideNavLink to='/lot'>Лоты ноутбуков</StyledSideNavLink>
 
             </SideBar>

@@ -7,6 +7,7 @@ export const StyledHeaderTitle = styled.p`
 
 export const PhoneTitle = styled(StyledHeaderTitle)`
   display: flex;
+  gap: 5px;
   align-items: center;
 `
 
