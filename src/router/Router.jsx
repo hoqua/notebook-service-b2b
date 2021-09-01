@@ -5,6 +5,7 @@ import Login from '../components/views/Login/Login'
 import Main from '../components/views/Main'
 import { useAuth } from '../service/AuthService'
 import SuspenseView from '../components/views/SuspenseView'
+import { ProvideSession } from '../service/SessonDataService'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 
@@ -36,10 +37,10 @@ const publicRoutes = () => {
 
 const privateRoutes = () => {
   return (
-    <>
+    <ProvideSession>
       <Route exact path='/'><Main /></Route>
 
       <Route><Redirect to='/' /></Route>
-    </>
+    </ProvideSession>
   )
 }

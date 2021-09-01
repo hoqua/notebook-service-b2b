@@ -1,27 +1,26 @@
 import React from 'react'
 import styled, { useTheme } from 'styled-components'
-import { ReactComponent as User } from '../../../../assets/icons/user.svg'
 import { ReactComponent as ShoppingCart } from '../../../../assets/icons/shoping-cart.svg'
 import { ReactComponent as Grid } from '../../../../assets/icons/grid.svg'
+import { StyledTopNavLink } from '../../styled/StyledNavLink'
 
 export default function Navigation () {
   const theme = useTheme()
+
   return (
-    <>
-      <div style={{ display: 'flex', height: '100%' }}>
-        <NavItem>
+    <div style={{ display: 'flex', height: '100%' }}>
+      <NavItem>
+        <StyledTopNavLink to='/'>
           <Grid color={theme.status.success} />
-        </NavItem>
+        </StyledTopNavLink>
+      </NavItem>
 
-        <NavItem>
+      <NavItem>
+        <StyledTopNavLink to='/shopping-cart'>
           <ShoppingCart />
-        </NavItem>
-
-        <NavItem>
-          <User title='user icon' />
-        </NavItem>
-      </div>
-    </>
+        </StyledTopNavLink>
+      </NavItem>
+    </div>
   )
 }
 

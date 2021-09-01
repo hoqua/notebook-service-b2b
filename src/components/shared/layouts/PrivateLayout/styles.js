@@ -20,6 +20,7 @@ export const StyledHeader = styled.header`
   background-color: #fff;
   box-shadow: 0 3px 20px rgba(17, 40, 120, 0.07);
 `
+
 export const InnerHeaderContainer = styled.header`
   height: 100%;
   width: 100%;

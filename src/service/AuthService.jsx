@@ -10,7 +10,6 @@ export function useAuthProvidable () {
   const [token, setToken] = useLocalStorage('token')
   const [tokenExpTime, setTokenExpTime] = useLocalStorage('tokenExpTime')
   const { get: authGet, response: authRes, error: authError, loading: authLoading } = useFetch(API + '/login.php', { cachePolicy: 'no-cache' }) // api prefix necessary here because options not provided
-  // const { get: userGet, response: loginRes, error: userError, loading: userLoading } = useFetch('api/get-user-info.php') // api prefix necessary here because options not provided
 
   const signIn = async (userName, password) => {
     await authGet(`?u=${userName}&p=${password}`)
