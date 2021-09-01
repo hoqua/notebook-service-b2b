@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Logo from '../../../assets/img/logo-small.avif'
 import { useHistory } from 'react-router-dom'
+import { StyledHeader } from './PrivateLayout/styles'
 
 export default function PublicLayout ({ children }) {
   const history = useHistory()
@@ -25,15 +26,6 @@ export default function PublicLayout ({ children }) {
   )
 }
 
-const StyledHeader = styled.header`
-  width: 100%;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  height: 62px;
-  background-color: #fff;
-  box-shadow: 0 3px 20px rgba(17, 40, 120, 0.07);
-`
 const InnerHeaderContainer = styled.header`
   height: 100%;
   width: 100%;
