@@ -6,6 +6,9 @@ import { StyledCard } from '../shared/styled/StyledCard'
 import styled from 'styled-components'
 import { StyledSideNavLink } from '../shared/styled/StyledNavLink'
 import { SpacerH20, SpacerH25 } from '../shared/styled/Spacers'
+import { ReactComponent as Laptop } from '../../assets/icons/laptop.svg'
+import { ReactComponent as LaptopBroken } from '../../assets/icons/laptop-broken.svg'
+import { ReactComponent as Shipping } from '../../assets/icons/shipping.svg'
 
 export default function Main () {
   return (
@@ -20,9 +23,9 @@ export default function Main () {
               <StyledTitle>Каталог</StyledTitle>
               <SpacerH25 />
 
-              <StyledSideNavLink to='/'>Не готовые</StyledSideNavLink>
-              <StyledSideNavLink to='/showcase'>Витрина</StyledSideNavLink>
-              <StyledSideNavLink to='/lot'>Лоты ноутбуков</StyledSideNavLink>
+              <StyledSideNavLink to='/showcase'><Laptop />Витрина</StyledSideNavLink>
+              <StyledSideNavLink to='/'><LaptopBroken />Не готовые</StyledSideNavLink>
+              <StyledSideNavLink to='/lot'><Shipping />Лоты ноутбуков</StyledSideNavLink>
 
             </SideBar>
 
@@ -41,7 +44,7 @@ export const SideBar = styled(StyledCard)`
   width: 420px;
 `
 export const Banner = styled(StyledCard)`
-  width: 100% ;
+  width: 100%;
 `
 
 export const MainGrid = styled.div`

@@ -3,7 +3,7 @@
   "author": "Dmitrii Zolotuhin (https://github.com/hoqua)",
   "version": "0.1.0",
   "private": true,
-  "license" : "BSD-3-Clause",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "react": "^17.0.2",
     "react-client-captcha": "^1.0.3",
@@ -26,11 +26,13 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
     "http-proxy-middleware": "^2.0.1",
+    "react-deploy-sftp": "^2.0.1",
     "source-map-explorer": "^2.5.2"
   },
   "scripts": {
     "dev": "react-scripts start",
     "build": "react-scripts build",
+    "prod": "react-scripts build && rup deploy production",
     "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {

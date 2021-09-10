@@ -2,17 +2,17 @@ import React from 'react'
 import { WrapPageLight } from '../shared/styled/WrapPageLight'
 import { PublicContentContainer } from '../shared/styled/PublicContentContainer'
 import styled from 'styled-components'
-import Logo from '../../assets/img/logo.avif'
 import { HeadTile } from '../shared/styled/Typography'
 import { SpacerH40 } from '../shared/styled/Spacers'
 import { NavigationButton } from '../shared/styled/NavigationButton'
+import { ReactComponent as Logo } from '../../assets/icons/logo.svg'
 
 export default function Home () {
   return (
     <WrapPageLight>
       <PublicContentContainer>
         <HomeContainer>
-          <img src={Logo} alt='Logo' height='52px' width='360px' />
+          <Logo />
           <SpacerH40 />
 
           <HeadTile>

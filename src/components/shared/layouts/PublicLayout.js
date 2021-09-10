@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Logo from '../../../assets/img/logo-small.avif'
 import { useHistory } from 'react-router-dom'
 import { StyledHeader } from './PrivateLayout/styles'
+import { ReactComponent as Logo } from '../../../assets/icons/logo.svg'
 
 export default function PublicLayout ({ children }) {
   const history = useHistory()
@@ -11,14 +11,7 @@ export default function PublicLayout ({ children }) {
     <>
       <StyledHeader>
         <InnerHeaderContainer>
-          <img
-            src={Logo}
-            alt='small logo'
-            width='194px'
-            height='28px'
-            onClick={() => history.push('/')}
-            style={{ cursor: 'pointer' }}
-          />
+          <Logo width='194' height='29' onClick={() => history.push('/')} style={{ cursor: 'pointer' }} />
         </InnerHeaderContainer>
       </StyledHeader>
       {children}

@@ -6,14 +6,16 @@ import notebookPlaceholder from '../../../assets/img/notebook-placeholder.png'
 import { useTheme } from 'styled-components'
 import { ExpandButton, NotebookRowItem, StyledNotebookRow, StyledNotebookRowWrapper } from './styles'
 import { NotebookRowDetails } from './NotebookRowDetails'
-import { ReactComponent as ArrowDown } from '../../../assets/icons/arrow-down.svg'
-import { ReactComponent as ArrowUp } from '../../../assets/icons/arrow-up.svg'
+import { RotatedArrow } from '../styled/RotatedArrow'
 
-export const NotebookRow = ({ notebook, onClick }) => {
+export const NotebookRow = ({
+  notebook,
+  onClick
+}) => {
   const theme = useTheme()
   const [isExpand, setIsExpand] = useState(false)
   return (
-    <StyledNotebookRowWrapper>
+    <StyledNotebookRowWrapper expand={isExpand}>
       <StyledNotebookRow>
         <StyledTopNavLink to='#' color={theme.brand.dark} onClick={() => onClick(notebook.item_id)}>
           <ShoppingCart />
@@ -64,8 +66,9 @@ export const NotebookRow = ({ notebook, onClick }) => {
       </StyledNotebookRow>
 
       {isExpand && <NotebookRowDetails notebook={notebook} />}
+
       <ExpandButton onClick={() => setIsExpand(!isExpand)}>
-        {isExpand ? <ArrowUp /> : <ArrowDown />}
+        <RotatedArrow deg={isExpand ? 0 : 180} />
       </ExpandButton>
     </StyledNotebookRowWrapper>
   )

@@ -16,23 +16,23 @@ export const StyledTopNavLink = styled(NavLink).attrs({
 export const StyledSideNavLink = styled(NavLink).attrs({
   activeClassName: 'active'
 })`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
   margin-left: -25px;
   margin-right: -25px;
-  display: block;
   padding: 20px;
   color: ${({ theme }) => theme.typography.light};
   text-decoration: none;
-  border-bottom: 1px solid ${({ theme }) => theme.brand.gray};
   transition: background-color 0.3s ease;
 
   &.active {
-    background-color:  ${({ color, theme }) => color || theme.status.success};
-    color: #fff;
+    background-color:  ${({ color, theme }) => color || theme.bg.light};
   }
 
   &:not(.active):hover{
-    background-color: ${({ theme }) => theme.brand.gray};
-
+    background-color: ${({ theme }) => theme.bg.light};
   }
 
   &:first-of-type {

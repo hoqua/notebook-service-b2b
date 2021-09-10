@@ -5,10 +5,16 @@ import { BreadCrumbs } from '../shared/BreadCrumbs'
 import { useFetch } from 'use-http'
 import { useNotify } from '../../hooks/useSnakbar'
 import { NotebookRow } from '../shared/NotebookRow/NotebookRow'
+import { Loading } from '../shared/Loading/Loading'
 
 export const Showcase = () => {
   const { showError } = useNotify()
-  const { get, response, error } = useFetch('get-items-main.php')
+  const {
+    get,
+    response,
+    error,
+    loading
+  } = useFetch('get-items-main.php')
 
   useEffect(() => {
     if (error) showError('Ошибка загрузки каталога')
@@ -29,12 +35,19 @@ export const Showcase = () => {
       <WrapPrivatePage>
         <InnerWrapPrivatePage>
           <BreadCrumbs currentPage='Витрина' />
-          <div style={{ display: 'grid', gap: '10px' }}>
-            {notebooks.map((notebook, index) => (
+
+          {loading && <Loading />}
+          {!loading &&
+            <div style={{
+              display: 'grid',
+              gap: '10px'
+            }}
+            >
+              {notebooks.map((notebook, index) => (
               // TODO fix index hack
-              <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.item_id + '' + index} />
-            ))}
-          </div>
+                <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.item_id + '' + index} />
+              ))}
+            </div>}
 
         </InnerWrapPrivatePage>
       </WrapPrivatePage>

@@ -1,11 +1,11 @@
 import React from 'react'
-import Logo from '../../../../assets/img/logo-small.avif'
 import { useHistory } from 'react-router-dom'
 import { InnerHeaderContainer, StyledHeader } from './styles'
 import Info from './Info'
 import Navigation from './Navigation'
 import UserName from './UserName'
 import { useAuth } from '../../../../service/AuthService'
+import { ReactComponent as Logo } from '../../../../assets/icons/logo.svg'
 
 export default function PrivateLayout ({ children }) {
   const history = useHistory()
@@ -17,14 +17,8 @@ export default function PrivateLayout ({ children }) {
     <>
       <StyledHeader>
         <InnerHeaderContainer>
-          <img
-            src={Logo}
-            alt='small logo'
-            width='194px'
-            height='28px'
-            onClick={() => history.push('/')}
-            style={{ cursor: 'pointer' }}
-          />
+
+          <Logo width='194' height='29' onClick={() => history.push('/')} style={{ cursor: 'pointer' }} />
 
           <Info />
 
