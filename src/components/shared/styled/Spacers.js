@@ -7,6 +7,9 @@ export const SpacerH40 = styled.div`
 export const SpacerH15 = styled.div`
   height: 15px;
 `
+export const SpacerH10 = styled.div`
+  height: 10px;
+`
 
 export const SpacerH20 = styled.div`
   height: 20px;

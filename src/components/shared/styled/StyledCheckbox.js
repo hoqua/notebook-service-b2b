@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Checkbox from 'react-custom-checkbox'
 import { useTheme } from 'styled-components'
 import { ReactComponent as CheckMark } from '../../../assets/icons/check-mark.svg'
 
 export default function StyledCheckbox ({ onChange, children, error }) {
   const theme = useTheme()
+  const [isChecked, setIsChecked] = useState(false)
+
+  const checkState = (event) => {
+    setIsChecked(event)
+    onChange(event)
+  }
+  const checkedBorderColor = isChecked ? theme.brand.dark : theme.brand.gray
+  const borderColor = error ? theme.status.error : checkedBorderColor
+
   return (
     <Checkbox
       icon={
@@ -12,7 +21,6 @@ export default function StyledCheckbox ({ onChange, children, error }) {
           style={{
             display: 'flex',
             flex: 1,
-            backgroundColor: theme.brand.dark,
             alignSelf: 'stretch',
             alignItems: 'center'
           }}
@@ -20,11 +28,12 @@ export default function StyledCheckbox ({ onChange, children, error }) {
           <CheckMark fill='#fff' height='18px' />
         </div>
       }
-      onChange={onChange}
-      borderColor={error ? theme.status.error : theme.brand.gray}
+      onChange={checkState}
+      borderColor={borderColor}
       style={{
         cursor: 'pointer',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        backgroundColor: isChecked ? theme.brand.dark : '#fff'
       }}
       labelStyle={{
         marginLeft: 5,

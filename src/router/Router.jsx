@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import Home from '../components/views/Home'
 import Login from '../components/views/Login/Login'
 import Main from '../components/views/Main'
 import { useAuth } from '../service/AuthService'
@@ -27,8 +26,8 @@ export default function Router () {
 const publicRoutes = () => {
   return (
     <>
-      <Route exact path='/'><Home /></Route>
-      <Route path='/login'><Login /></Route>
+      {/* <Route exact path='/'><Home /></Route> */}
+      <Route path='/'><Login /></Route>
       <Route path='/registration'><Registration /></Route>
 
       <Route><Redirect to='/' /></Route>

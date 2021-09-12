@@ -9,7 +9,7 @@ export const WrapPrivatePage = styled.div`
 `
 
 export const InnerWrapPrivatePage = styled.div`
-  padding-top: 90px;
+  padding-top: 82px;
   max-width: 1170px;
   width: 100%;
 `

@@ -6,6 +6,11 @@ import { useFetch } from 'use-http'
 import { useNotify } from '../../hooks/useSnakbar'
 import { NotebookRow } from '../shared/NotebookRow/NotebookRow'
 import { Loading } from '../shared/Loading/Loading'
+import { PageTitleSection } from '../shared/styled/PageTitleSection'
+import { Filters } from '../shared/Filters/Filters'
+import { SpacerH20 } from '../shared/styled/Spacers'
+
+const PAGE_TITLE = 'Витрина'
 
 export const Showcase = () => {
   const { showError } = useNotify()
@@ -34,7 +39,14 @@ export const Showcase = () => {
     <PrivateLayout>
       <WrapPrivatePage>
         <InnerWrapPrivatePage>
-          <BreadCrumbs currentPage='Витрина' />
+          <BreadCrumbs currentPage={PAGE_TITLE} />
+          <PageTitleSection
+            title={PAGE_TITLE}
+            onPriceSortChange={val => console.log(val)}
+            onFilterClick={() => console.log('click filter')}
+          />
+          <Filters />
+          <SpacerH20 />
 
           {loading && <Loading />}
           {!loading &&

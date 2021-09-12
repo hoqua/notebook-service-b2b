@@ -1,5 +1,5 @@
 import React from 'react'
-import { SpacerH25 } from './styled/Spacers'
+import { SpacerH20 } from './styled/Spacers'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { RotatedArrow } from './styled/RotatedArrow'
@@ -12,7 +12,7 @@ export const BreadCrumbs = ({ currentPage }) => {
         <RotatedArrow color='#CCC' deg={90} />
         <StyledCurrentPage>{currentPage}</StyledCurrentPage>
       </div>
-      <SpacerH25 />
+      <SpacerH20 />
     </>
   )
 }

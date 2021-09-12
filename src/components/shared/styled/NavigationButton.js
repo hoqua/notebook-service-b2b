@@ -7,7 +7,7 @@ export const NavigationButton = styled(Link)`
 
   color: white;
   background-color: ${({ theme }) => theme.brand.dark};
-  padding: 12px 23px 12px 23px;
+  padding: 10px 23px 10px 23px;
   border: 1px solid ${({ theme }) => theme.brand.dark};
   border-radius: 4px;
 

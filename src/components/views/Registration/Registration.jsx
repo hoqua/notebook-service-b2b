@@ -39,7 +39,7 @@ export default function Registration () {
 
     if (response.ok) {
       showSuccess('Вы успешно зарегистрировались!')
-      history.push('/login')
+      history.push('/')
       return null
     } else {
       showError(`Ошибка регистрации. ${response?.data?.err_msg || ''}`)
