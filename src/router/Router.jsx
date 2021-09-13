@@ -27,8 +27,8 @@ const publicRoutes = () => {
   return (
     <>
       {/* <Route exact path='/'><Home /></Route> */}
-      <Route path='/'><Login /></Route>
-      <Route path='/registration'><Registration /></Route>
+      <Route exact path='/'><Login /></Route>
+      <Route exact path='/registration'><Registration /></Route>
 
       <Route><Redirect to='/' /></Route>
     </>

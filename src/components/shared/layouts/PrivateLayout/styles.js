@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { flexAlign, flexAlignJustify, fullPage, smallGap } from '../../styled/css'
 export const StyledHeaderTitle = styled.p`
   font-size: 0.9rem;
   font-weight: 500;
@@ -6,9 +7,8 @@ export const StyledHeaderTitle = styled.p`
 `
 
 export const PhoneTitle = styled(StyledHeaderTitle)`
-  display: flex;
-  gap: 5px;
-  align-items: center;
+  ${flexAlign};
+  ${smallGap};
 `
 
 export const StyledHeader = styled.header`
@@ -23,10 +23,8 @@ export const StyledHeader = styled.header`
 `
 
 export const InnerHeaderContainer = styled.header`
-  height: 100%;
-  width: 100%;
+  ${fullPage};
   max-width: 1170px;
-  display: flex;
-  align-items: center;
+  ${flexAlignJustify};
   justify-content: space-between;
 `

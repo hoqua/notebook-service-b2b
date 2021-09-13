@@ -22,7 +22,8 @@ export default function StyledCheckbox ({ onChange, children, error }) {
             display: 'flex',
             flex: 1,
             alignSelf: 'stretch',
-            alignItems: 'center'
+            alignItems: 'center',
+            cursor: 'pointer'
           }}
         >
           <CheckMark fill='#fff' height='18px' />
@@ -31,11 +32,12 @@ export default function StyledCheckbox ({ onChange, children, error }) {
       onChange={checkState}
       borderColor={borderColor}
       style={{
-        cursor: 'pointer',
         overflow: 'hidden',
-        backgroundColor: isChecked ? theme.brand.dark : '#fff'
+        backgroundColor: isChecked ? theme.brand.dark : '#fff',
+        cursor: 'pointer'
       }}
       labelStyle={{
+        cursor: 'pointer',
         marginLeft: 5,
         userSelect: 'none'
       }}

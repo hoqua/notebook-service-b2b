@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { flexAlign, mediumGap } from './css'
 
 export const StyledTopNavLink = styled(NavLink).attrs({
   activeClassName: 'active'
@@ -7,7 +8,7 @@ export const StyledTopNavLink = styled(NavLink).attrs({
   &.active {
     svg {
       path {
-        stroke: ${({ color, theme }) => color || theme.status.success};
+        stroke: ${({ color, theme }) => color || theme.brand.dark};
       }
     }
   }
@@ -16,9 +17,8 @@ export const StyledTopNavLink = styled(NavLink).attrs({
 export const StyledSideNavLink = styled(NavLink).attrs({
   activeClassName: 'active'
 })`
-  display: flex;
-  align-items: center;
-  gap: 15px;
+  ${flexAlign};
+  ${mediumGap};
 
   margin-left: -25px;
   margin-right: -25px;

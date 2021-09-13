@@ -1,16 +1,15 @@
 import styled from 'styled-components'
+import { mediumGap } from './css'
 
 export const PublicForm = styled.form`
   display: grid;
   align-items: center;
 
-  grid-gap: 15px;
+  ${mediumGap};
   
   @media (min-width: 900px) {
     
     grid-template-columns: 150px 1fr;
-    grid-gap: 15px;
-   
 
     label {
       grid-column: 1 / 2;

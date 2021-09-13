@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { ReactComponent as ShoppingCart } from '../../../../assets/icons/shoping-cart.svg'
 import { ReactComponent as Grid } from '../../../../assets/icons/grid.svg'
 import { StyledTopNavLink } from '../../styled/StyledNavLink'
+import { flexAlignJustify } from '../../styled/css'
 
 export default function Navigation () {
   return (
@@ -30,9 +31,7 @@ export default function Navigation () {
 const NavItem = styled.div`
   border-right: 1px solid ${({ theme }) => theme.brand.gray};
   padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexAlignJustify};
   cursor: pointer;
   transition: background-color 0.3s ease;
 

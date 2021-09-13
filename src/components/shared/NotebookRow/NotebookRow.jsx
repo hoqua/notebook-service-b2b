@@ -1,25 +1,26 @@
 import React, { useState } from 'react'
-import { StyledTopNavLink } from '../styled/StyledNavLink'
-import { ReactComponent as ShoppingCart } from '../../../assets/icons/shoping-cart.svg'
 import { StyledText } from '../styled/Typography'
 import notebookPlaceholder from '../../../assets/img/notebook-placeholder.png'
-import { useTheme } from 'styled-components'
-import { ExpandButton, NotebookRowItem, StyledNotebookRow, StyledNotebookRowWrapper } from './styles'
+import {
+  CartButton,
+  ExpandButton,
+  NotebookRowItem,
+  StyledNotebookRow,
+  StyledNotebookRowWrapper,
+  StyledShoppingCard
+} from './styles'
 import { NotebookRowDetails } from './NotebookRowDetails'
 import { RotatedArrow } from '../styled/RotatedArrow'
 
-export const NotebookRow = ({
-  notebook,
-  onClick
-}) => {
-  const theme = useTheme()
+export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
+
   return (
     <StyledNotebookRowWrapper expand={isExpand}>
       <StyledNotebookRow>
-        <StyledTopNavLink to='#' color={theme.brand.dark} onClick={() => onClick(notebook.item_id)}>
-          <ShoppingCart />
-        </StyledTopNavLink>
+        <CartButton onClick={() => onClick(notebook.item_id)}>
+          <StyledShoppingCard />
+        </CartButton>
 
         <NotebookRowItem>
           <StyledText>{notebook.mark_name}</StyledText>
@@ -63,9 +64,9 @@ export const NotebookRow = ({
           <StyledText>Цена (опт.)</StyledText>
           <p>{notebook.item_price}</p>
         </NotebookRowItem>
-      </StyledNotebookRow>
 
-      {isExpand && <NotebookRowDetails notebook={notebook} />}
+        {isExpand && <NotebookRowDetails notebook={notebook} />}
+      </StyledNotebookRow>
 
       <ExpandButton onClick={() => setIsExpand(!isExpand)}>
         <RotatedArrow deg={isExpand ? 0 : 180} />

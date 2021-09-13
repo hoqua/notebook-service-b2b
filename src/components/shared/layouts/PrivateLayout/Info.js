@@ -31,7 +31,7 @@ export default function Info () {
               )
             : (
               <>
-                <span style={{ display: 'flex', gap: '5px' }}>
+                <span style={{ display: 'flex', gap: '6px' }}>
                   <StyledText>Ваш менеджер:</StyledText><StyledHeaderTitle>{session.user.mngr_name}</StyledHeaderTitle>
                 </span>
                 <PhoneTitle st><Phone /> {session.user.mngr_phone}</PhoneTitle>

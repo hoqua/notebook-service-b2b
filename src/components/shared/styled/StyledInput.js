@@ -1,19 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
 import { SpacerH10 } from './Spacers'
+import { StyledSelect } from './StyledSelect'
+import { darkBorder, grayBorder, hoverDarkBorder } from './css'
 
 export const StyledInput = styled.input`
   height: 38px;
-  border: 1px solid #EAEEF1;
   box-sizing: border-box;
-  border-radius: 4px;
+  ${grayBorder};
   transition: border 0.3s ease;
   padding: 0 12px 0 12px;
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.brand.dark};
+    ${darkBorder}
   }
+  
+  ${hoverDarkBorder};
 
   &:focus-visible {
     outline: none;
@@ -23,7 +26,7 @@ export const StyledInput = styled.input`
   ${({ width }) => width && `width: ${width}`}
 `
 
-export const StyledLabeledInput = ({ label, placeholder, width, onChange }) => {
+export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChange }) => {
   return (
     <StyledLabeledInputWrapper>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
@@ -34,6 +37,21 @@ export const StyledLabeledInput = ({ label, placeholder, width, onChange }) => {
         type='text'
         width={width}
         onChange={({ target }) => onChange(target.value)}
+      />
+    </StyledLabeledInputWrapper>
+  )
+}
+
+export const StyledLabeledSelect = ({ label, options, width = '100%', onChange, multi }) => {
+  return (
+    <StyledLabeledInputWrapper>
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
+      <SpacerH10 />
+      <StyledSelect
+        options={options}
+        onChange={onChange}
+        width={width}
+        multi
       />
     </StyledLabeledInputWrapper>
   )

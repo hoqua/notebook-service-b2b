@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { flexAlign } from './css'
 
 export const WrapPageLight = styled.div`
   min-height: 100vh;
@@ -8,6 +9,6 @@ export const WrapPageLight = styled.div`
   background-color: ${({ theme }) => theme.bg.light};
   
   @media (min-width: 900px) {
-    align-items: center;
+    ${flexAlign}
   }
 `

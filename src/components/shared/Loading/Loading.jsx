@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { flexAlignJustify, fullPage } from '../styled/css'
 
 export const Loading = () => {
   return (
@@ -20,11 +21,8 @@ const StyledWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${fullPage};
+  ${flexAlignJustify};
 `
 
 const Spinner = styled.div`

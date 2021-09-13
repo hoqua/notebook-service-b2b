@@ -13,7 +13,7 @@ import { useSignUp } from '../../../service/PublicUserService'
 import { useNotify } from '../../../hooks/useSnakbar'
 import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
-import { Fullpage } from '../../shared/styled/Fullpage'
+import { FullPage } from '../../shared/styled/Fullpage'
 import { useHistory } from 'react-router-dom'
 
 export default function Registration () {
@@ -50,7 +50,7 @@ export default function Registration () {
     <PublicLayout>
       <WrapPageLight>
         <PublicContentContainer>
-          <Fullpage>
+          <FullPage>
             <HeadTile>Регистрация</HeadTile>
 
             <PublicForm>
@@ -155,10 +155,10 @@ export default function Registration () {
             <SpacerH20 />
 
             <PublicFromActionsContainer>
-              <StyledText>У вас уже есть аккаунт? <StyledLink to='/login'>Войдите</StyledLink></StyledText>
+              <StyledText>У вас уже есть аккаунт? <StyledLink to='/'>Войдите</StyledLink></StyledText>
             </PublicFromActionsContainer>
 
-          </Fullpage>
+          </FullPage>
         </PublicContentContainer>
       </WrapPageLight>
     </PublicLayout>

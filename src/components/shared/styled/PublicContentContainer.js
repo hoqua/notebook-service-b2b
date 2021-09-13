@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import notebook from '../../../assets/img/notebook.avif'
+import { flexAlignJustify } from './css'
 
 const ContentContainer = styled.div`
   background-color: white;
@@ -11,9 +12,7 @@ const ContentContainer = styled.div`
   min-height: 670px;
 `
 const LeftContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexAlignJustify};
   padding: 35px 60px 35px 60px;
 `
 const RightContainer = styled.div`

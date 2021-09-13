@@ -1,6 +1,6 @@
 import styled from 'styled-components'
+import { fullPage } from './css'
 
-export const Fullpage = styled.div`
-  width: 100%;
-  height: 100%;
+export const FullPage = styled.div`
+  ${fullPage};
 `

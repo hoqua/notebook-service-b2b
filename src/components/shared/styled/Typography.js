@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { darkColor } from './css'
 
 export const HeadTile = styled.h1`
   font-size: 1.5rem;
@@ -11,8 +12,8 @@ export const StyledText = styled.p`
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  color: ${({ theme }) => theme.brand.dark};
   font-size: .8rem;
+  ${darkColor};
 `
 
 export const StyledTitle = styled.p`

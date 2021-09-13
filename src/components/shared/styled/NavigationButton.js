@@ -1,16 +1,18 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { darkBorder } from './css'
 
 export const NavigationButton = styled(Link)`
   font: inherit;
   text-decoration: none;
+  text-align: center;
+  line-height: 1rem;
+
+  ${darkBorder};
 
   color: white;
   background-color: ${({ theme }) => theme.brand.dark};
   padding: 10px 23px 10px 23px;
-  border: 1px solid ${({ theme }) => theme.brand.dark};
-  border-radius: 4px;
-
   transition: all 0.3s ease;
   transition-property: background-color, color, border-color;
   
