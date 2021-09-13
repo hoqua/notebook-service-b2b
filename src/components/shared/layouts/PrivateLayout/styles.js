@@ -23,8 +23,8 @@ export const StyledHeader = styled.header`
 `
 
 export const InnerHeaderContainer = styled.header`
-  ${fullPage};
   max-width: 1170px;
+  ${fullPage};
   ${flexAlignJustify};
   justify-content: space-between;
 `

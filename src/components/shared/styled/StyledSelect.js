@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Arrow from '../../../assets/icons/arrow-up.svg'
 import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
@@ -6,7 +6,7 @@ import { darkBorder, darkColor, flexAlign, grayBorder, hoverDarkBorder, smallGap
 
 export const StyledSelect = ({ options = [], onChange, multi = false, width }) => {
   const [selectedValues, setSelectedValues] = useState([])
-  console.log('width', width)
+  const selectRef = useRef(null)
 
   const onMultiChange = (value) => {
     if (selectedValues.includes(value)) return
@@ -20,6 +20,7 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
 
     selectedValues.splice(index, 1)
     setSelectedValues([...selectedValues])
+    selectRef.current.value = selectedValues.toString() // to clear last selected item and fix bug
   }
 
   useEffect(() => {
@@ -31,9 +32,7 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
       <MultiWrapper>
         {multi && selectedValues.map(selected =>
           <SelectedItem key={selected}>
-            <Deselect
-              onClick={() => removeSelected(selected)}
-            >
+            <Deselect onClick={() => removeSelected(selected)}>
               <Cross />
             </Deselect>
             {selected}
@@ -42,13 +41,14 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
       </MultiWrapper>
 
       <Select
+        ref={selectRef}
         name='select-component'
-        onChange={({ target }) => multi ? onMultiChange(target.value) : onChange(target.value)}
         multi={multi}
         width={width}
+        onChange={({ target }) => multi ? onMultiChange(target.value) : onChange(target.value)}
       >
         {multi && <option hidden />}
-        {options.map(option => <option key={option.label} value={option.value}>{option.label}</option>)}
+        {options.map(option => <option key={option.label} value={option.value} onChange={() => multi && onMultiChange(option.value)}>{option.label}</option>)}
       </Select>
     </SelectWrapper>
   )
@@ -63,22 +63,20 @@ export const SelectWrapper = styled.div`
   ${({ width }) => width && `width: ${width}`}
 
   ${({ multi }) => !multi && `
-    &:after {
-    content: '';
-    background-image: url(${Arrow});
-    position: absolute;
-    background-size: ${ARROW_SIZE} ${ARROW_SIZE};
-    height: ${ARROW_SIZE};
-    width: ${ARROW_SIZE};
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: rotate(180deg);
-    right: ${PADDING};
-    top: calc(50% - ${ARROW_SIZE} / 2);
-  }
+      &:after {
+      content: '';
+      background-image: url(${Arrow});
+      position: absolute;
+      background-size: ${ARROW_SIZE} ${ARROW_SIZE};
+      height: ${ARROW_SIZE};
+      width: ${ARROW_SIZE};
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: rotate(180deg);
+      right: ${PADDING};
+      top: calc(50% - ${ARROW_SIZE} / 2);
+    }
   `}
-
-
 `
 
 export const Select = styled.select`
@@ -88,7 +86,6 @@ export const Select = styled.select`
   color: ${({ theme, multi }) => multi ? 'transparent' : theme.brand.dark};
   font-size: .8rem;
   font-family: inherit;
-  ${grayBorder};
   appearance: none;
   min-width: 150px;
   cursor: pointer;
@@ -101,7 +98,9 @@ export const Select = styled.select`
     ${darkBorder};
     outline: none;
   }
+  
   ${hoverDarkBorder};
+  ${grayBorder};
 `
 
 export const SelectedItem = styled.div`

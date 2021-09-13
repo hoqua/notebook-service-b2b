@@ -14,19 +14,14 @@ const PAGE_TITLE = 'Витрина'
 
 export const Showcase = () => {
   const { showError } = useNotify()
-  const {
-    get,
-    response,
-    error,
-    loading
-  } = useFetch('get-items-main.php')
+  const { get, response, error, loading } = useFetch('get-items-main.php')
 
   useEffect(() => {
     if (error) showError('Ошибка загрузки каталога')
   }, [error])
 
   useEffect(() => {
-    get()
+    get('?discrete_video=0')
   }, [])
 
   const addToShoppingCart = (id) => {
@@ -49,7 +44,7 @@ export const Showcase = () => {
           <SpacerH20 />
 
           {loading && <Loading />}
-          {!loading &&
+          {!loading && notebooks.length &&
             <div style={{
               display: 'grid',
               gap: '10px'
