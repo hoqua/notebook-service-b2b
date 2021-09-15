@@ -31,4 +31,4 @@ jobs:
         server: b2b.notebook-service.com.ua
         port: 990
         local-dir: build/
-        server-dir: release/current/html/
+        server-dir: current/html/
