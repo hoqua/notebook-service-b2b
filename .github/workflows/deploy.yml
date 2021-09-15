@@ -25,7 +25,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
         username: develop
-        password: ${{ secrets.FTP_PASS }}
+        password: ${{ secrets.ftp_pass }}
         server: b2b.notebook-service.com.ua
         port: 990
         local-dir: build/
