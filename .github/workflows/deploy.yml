@@ -24,7 +24,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
-        server: ftp.samkirkland.com
+        server: b2b.notebook-service.com.ua
+        port: 990
         username: develop
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: build/
