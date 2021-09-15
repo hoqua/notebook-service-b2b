@@ -26,13 +26,11 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
     "http-proxy-middleware": "^2.0.1",
-    "react-deploy-sftp": "^2.0.1",
     "source-map-explorer": "^2.5.2"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "prod": "react-scripts build && rup deploy production",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {

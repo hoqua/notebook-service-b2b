@@ -21,7 +21,7 @@ export const Showcase = () => {
   }, [error])
 
   useEffect(() => {
-    get('?discrete_video=0')
+    get()
   }, [])
 
   const addToShoppingCart = (id) => {
