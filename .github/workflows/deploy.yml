@@ -25,6 +25,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
+        protocol: ftps
         username: develop
         password: ${{ secrets.ftp_pass }}
         server: b2b.notebook-service.com.ua
