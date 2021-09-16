@@ -25,9 +25,10 @@ jobs:
     - name: 📂 Sync files
       uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
       with:
-        ftp_username: develop
-        ftp_password: ${{ secrets.ftp_pass }}
-        ftp_host: ftps://b2b.notebook-service.com.ua:990
-        local_source_dir: build/
-        dist_target_dir: current/html/
-        delete: true
+        protocol: ftps
+        username: develop
+        password: ${{ secrets.ftp_pass }}
+        server: b2b.notebook-service.com.ua
+        port: 990
+        local-dir: build/
+        server-dir: current/html/
