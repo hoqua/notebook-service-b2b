@@ -27,7 +27,6 @@ jobs:
       with:
         username: 'develop'
         server: 'b2b.notebook-service.com.ua'
-        port: 990
         ssh_private_key: ${{ secrets.FTP_KEY }} 
         local_path: './build/*'
         remote_path: 'current/html/'
