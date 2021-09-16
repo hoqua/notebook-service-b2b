@@ -23,12 +23,11 @@ jobs:
       run: find build/ -print
       
     - name: 📂 Sync files
-      uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
-        protocol: ftps
-        username: develop
-        password: ${{ secrets.ftp_pass }}
-        server: b2b.notebook-service.com.ua
-        port: 990
-        local-dir: build/
-        server-dir: current/html/
+        username: 'develop'
+        server: 'b2b.notebook-service.com.ua'
+        ssh_private_key: ${{ secrets.FTP_KEY }} 
+        local_path: './build/*'
+        remote_path: '/current/html/'
+        args: '-o ConnectTimeout=5'
