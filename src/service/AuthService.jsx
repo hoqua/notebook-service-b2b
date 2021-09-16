@@ -4,7 +4,7 @@ import { formatDate } from '../utils/date'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { isExpired } from '../utils/validators'
 
-const API = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : 'https://oborot.in/nbs/api/'
+const API = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : `https://${window.location.host}/api`
 
 export function useAuthProvidable () {
   const [token, setToken] = useLocalStorage('token')
