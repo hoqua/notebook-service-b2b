@@ -16,7 +16,7 @@ const PRICE_OPTIONS = [
     label: 'По возрастанию'
   },
   {
-    value: 2,
+    value: -1,
     label: 'По убыванию'
   }
 ]
