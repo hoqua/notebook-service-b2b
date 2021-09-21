@@ -42,6 +42,5 @@ const privateRoutes = () => {
         <Route exact path='/'><Main /></Route>
       </ProvideSession>
     </>
-
   )
 }
