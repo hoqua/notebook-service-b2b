@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://oborot.in/nbs/',
+      target: 'https://b2b.notebook-service.com.ua/',
       changeOrigin: true
     })
   )
