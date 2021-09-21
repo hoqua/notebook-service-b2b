@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from '../components/views/Login/Login'
 import Main from '../components/views/Main'
 import { useAuth } from '../service/AuthService'
@@ -15,7 +15,10 @@ export default function Router () {
   return (
     <BrowserRouter>
       <Suspense fallback={<SuspenseView />}>
-        {auth.token ? privateRoutes() : publicRoutes()}
+        <Switch>
+          {auth.token ? privateRoutes() : publicRoutes()}
+
+        </Switch>
       </Suspense>
     </BrowserRouter>
   )
@@ -23,24 +26,21 @@ export default function Router () {
 
 const publicRoutes = () => {
   return (
-    <Switch>
+    <>
       <Route exact path='/'><Login /></Route>
       <Route exact path='/registration'><Registration /></Route>
-
-      <Route><Redirect to='/' /></Route>
-    </Switch>
+    </>
   )
 }
 
 const privateRoutes = () => {
   return (
-    <ProvideSession>
-      <Switch>
+    <>
+      <ProvideSession>
         <Route exact path='/showcase'><Showcase /></Route>
         <Route exact path='/'><Main /></Route>
+      </ProvideSession>
+    </>
 
-        <Route><Redirect to='/' /></Route>
-      </Switch>
-    </ProvideSession>
   )
 }
