@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { flexAlign, flexAlignJustify, fullPage, smallGap } from '../../styled/css'
+import { flexAlign, flexAlignJustify, fullPage, scrollFix, smallGap } from '../../styled/css'
 export const StyledHeaderTitle = styled.p`
   font-size: 0.9rem;
   font-weight: 500;
@@ -20,6 +20,7 @@ export const StyledHeader = styled.header`
   background-color: #fff;
   box-shadow: 0 3px 20px rgba(17, 40, 120, 0.07);
   z-index: 1;
+  ${scrollFix}
 `
 
 export const InnerHeaderContainer = styled.header`

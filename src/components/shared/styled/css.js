@@ -41,3 +41,7 @@ export const fullPage = css`
     height: 100%;
     width: 100%;
 `
+
+export const scrollFix = css`
+    padding-left: calc(100vw - 100%);
+`
