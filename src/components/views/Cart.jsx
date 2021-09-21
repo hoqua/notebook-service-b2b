@@ -5,9 +5,9 @@ import { PageTitleSection } from '../shared/styled/PageTitleSection'
 import PrivateLayout from '../shared/layouts/PrivateLayout/PrivateLayout'
 import { StyledCard } from '../shared/styled/StyledCard'
 import styled from 'styled-components'
-import { flexAlign, flexAlignJustify, largeGap, mediumGap } from '../shared/styled/css'
+import { flexAlignJustify, largeGap } from '../shared/styled/css'
 import { StyledLink, StyledText, StyledTitle } from '../shared/styled/Typography'
-import { CartButton, NotebookRowItem } from '../shared/NotebookRow/styles'
+import { CartButton } from '../shared/NotebookRow/styles'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import notebookPlaceholder from '../../assets/img/notebook-placeholder.png'
 import { ReactComponent as Trash } from '../../assets/icons/trash.svg'
@@ -48,11 +48,13 @@ export const Cart = () => {
                 <CartRow key={notebook.serial_num}>
                   <img src={notebookPlaceholder} alt='notebook placeholder' />
 
-                  <NotebookRowItem>
+                  <div>
                     <StyledText>{notebook.mark_name}</StyledText>
                     <p>{notebook.item_name}</p>
                     <StyledText>{notebook.serial_num}</StyledText>
-                  </NotebookRowItem>
+                  </div>
+
+                  <PriceText>Цена: <PriceWrapper>{notebook.item_price}</PriceWrapper></PriceText>
 
                   <ActionsWrapper>
                     <CartButton onClick={() => removeFromCart(notebook)}>
@@ -88,12 +90,15 @@ const CartWrapper = styled.div`
 `
 
 const CartRow = styled.div`
-  ${flexAlign};
+  display: grid;
+  grid-template-columns: .2fr .4fr .1fr .3fr;
+  align-items: center;
+  align-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
   border-top: 1px solid ${({ theme }) => theme.brand.gray};
 
-  ${mediumGap}
+  ${largeGap}
   &:first-of-type {
     border-top: none;
   }
