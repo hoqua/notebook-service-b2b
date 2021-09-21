@@ -11,16 +11,16 @@ export default function Info () {
       <div style={{ display: 'flex', columnGap: '30px' }}>
         <div>
           <StyledHeaderTitle>Курс</StyledHeaderTitle>
-          <StyledText>{session.exchangeRate.currency_name} {session.exchangeRate.rate}</StyledText>
+          <StyledText>{session?.exchangeRate?.currency_name} {session?.exchangeRate?.rate}</StyledText>
         </div>
 
         <div>
           <StyledHeaderTitle>Баланс</StyledHeaderTitle>
-          <StyledText>{session.user.balance || 0} {session.exchangeRate.currency_name}</StyledText>
+          <StyledText>{session?.user?.balance || 0} {session?.exchangeRate?.currency_name}</StyledText>
         </div>
 
         <div>
-          {!session.user.active
+          {!session?.user?.active
             ? (
               <>
                 <StyledHeaderTitle>

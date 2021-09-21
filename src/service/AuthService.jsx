@@ -15,8 +15,8 @@ export function useAuthProvidable () {
     await authGet(`?u=${userName}&p=${password}`)
     if (authError || !authRes.ok) throw new Error('Ошибка входа.')
 
-    setToken(authRes.data.auth_token || null)
     setTokenExpTime(formatDate(authRes.data.token_exp_time))
+    setToken(authRes.data.auth_token)
   }
 
   const logOut = () => {
@@ -28,6 +28,8 @@ export function useAuthProvidable () {
     cachePolicy: 'no-cache',
     interceptors: {
       request: async ({ options, url, path, route }) => {
+        console.log(options)
+        console.log(tokenExpTime)
         if (isExpired(tokenExpTime)) {
           console.log('Token expired proceed to logout.')
           logOut()

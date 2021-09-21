@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Login from '../components/views/Login/Login'
 import Main from '../components/views/Main'
 import { useAuth } from '../service/AuthService'
@@ -29,6 +29,7 @@ const publicRoutes = () => {
     <>
       <Route exact path='/'><Login /></Route>
       <Route exact path='/registration'><Registration /></Route>
+      <Redirect to='/' />
     </>
   )
 }
@@ -37,8 +38,8 @@ const privateRoutes = () => {
   return (
     <>
       <ProvideSession>
-        <Route exact path='/showcase'><Showcase /></Route>
-        <Route exact path='/'><Main /></Route>
+        <Route path='/showcase'><Showcase /></Route>
+        <Route path='/'><Main /></Route>
       </ProvideSession>
     </>
 

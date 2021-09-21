@@ -15,6 +15,7 @@ export function ProvideSession ({ children }) {
 
   useEffect(async () => {
     await Promise.all([getExRate(), getUser()])
+
     if (userRes.ok) setUser(userRes.data)
     if (exRes.ok) setExchangeRate(exRes.data)
   }, [])

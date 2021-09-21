@@ -9,7 +9,6 @@ export const NotebookRowDetails = ({ notebook }) => {
       <div />
       <div />
       <div />
-      <div />
 
       <NotebookRowItem>
         <StyledText>Батарея</StyledText>
