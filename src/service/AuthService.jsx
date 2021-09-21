@@ -29,6 +29,7 @@ export function useAuthProvidable () {
     interceptors: {
       request: async ({ options, url, path, route }) => {
         if (isExpired(tokenExpTime)) {
+          console.log('Token expired proceed to logout.')
           logOut()
         }
 
@@ -40,6 +41,7 @@ export function useAuthProvidable () {
       },
       response: async ({ response }) => {
         if (!response.ok && response.status === 401) {
+          console.log('Unauthorized proceed to logout')
           logOut()
         }
 
