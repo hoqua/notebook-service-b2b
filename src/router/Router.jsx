@@ -38,8 +38,8 @@ const privateRoutes = () => {
   return (
     <>
       <ProvideSession>
-        <Route path='/showcase'><Showcase /></Route>
-        <Route path='/'><Main /></Route>
+        <Route exact path='/showcase'><Showcase /></Route>
+        <Route exact path='/'><Main /></Route>
       </ProvideSession>
     </>
 
