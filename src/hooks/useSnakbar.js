@@ -4,7 +4,7 @@ import { theme } from '../styles/theme'
 export const useNotify = () => {
   const [showError] = useSnackbar(
     {
-      position: 'top-right',
+      position: 'bottom-right',
       style: {
         backgroundColor: theme.status.error
       }

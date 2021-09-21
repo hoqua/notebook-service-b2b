@@ -48,7 +48,7 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
         onChange={({ target }) => multi ? onMultiChange(target.value) : onChange(target.value)}
       >
         {multi && <option hidden />}
-        {options.map(option => <option key={option.label + option.value} value={option.value} onChange={() => multi && onMultiChange(option.value)}>{option.label}</option>)}
+        {options.map(option => <option key={option.label} value={option.value} onChange={() => multi && onMultiChange(option.value)}>{option.label}</option>)}
       </Select>
     </SelectWrapper>
   )

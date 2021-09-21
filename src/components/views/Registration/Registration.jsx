@@ -7,7 +7,7 @@ import { SpacerH20, SpacerH25, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
 import ClientCaptcha from 'react-client-captcha'
 import StyledCheckbox from '../../shared/styled/StyledCheckbox'
-import { NavigationButton } from '../../shared/styled/NavigationButton'
+import { AppButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
 import { useSignUp } from '../../../service/PublicUserService'
 import { useNotify } from '../../../hooks/useSnakbar'
@@ -146,11 +146,11 @@ export default function Registration () {
             <SpacerH25 />
 
             <PublicFromActionsContainer>
-              <NavigationButton
-                to='#' onClick={() => register()}
+              <AppButton
+                onClick={() => register()}
                 disabled={loading}
               >Зарегистрироваться
-              </NavigationButton>
+              </AppButton>
             </PublicFromActionsContainer>
             <SpacerH20 />
 

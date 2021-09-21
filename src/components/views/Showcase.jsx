@@ -9,14 +9,16 @@ import { Loading } from '../shared/Loading/Loading'
 import { PageTitleSection } from '../shared/styled/PageTitleSection'
 import { Filters } from '../shared/Filters/Filters'
 import { SpacerH20 } from '../shared/styled/Spacers'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 const PAGE_TITLE = 'Витрина'
 
 export const Showcase = () => {
-  const { showError } = useNotify()
+  const { showError, showSuccess } = useNotify()
   const { get, response, error, loading } = useFetch('get-items-main.php')
   const [showFilters, setShowFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
+  const [cart, addToCart] = useLocalStorage('cart', [])
 
   useEffect(() => {
     if (error) showError('Ошибка загрузки каталога')
@@ -29,13 +31,21 @@ export const Showcase = () => {
     const query = '?' + search.toString()
     get(query)
   }
+
   const onPriceSortChange = (sortPrice) => {
     const filtersWithPrice = { ...mergedFilters, sort_price: sortPrice }
     setMergedFilters(filtersWithPrice)
     getWithFilters(filtersWithPrice)
   }
-  const addToShoppingCart = (id) => {
-    console.log(id)
+
+  const addToShoppingCart = (notebook) => {
+    if (cart.some(n => n.serial_num === notebook.serial_num)) {
+      showError('Такой товар уже есть в корзине!')
+      return
+    }
+
+    addToCart([...cart, notebook])
+    showSuccess('Товар был добавлен в корзину!')
   }
 
   const notebooks = response?.data?.items || []
@@ -50,6 +60,7 @@ export const Showcase = () => {
             title={PAGE_TITLE}
             onPriceSortChange={onPriceSortChange}
             onFilterClick={() => setShowFilters(!showFilters)}
+            actions
           />
 
           {showFilters &&
@@ -70,9 +81,8 @@ export const Showcase = () => {
               gap: '10px'
             }}
             >
-              {notebooks.map((notebook, index) => (
-              // TODO fix index hack
-                <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.item_id + '' + index} />
+              {notebooks.map((notebook) => (
+                <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />
               ))}
             </div>}
 

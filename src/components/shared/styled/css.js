@@ -28,6 +28,10 @@ export const mediumGap = css`
   gap: 12px;
 `
 
+export const largeGap = css`
+  gap: 30px;
+`
+
 export const flexAlign = css`
   display: flex;
   align-items: center;

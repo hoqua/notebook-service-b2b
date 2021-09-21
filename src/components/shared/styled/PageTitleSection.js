@@ -21,15 +21,16 @@ const PRICE_OPTIONS = [
   }
 ]
 
-export const PageTitleSection = ({ title, onFilterClick, onPriceSortChange }) => {
+export const PageTitleSection = ({ title, onFilterClick, onPriceSortChange, actions = false }) => {
   return (
     <>
       <SectionWrapper>
         <HeadTile>{title}</HeadTile>
-        <ActionsWrapper>
-          <StyledSelect options={PRICE_OPTIONS} onChange={value => onPriceSortChange(value)} />
-          <FiltersButton onClick={() => onFilterClick()}> <Filters /> Фильтры </FiltersButton>
-        </ActionsWrapper>
+        {actions &&
+          <ActionsWrapper>
+            <StyledSelect options={PRICE_OPTIONS} onChange={value => onPriceSortChange(value)} />
+            <FiltersButton onClick={() => onFilterClick()}> <Filters /> Фильтры </FiltersButton>
+          </ActionsWrapper>}
       </SectionWrapper>
       <SpacerH20 />
     </>

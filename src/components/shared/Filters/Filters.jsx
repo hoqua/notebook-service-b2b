@@ -4,7 +4,7 @@ import { StyledInput, StyledLabeledInput, StyledLabeledSelect } from '../styled/
 import styled from 'styled-components'
 import StyledCheckbox from '../styled/StyledCheckbox'
 import { StyledText } from '../styled/Typography'
-import { NavigationButton } from '../styled/NavigationButton'
+import { AppButton } from '../styled/NavigationButton'
 import { mediumGap } from '../styled/css'
 import { useFetch } from 'use-http'
 
@@ -60,12 +60,12 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading }) => {
           >
             <StyledText>Показать новинки</StyledText>
           </StyledCheckbox>
-          <NavigationButton
-            to='#' onClick={applyFilters}
+          <AppButton
+            onClick={applyFilters}
             disabled={loading}
           >
             Применить
-          </NavigationButton>
+          </AppButton>
         </ActionsWrapper>
 
       </FiltersWrapper>

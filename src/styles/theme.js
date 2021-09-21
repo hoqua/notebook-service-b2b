@@ -12,6 +12,6 @@ export const theme = {
   },
   status: {
     error: '#f0541e',
-    success: '#2BC46C'
+    success: '#5FD071'
   }
 }

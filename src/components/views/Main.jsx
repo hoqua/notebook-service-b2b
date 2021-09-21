@@ -9,6 +9,7 @@ import { SpacerH20, SpacerH25 } from '../shared/styled/Spacers'
 import { ReactComponent as Laptop } from '../../assets/icons/laptop.svg'
 import { ReactComponent as LaptopBroken } from '../../assets/icons/laptop-broken.svg'
 import { ReactComponent as Shipping } from '../../assets/icons/shipping.svg'
+import { largeGap } from '../shared/styled/css'
 
 export default function Main () {
   return (
@@ -50,5 +51,5 @@ export const Banner = styled(StyledCard)`
 export const MainGrid = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 30px;
+  ${largeGap}
 `

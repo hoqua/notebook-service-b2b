@@ -1,10 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { flexAlign, mediumGap } from './css'
+import { flexAlign, flexAlignJustify, fullPage, mediumGap } from './css'
 
 export const StyledTopNavLink = styled(NavLink).attrs({
   activeClassName: 'active'
 })`
+  ${fullPage}
+  ${flexAlignJustify}
+  
   &.active {
     svg {
       path {

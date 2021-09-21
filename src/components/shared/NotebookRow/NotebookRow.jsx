@@ -3,7 +3,7 @@ import { StyledText } from '../styled/Typography'
 import notebookPlaceholder from '../../../assets/img/notebook-placeholder.png'
 import {
   CartButton,
-  ExpandButton,
+  ExpandButton, LookoutBadge, NewNotebookBadge,
   NotebookRowItem,
   StyledNotebookRow,
   StyledNotebookRowWrapper,
@@ -16,23 +16,27 @@ export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
 
   return (
-    <StyledNotebookRowWrapper expand={isExpand}>
+    <StyledNotebookRowWrapper>
+      {!!notebook.is_new && <NewNotebookBadge>Новинка</NewNotebookBadge>}
+
       <StyledNotebookRow>
-        <CartButton onClick={() => onClick(notebook.item_id)}>
+        <CartButton onClick={() => onClick(notebook)}>
           <StyledShoppingCard />
         </CartButton>
 
         <NotebookRowItem>
           <StyledText>{notebook.mark_name}</StyledText>
           <p>{notebook.item_name}</p>
-          <StyledText>{notebook.item_id}</StyledText>
+          <StyledText>{notebook.serial_num}</StyledText>
         </NotebookRowItem>
 
         <img src={notebookPlaceholder} alt='notebook placeholder' />
 
         <NotebookRowItem>
           <StyledText>Вн. вид</StyledText>
-          <StyledText>{notebook.lookuot}</StyledText>
+          <div>
+            <LookoutBadge classKey={notebook.lookout}>{notebook.lookout}</LookoutBadge>
+          </div>
         </NotebookRowItem>
 
         <NotebookRowItem>

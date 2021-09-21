@@ -1,9 +1,5 @@
 import styled from 'styled-components'
 
-export const SpacerH40 = styled.div`
-  height: 40px;
-`
-
 export const SpacerH15 = styled.div`
   height: 15px;
 `
@@ -16,6 +12,12 @@ export const SpacerH20 = styled.div`
 `
 export const SpacerH25 = styled.div`
   height: 25px;
+`
+export const SpacerH30 = styled.div`
+  height: 30px;
+`
+export const SpacerH40 = styled.div`
+  height: 40px;
 `
 
 export const SpacerW15 = styled.div`

@@ -17,7 +17,7 @@ export const NotebookRowDetails = ({ notebook }) => {
 
       <NotebookRowItem>
         <StyledText>Прим:</StyledText>
-        <p>{notebook.battery}</p>
+        <p>{notebook.note}</p>
       </NotebookRowItem>
     </>
   )

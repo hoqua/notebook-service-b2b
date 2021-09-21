@@ -6,6 +6,7 @@ import { useAuth } from '../service/AuthService'
 import SuspenseView from '../components/views/SuspenseView'
 import { ProvideSession } from '../service/SessonDataService'
 import { Showcase } from '../components/views/Showcase'
+import { Cart } from '../components/views/Cart'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 
@@ -39,6 +40,7 @@ const privateRoutes = () => {
     <>
       <ProvideSession>
         <Route exact path='/showcase'><Showcase /></Route>
+        <Route exact path='/shopping-cart'><Cart /></Route>
         <Route exact path='/'><Main /></Route>
       </ProvideSession>
     </>

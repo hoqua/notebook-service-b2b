@@ -6,7 +6,7 @@ import { PublicContentContainer } from '../../shared/styled/PublicContentContain
 import { HeadTile, StyledLink, StyledText } from '../../shared/styled/Typography'
 import { SpacerH20, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
-import { NavigationButton } from '../../shared/styled/NavigationButton'
+import { AppButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
 import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
@@ -71,12 +71,12 @@ export default function Registration () {
               <SpacerH20 />
 
               <PublicFromActionsContainer>
-                <NavigationButton
-                  to='#' onClick={() => login()}
+                <AppButton
+                  onClick={() => login()}
                   disabled={loading}
                 >
                   Войти
-                </NavigationButton>
+                </AppButton>
               </PublicFromActionsContainer>
               <SpacerH20 />
             </div>
