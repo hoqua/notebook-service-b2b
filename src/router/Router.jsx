@@ -15,9 +15,7 @@ export default function Router () {
   return (
     <BrowserRouter>
       <Suspense fallback={<SuspenseView />}>
-        <Switch>
-          {auth.token ? privateRoutes() : publicRoutes()}
-        </Switch>
+        {auth.token ? privateRoutes() : publicRoutes()}
       </Suspense>
     </BrowserRouter>
   )
@@ -25,23 +23,24 @@ export default function Router () {
 
 const publicRoutes = () => {
   return (
-    <>
-      {/* <Route exact path='/'><Home /></Route> */}
+    <Switch>
       <Route exact path='/'><Login /></Route>
       <Route exact path='/registration'><Registration /></Route>
 
       <Route><Redirect to='/' /></Route>
-    </>
+    </Switch>
   )
 }
 
 const privateRoutes = () => {
   return (
     <ProvideSession>
-      <Route exact path='/showcase'><Showcase /></Route>
-      <Route exact path='/'><Main /></Route>
+      <Switch>
+        <Route exact path='/showcase'><Showcase /></Route>
+        <Route exact path='/'><Main /></Route>
 
-      <Route><Redirect to='/' /></Route>
+        <Route><Redirect to='/' /></Route>
+      </Switch>
     </ProvideSession>
   )
 }
