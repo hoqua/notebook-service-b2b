@@ -16,7 +16,7 @@ const PAGE_TITLE = 'Витрина'
 export const Showcase = () => {
   const { showError, showSuccess } = useNotify()
   const { get, response, error, loading } = useFetch('get-items-main.php')
-  const [showFilters, setShowFilters] = useState(false)
+  const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
   const [cart, addToCart] = useLocalStorage('cart', [])
 
@@ -59,16 +59,15 @@ export const Showcase = () => {
           <PageTitleSection
             title={PAGE_TITLE}
             onPriceSortChange={onPriceSortChange}
-            onFilterClick={() => setShowFilters(!showFilters)}
+            onFilterClick={() => setHideFilters(!hideFilters)}
             actions
           />
-
-          {showFilters &&
-            <Filters
-              onFiltersSubmit={() => getWithFilters()}
-              onFilterChange={filters => setMergedFilters({ ...mergedFilters, ...filters })}
-              loading={loading}
-            />}
+          <Filters
+            onFiltersSubmit={() => getWithFilters()}
+            onFilterChange={filters => setMergedFilters({ ...mergedFilters, ...filters })}
+            loading={loading}
+            showFilters={hideFilters}
+          />
           <SpacerH20 />
 
           {loading && <Loading />}
@@ -81,9 +80,7 @@ export const Showcase = () => {
               gap: '10px'
             }}
             >
-              {notebooks.map((notebook) => (
-                <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />
-              ))}
+              {notebooks.map(notebook => <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />)}
             </div>}
 
         </InnerWrapPrivatePage>

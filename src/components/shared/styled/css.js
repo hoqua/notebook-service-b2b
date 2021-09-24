@@ -37,15 +37,15 @@ export const flexAlign = css`
   align-items: center;
 `
 export const flexAlignJustify = css`
-    ${flexAlign};
-    justify-content: center;
+  ${flexAlign};
+  justify-content: center;
 `
 
 export const fullPage = css`
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 `
 
 export const scrollFix = css`
-    padding-left: calc(100vw - 100%);
+  padding-left: calc(100vw - 100%);
 `

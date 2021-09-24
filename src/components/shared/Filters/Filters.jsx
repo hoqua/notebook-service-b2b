@@ -8,8 +8,8 @@ import { AppButton } from '../styled/NavigationButton'
 import { mediumGap } from '../styled/css'
 import { useFetch } from 'use-http'
 
-export const Filters = ({ onFiltersSubmit, onFilterChange, loading }) => {
-  const { get, response: { data } } = useFetch('get-filters.php')
+export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters }) => {
+  const { get, response: { data }, loading: loadingFilters } = useFetch('get-filters.php')
   const [filters, setFilters] = useState({
     display: [],
     hdd: [],
@@ -26,15 +26,13 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading }) => {
   useEffect(() => get(), [])
   useEffect(() => onFilterChange(filters), [filters])
 
-  if (!data?.filters) return null
-
-  const { display, hdd, lookout, mark, proc, ram, video } = data.filters
+  const { display, hdd, lookout, mark, proc, ram, video } = data?.filters || {}
 
   const onSelect = (filterName) => (selected) => setFilters({ ...filters, [filterName]: selected })
   const applyFilters = () => onFiltersSubmit()
 
   return (
-    <StyledCard>
+    <StyledCard hide={hideFilters}>
       <FiltersWrapper>
         <StyledLabeledSelect label='Производитель' onChange={onSelect('mark')} options={mark} />
         <StyledLabeledSelect label='Процессор' onChange={onSelect('proc')} options={proc} />
@@ -62,7 +60,7 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading }) => {
           </StyledCheckbox>
           <AppButton
             onClick={applyFilters}
-            disabled={loading}
+            disabled={loading || loadingFilters}
           >
             Применить
           </AppButton>

@@ -6,4 +6,5 @@ export const StyledCard = styled.div`
   border-radius: 4px;
   background-color: white;
   height: fit-content;
+  ${({ hide }) => hide && 'display: none'};
 `
