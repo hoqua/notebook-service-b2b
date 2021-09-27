@@ -28,8 +28,6 @@ export function useAuthProvidable () {
     cachePolicy: 'no-cache',
     interceptors: {
       request: async ({ options, url, path, route }) => {
-        console.log(options)
-        console.log(tokenExpTime)
         if (isExpired(tokenExpTime)) {
           console.log('Token expired proceed to logout.')
           logOut()

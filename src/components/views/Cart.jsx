@@ -11,11 +11,14 @@ import { useLocalStorage } from '../../hooks/useLocalStorage'
 import notebookPlaceholder from '../../assets/img/notebook-placeholder.png'
 import { ReactComponent as Trash } from '../../assets/icons/trash.svg'
 import { AppButton } from '../shared/styled/NavigationButton'
-import { SpacerH20, SpacerH30 } from '../shared/styled/Spacers'
+import { SpacerH10, SpacerH20, SpacerH30 } from '../shared/styled/Spacers'
 import { IconButton } from '../shared/styled/IconButton'
+import { getDiscountPrice } from '../../utils/substractPercent'
+import { useSession } from '../../service/SessonDataService'
 
 const PAGE_TITLE = 'Корзина'
 export const Cart = () => {
+  const { user } = useSession()
   const [storageCart, setStorageCart] = useLocalStorage('cart', [])
 
   const removeFromCart = (notebookToRemove) => {
@@ -26,7 +29,9 @@ export const Cart = () => {
     setStorageCart(storageCart)
   }
 
-  const getSum = storageCart.reduce((acc, notebook) => acc + notebook.item_price, 0)
+  const sum = storageCart.reduce((acc, notebook) => acc + notebook.item_price, 0)
+  const discountTotal = getDiscountPrice(user, sum)
+  const sumDiff = sum - discountTotal
 
   return (
     <PrivateLayout>
@@ -39,7 +44,7 @@ export const Cart = () => {
             <StyledCard>
               <StyledTitle>
                 {storageCart.length
-                  ? 'Выбранные товары'
+                  ? <>Выбранные товары <SpacerH10 /></>
                   : <StyledText>Вы еще ничего не выбрали. <StyledLink to='/'>Вернуться на главную</StyledLink></StyledText>}
               </StyledTitle>
 
@@ -54,7 +59,7 @@ export const Cart = () => {
                     <StyledText>{notebook.serial_num}</StyledText>
                   </div>
 
-                  <PriceText>Цена: <PriceWrapper>{notebook.item_price}</PriceWrapper></PriceText>
+                  <PriceText>Цена: <PriceWrapper>{notebook.item_price} ({getDiscountPrice(user, notebook.item_price)})</PriceWrapper></PriceText>
 
                   <ActionsWrapper>
                     <IconButton onClick={() => removeFromCart(notebook)}>
@@ -69,7 +74,14 @@ export const Cart = () => {
               <StyledCard>
                 <StyledTitle>Итого</StyledTitle>
                 <SpacerH20 />
-                <PriceText>Товаров: {storageCart.length}, на сумму <PriceWrapper>{getSum}</PriceWrapper></PriceText>
+
+                <PriceText>Товаров: {storageCart.length}, на сумму <PriceWrapper>{sum}</PriceWrapper></PriceText>
+                <SpacerH10 />
+
+                <PriceText>Скидка: <PriceWrapper>{user.ppg_perc}% ({sumDiff})</PriceWrapper></PriceText>
+                <SpacerH10 />
+
+                <PriceText>Итог: <PriceWrapper>{discountTotal}</PriceWrapper></PriceText>
                 <SpacerH30 />
                 <ActionWrapper>
                   <AppButton>Оформить заказ</AppButton>
@@ -91,7 +103,7 @@ const CartWrapper = styled.div`
 
 const CartRow = styled.div`
   display: grid;
-  grid-template-columns: .2fr .4fr .1fr .3fr;
+  grid-template-columns: .2fr .4fr .3fr .3fr;
   align-items: center;
   align-content: center;
   padding-top: 10px;

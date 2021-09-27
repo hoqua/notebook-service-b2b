@@ -10,19 +10,13 @@ import {
 import { NotebookRowDetails } from './NotebookRowDetails'
 import { RotatedArrow } from '../styled/RotatedArrow'
 import { useSession } from '../../../service/SessonDataService'
-import { subtractPercent } from '../../../utils/substractPercent'
 import { NotebookImage } from './NotebookImage/NotebookImage'
 import { IconButton } from '../styled/IconButton'
+import { getDiscountPrice } from '../../../utils/substractPercent'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
   const { user } = useSession()
-
-  const getDiscountPrice = (price) => {
-    if (!user.active) return null
-
-    return `(${subtractPercent(price, user.ppg_perc)})`
-  }
 
   return (
     <StyledNotebookRowWrapper>
@@ -76,7 +70,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
         <NotebookRowItem>
           <StyledText>Цена (опт.)</StyledText>
           <p>
-            {notebook.item_price} {getDiscountPrice(notebook.item_price)}
+            {notebook.item_price} ({getDiscountPrice(user, notebook.item_price)})
           </p>
         </NotebookRowItem>
 

@@ -66,7 +66,7 @@ export const Showcase = () => {
             onFiltersSubmit={() => getWithFilters()}
             onFilterChange={filters => setMergedFilters({ ...mergedFilters, ...filters })}
             loading={loading}
-            showFilters={hideFilters}
+            hideFilters={hideFilters}
           />
           <SpacerH20 />
 
