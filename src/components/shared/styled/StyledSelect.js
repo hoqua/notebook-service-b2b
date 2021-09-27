@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Arrow from '../../../assets/icons/arrow-up.svg'
 import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
-import { darkBorder, darkColor, flexAlign, grayBorder, hoverDarkBorder, smallGap } from './css'
+import { darkBorder, darkColor, flexAlign, grayBorder, hoverDarkBorder, smallGap, Z_INDEX } from './css'
 
 export const StyledSelect = ({ options = [], onChange, multi = false, width }) => {
   const [selectedValues, setSelectedValues] = useState([])
@@ -105,7 +105,7 @@ export const Select = styled.select`
 
 export const SelectedItem = styled.div`
   font-size: .8rem;
-  z-index: 2;
+  z-index: ${Z_INDEX.select};
   pointer-events: none;
   height: 22px;
   white-space: nowrap;
@@ -124,7 +124,7 @@ export const MultiWrapper = styled.div`
   left: 0;
   height: 100%;
   width: calc(100% - 12px);
-  z-index: 1;
+  z-index: ${Z_INDEX.select};
   pointer-events: none;
   overflow: hidden;
   padding-left: ${PADDING};

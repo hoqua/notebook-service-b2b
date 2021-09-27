@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { StyledText } from '../styled/Typography'
 import {
-  CartButton,
   ExpandButton, LookoutBadge, NewNotebookBadge,
   NotebookRowItem,
   StyledNotebookRow,
@@ -13,6 +12,7 @@ import { RotatedArrow } from '../styled/RotatedArrow'
 import { useSession } from '../../../service/SessonDataService'
 import { subtractPercent } from '../../../utils/substractPercent'
 import { NotebookImage } from './NotebookImage/NotebookImage'
+import { IconButton } from '../styled/IconButton'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -29,9 +29,9 @@ export const NotebookRow = ({ notebook, onClick }) => {
       {!!notebook.is_new && <NewNotebookBadge>Новинка</NewNotebookBadge>}
 
       <StyledNotebookRow>
-        <CartButton onClick={() => onClick(notebook)}>
+        <IconButton onClick={() => onClick(notebook)}>
           <StyledShoppingCard />
-        </CartButton>
+        </IconButton>
 
         <NotebookRowItem>
           <StyledText>{notebook.mark_name}</StyledText>

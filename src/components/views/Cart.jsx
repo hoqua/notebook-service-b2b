@@ -7,12 +7,12 @@ import { StyledCard } from '../shared/styled/StyledCard'
 import styled from 'styled-components'
 import { flexAlignJustify, largeGap } from '../shared/styled/css'
 import { StyledLink, StyledText, StyledTitle } from '../shared/styled/Typography'
-import { CartButton } from '../shared/NotebookRow/styles'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import notebookPlaceholder from '../../assets/img/notebook-placeholder.png'
 import { ReactComponent as Trash } from '../../assets/icons/trash.svg'
 import { AppButton } from '../shared/styled/NavigationButton'
 import { SpacerH20, SpacerH30 } from '../shared/styled/Spacers'
+import { IconButton } from '../shared/styled/IconButton'
 
 const PAGE_TITLE = 'Корзина'
 export const Cart = () => {
@@ -57,9 +57,9 @@ export const Cart = () => {
                   <PriceText>Цена: <PriceWrapper>{notebook.item_price}</PriceWrapper></PriceText>
 
                   <ActionsWrapper>
-                    <CartButton onClick={() => removeFromCart(notebook)}>
+                    <IconButton onClick={() => removeFromCart(notebook)}>
                       <Trash />
-                    </CartButton>
+                    </IconButton>
                   </ActionsWrapper>
                 </CartRow>
               )}

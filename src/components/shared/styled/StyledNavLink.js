@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { flexAlign, flexAlignJustify, fullPage, mediumGap } from './css'
+import { CARD_PADDING, flexAlign, flexAlignJustify, fullPage, mediumGap } from './css'
 
 export const StyledTopNavLink = styled(NavLink).attrs({
   activeClassName: 'active'
@@ -23,8 +23,8 @@ export const StyledSideNavLink = styled(NavLink).attrs({
   ${flexAlign};
   ${mediumGap};
 
-  margin-left: -25px;
-  margin-right: -25px;
+  margin-left: -${CARD_PADDING};
+  margin-right: -${CARD_PADDING};
   padding: 20px;
   color: ${({ theme }) => theme.typography.light};
   text-decoration: none;

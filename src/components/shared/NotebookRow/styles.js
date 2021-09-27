@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import { StyledCard } from '../styled/StyledCard'
 import { ReactComponent as ShoppingCart } from '../../../assets/icons/shoping-cart.svg'
-import { flexAlignJustify, grayBorder, mediumGap } from '../styled/css'
+import { CARD_PADDING, mediumGap } from '../styled/css'
 import { theme } from '../../../styles/theme'
+import { IconButton } from '../styled/IconButton'
 
 export const StyledNotebookRowWrapper = styled(StyledCard)`
   background-color: #fff;
@@ -20,23 +21,10 @@ export const NotebookRowItem = styled.div`
   height: 100%;
 `
 
-export const CartButton = styled.button`
-  ${flexAlignJustify};
-  background: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  padding: 8px;
-  ${grayBorder}
-
-  &:hover{
-    background-color: ${({ theme }) => theme.brand.gray};
-  }
-`
-
-export const ExpandButton = styled(CartButton)`
+export const ExpandButton = styled(IconButton)`
   position: absolute;
-  right: 25px;
-  bottom: 25px;
+  right: ${CARD_PADDING};
+  bottom: ${CARD_PADDING};
   height: 20px;
   width: 20px;
   padding: 0;

@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import { FullPage } from '../../styled/Fullpage'
-import styled from 'styled-components'
-import { StyledCard } from '../../styled/StyledCard'
-import { flexAlignJustify } from '../../styled/css'
+import { StyledCard } from '../styled/StyledCard'
+import { IconButton } from '../styled/IconButton'
+import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
+import { ModalHeader, ModalWrapper } from './styles'
+import { StyledTitle } from '../styled/Typography'
 
-export const Slider = ({ onClose }) => {
+export const Modal = ({ title = 'No title', children, onClose }) => {
   const modalRef = useRef(null)
 
   const handleClickOutside = event => {
     const isTargetOfEventInsideModal = modalRef.current && !modalRef.current.contains(event.target)
-    if (isTargetOfEventInsideModal) return onClose()
+    if (isTargetOfEventInsideModal) return onClose?.()
   }
 
   useEffect(() => {
@@ -24,23 +25,19 @@ export const Slider = ({ onClose }) => {
   })
 
   return ReactDOM.createPortal(
-    <SliderWrapper>
+    <ModalWrapper>
       <StyledCard ref={modalRef}>
-        modal
+        <ModalHeader>
+          <StyledTitle>{title}</StyledTitle>
+
+          <IconButton onClick={() => onClose?.()}>
+            <Cross height='12px' width='12px' />
+          </IconButton>
+        </ModalHeader>
+
+        {children}
       </StyledCard>
-    </SliderWrapper>,
+    </ModalWrapper>,
     document.getElementById('modal-root')
   )
 }
-
-const SliderWrapper = styled(FullPage)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  height: 100vh;
-  max-height: 100%;
-  background-color: ${({ theme }) => theme.bg.light};
-
-  ${flexAlignJustify}
-`

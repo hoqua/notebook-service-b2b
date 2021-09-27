@@ -1,5 +1,13 @@
 import { css } from 'styled-components'
 
+export const Z_INDEX = {
+  header: 1,
+  select: 1,
+  modal: 999
+}
+
+export const CARD_PADDING = '25px'
+
 export const darkBorder = css`
   border: 1px solid ${({ theme }) => theme.brand.dark};
   border-radius: 4px;
