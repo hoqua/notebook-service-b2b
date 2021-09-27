@@ -25,7 +25,7 @@ export const StyledSideNavLink = styled(NavLink).attrs({
 
   margin-left: -${CARD_PADDING};
   margin-right: -${CARD_PADDING};
-  padding: 20px;
+  padding: ${CARD_PADDING};
   color: ${({ theme }) => theme.typography.light};
   text-decoration: none;
   transition: background-color 0.3s ease;
