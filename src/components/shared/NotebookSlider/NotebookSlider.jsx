@@ -3,6 +3,7 @@ import { Modal } from '../Modal/Modal'
 import { NotebookSliderImg } from './styles'
 import { Loading } from '../Loading/Loading'
 import { SliderButton, SliderDots } from './components/NotebookSliderComponents'
+import { Z_INDEX } from '../styled/css'
 
 const IMG_IDS = [1, 2, 3, 4]
 const LAST_IMG_INDEX = IMG_IDS.length - 1
@@ -21,9 +22,9 @@ export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
     const nextIndex = activeItemIndex - 1
     const isInBounds = nextIndex >= 0
     if (isInBounds) {
-      setActiveItemIndex(LAST_IMG_INDEX)
-    } else {
       setActiveItemIndex(nextIndex)
+    } else {
+      setActiveItemIndex(LAST_IMG_INDEX)
     }
   }
 
@@ -42,7 +43,7 @@ export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
       <SliderButton positioning='left' onClick={decrease} />
       <SliderButton positioning='right' onClick={increase} />
 
-      {loading && <Loading />}
+      {loading && <Loading zIndex={Z_INDEX.modalLoading} />}
       <NotebookSliderImg
         animate={loading}
         ref={image}

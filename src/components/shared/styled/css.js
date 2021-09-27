@@ -3,7 +3,8 @@ import { css } from 'styled-components'
 export const Z_INDEX = {
   header: 1,
   select: 1,
-  modal: 999
+  modal: 999,
+  modalLoading: 1000
 }
 
 export const CARD_PADDING = '25px'
