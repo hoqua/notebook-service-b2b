@@ -55,6 +55,7 @@ export default function Registration () {
                     email: target.value
                   })}
                   error={formErrors.email}
+                  onKeyDown={e => e.key === 'Enter' && login()}
                 />
 
                 <label>Пароль</label>
@@ -66,6 +67,7 @@ export default function Registration () {
                     password: target.value
                   })}
                   error={formErrors.password}
+                  onKeyDown={e => e.key === 'Enter' && login()}
                 />
               </PublicForm>
               <SpacerH20 />
