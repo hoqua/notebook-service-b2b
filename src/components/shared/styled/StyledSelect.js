@@ -23,6 +23,8 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
     selectRef.current.value = selectedValues.toString() // to clear last selected item and fix bug
   }
 
+  const getLabel = (selected) => options.find(option => option.value.toString() === selected).label
+
   useEffect(() => {
     onChange(selectedValues)
   }, [selectedValues])
@@ -35,7 +37,7 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
             <Deselect onClick={() => removeSelected(selected)}>
               <Cross />
             </Deselect>
-            {selected}
+            {getLabel(selected)}
           </SelectedItem>
         )}
       </MultiWrapper>
