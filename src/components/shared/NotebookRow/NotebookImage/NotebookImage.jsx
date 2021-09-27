@@ -1,45 +1,25 @@
 import React, { useState } from 'react'
 import notebookFallback from '../../../../assets/icons/notebook-icon.svg'
 import { NotebookImageWrapper } from './styles'
-import { NotebookSlider } from '../../NotebookSlider/NotebookSlider'
 
-const isImgWithError = (event) => {
-  return event.target.src === notebookFallback
-}
-
-export const NotebookImage = ({ notebook }) => {
+export const NotebookImage = ({ notebook, onClick, onError }) => {
   const [isError, setIsError] = useState(false)
-  const [showSlider, setShowSlider] = useState(false)
 
   const handleImageError = event => {
     event.target.src = notebookFallback
     setIsError(true)
-  }
-
-  const onShowSlider = (event) => {
-    if (isImgWithError(event)) return null
-
-    setShowSlider(true)
+    onError?.()
   }
 
   return (
-    <>
-      {showSlider &&
-        <NotebookSlider
-          title={notebook.item_name}
-          notebookSerialNum={notebook.serial_num}
-          onClose={() => setShowSlider(false)}
-        />}
-
-      <NotebookImageWrapper isError={isError}>
-        <img
-          onError={handleImageError}
-          onClick={onShowSlider}
-          loading='lazy'
-          src={`media/img/${notebook.serial_num}/icon.jpg`}
-          alt={`${notebook.mark_name} notebook image`}
-        />
-      </NotebookImageWrapper>
-    </>
+    <NotebookImageWrapper isError={isError}>
+      <img
+        onError={handleImageError}
+        onClick={() => onClick?.()}
+        loading='lazy'
+        src={`media/img/${notebook.serial_num}/icon.jpg`}
+        alt={`${notebook.mark_name} notebook image`}
+      />
+    </NotebookImageWrapper>
   )
 }

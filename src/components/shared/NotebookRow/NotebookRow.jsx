@@ -10,9 +10,9 @@ import {
 import { NotebookRowDetails } from './NotebookRowDetails'
 import { RotatedArrow } from '../styled/RotatedArrow'
 import { useSession } from '../../../service/SessonDataService'
-import { NotebookImage } from './NotebookImage/NotebookImage'
 import { IconButton } from '../styled/IconButton'
-import { getDiscountPrice } from '../../../utils/substractPercent'
+import { getDiscountPriceStyled } from '../../../utils/substractPercent'
+import { NotebookImageSlider } from './NotebookImageSlider/NotebookImageSlider'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -33,7 +33,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
           <StyledText>{notebook.serial_num}</StyledText>
         </NotebookRowItem>
 
-        <NotebookImage notebook={notebook} />
+        <NotebookImageSlider notebook={notebook} />
 
         <NotebookRowItem>
           <StyledText>Вн. вид</StyledText>
@@ -70,7 +70,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
         <NotebookRowItem>
           <StyledText>Цена (опт.)</StyledText>
           <p>
-            {notebook.item_price} ({getDiscountPrice(user, notebook.item_price)})
+            {notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}
           </p>
         </NotebookRowItem>
 

@@ -8,13 +8,13 @@ import styled from 'styled-components'
 import { flexAlignJustify, largeGap } from '../shared/styled/css'
 import { StyledLink, StyledText, StyledTitle } from '../shared/styled/Typography'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-import notebookPlaceholder from '../../assets/img/notebook-placeholder.png'
 import { ReactComponent as Trash } from '../../assets/icons/trash.svg'
 import { AppButton } from '../shared/styled/NavigationButton'
 import { SpacerH10, SpacerH20, SpacerH30 } from '../shared/styled/Spacers'
 import { IconButton } from '../shared/styled/IconButton'
-import { getDiscountPrice } from '../../utils/substractPercent'
+import { getDiscountPrice, getDiscountPriceStyled } from '../../utils/substractPercent'
 import { useSession } from '../../service/SessonDataService'
+import { NotebookImage } from '../shared/NotebookRow/NotebookImage/NotebookImage'
 
 const PAGE_TITLE = 'Корзина'
 export const Cart = () => {
@@ -51,7 +51,7 @@ export const Cart = () => {
               {!!storageCart.length &&
               storageCart.map(notebook =>
                 <CartRow key={notebook.serial_num}>
-                  <img src={notebookPlaceholder} alt='notebook placeholder' />
+                  <NotebookImage notebook={notebook} />
 
                   <div>
                     <StyledText>{notebook.mark_name}</StyledText>
@@ -59,7 +59,7 @@ export const Cart = () => {
                     <StyledText>{notebook.serial_num}</StyledText>
                   </div>
 
-                  <PriceText>Цена: <PriceWrapper>{notebook.item_price} ({getDiscountPrice(user, notebook.item_price)})</PriceWrapper></PriceText>
+                  <PriceText>Цена: <PriceWrapper>{notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}</PriceWrapper></PriceText>
 
                   <ActionsWrapper>
                     <IconButton onClick={() => removeFromCart(notebook)}>
@@ -75,10 +75,10 @@ export const Cart = () => {
                 <StyledTitle>Итого</StyledTitle>
                 <SpacerH20 />
 
-                <PriceText>Товаров: {storageCart.length}, на сумму <PriceWrapper>{sum}</PriceWrapper></PriceText>
+                <PriceText>Товаров - {storageCart.length}, на сумму: <PriceWrapper>{sum}</PriceWrapper></PriceText>
                 <SpacerH10 />
 
-                <PriceText>Скидка: <PriceWrapper>{user.ppg_perc}% ({sumDiff})</PriceWrapper></PriceText>
+                <PriceText>Скидка: <PriceWrapper>{sumDiff} ({user.ppg_perc}%)</PriceWrapper></PriceText>
                 <SpacerH10 />
 
                 <PriceText>Итог: <PriceWrapper>{discountTotal}</PriceWrapper></PriceText>
