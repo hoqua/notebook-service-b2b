@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { StyledText } from '../styled/Typography'
-import notebookPlaceholder from '../../../assets/img/notebook-placeholder.png'
 import {
   CartButton,
   ExpandButton, LookoutBadge, NewNotebookBadge,
@@ -13,10 +12,12 @@ import { NotebookRowDetails } from './NotebookRowDetails'
 import { RotatedArrow } from '../styled/RotatedArrow'
 import { useSession } from '../../../service/SessonDataService'
 import { subtractPercent } from '../../../utils/substractPercent'
+import { NotebookImage } from './NotebookImage/NotebookImage'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
   const { user } = useSession()
+
   const getDiscountPrice = (price) => {
     if (!user.active) return null
 
@@ -38,7 +39,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
           <StyledText>{notebook.serial_num}</StyledText>
         </NotebookRowItem>
 
-        <img src={notebookPlaceholder} alt='notebook placeholder' />
+        <NotebookImage notebook={notebook} />
 
         <NotebookRowItem>
           <StyledText>Вн. вид</StyledText>

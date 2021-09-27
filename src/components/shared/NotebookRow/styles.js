@@ -66,6 +66,7 @@ const classColorMap = {
   'Класс B': '#BCDB57',
   'Класс C': '#AFAE72'
 }
+
 export const LookoutBadge = styled.div`
   color: #fff;
   font-size: .9rem;
