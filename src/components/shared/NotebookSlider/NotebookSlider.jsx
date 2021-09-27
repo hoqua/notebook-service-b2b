@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Modal } from '../Modal/Modal'
-import { NotebookSliderImg, SliderDot, SliderDotsWrapper, StyledSliderButton } from './styles'
-import { RotatedArrow } from '../styled/RotatedArrow'
+import { NotebookSliderImg } from './styles'
 import { Loading } from '../Loading/Loading'
+import { SliderButton, SliderDots } from './components/NotebookSliderComponents'
 
 const IMG_IDS = [1, 2, 3, 4]
 const LAST_IMG_INDEX = IMG_IDS.length - 1
 
-export const NotebookSlider = ({ onClose, notebookSerialNum }) => {
+export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
   const image = useRef()
   const [activeItemIndex, setActiveItemIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const activeItem = IMG_IDS[activeItemIndex]
 
   useEffect(() => {
-    if (!image.current.complete) setLoading(true)
+    if (!image.current.complete) setLoading(true) // after one iteration of the event loop it checks if image load complete (loaded from cache) and if not turns on loading animation
   }, [activeItemIndex])
 
   const decrease = () => {
@@ -38,7 +38,7 @@ export const NotebookSlider = ({ onClose, notebookSerialNum }) => {
   }
 
   return (
-    <Modal title={notebookSerialNum} onClose={onClose}>
+    <Modal title={title} onClose={onClose}>
       <SliderButton positioning='left' onClick={decrease} />
       <SliderButton positioning='right' onClick={increase} />
 
@@ -53,26 +53,5 @@ export const NotebookSlider = ({ onClose, notebookSerialNum }) => {
 
       <SliderDots items={IMG_IDS} activeItem={activeItem} setActiveItemIndex={setActiveItemIndex} />
     </Modal>
-  )
-}
-
-const SliderButton = ({ positioning = 'right', onClick }) => {
-  return (
-    <StyledSliderButton positioning={positioning} onClick={onClick}>
-      <RotatedArrow height='12px' width='12px' deg={positioning === 'right' ? 90 : 270} />
-    </StyledSliderButton>
-  )
-}
-
-const SliderDots = ({ items, activeItem, setActiveItemIndex }) => {
-  return (
-    <SliderDotsWrapper>
-      {items.map((item, index) =>
-        <SliderDot
-          onClick={() => setActiveItemIndex(index)}
-          key={item}
-          isActive={item === activeItem}
-        />)}
-    </SliderDotsWrapper>
   )
 }
