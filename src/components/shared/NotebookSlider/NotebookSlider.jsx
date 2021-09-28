@@ -4,6 +4,7 @@ import { NotebookSliderImg } from './styles'
 import { Loading } from '../Loading/Loading'
 import { SliderButton, SliderDots } from './components/NotebookSliderComponents'
 import { Z_INDEX } from '../styled/css'
+import notebookFallback from '../../../assets/icons/notebook-icon.svg'
 
 const IMG_IDS = [1, 2, 3, 4]
 const LAST_IMG_INDEX = IMG_IDS.length - 1
@@ -38,6 +39,10 @@ export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
     }
   }
 
+  const handleImageError = event => {
+    event.target.src = notebookFallback
+  }
+
   return (
     <Modal title={title} onClose={onClose}>
       <SliderButton positioning='left' onClick={decrease} />
@@ -50,6 +55,7 @@ export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
         src={`media/img/${notebookSerialNum}/${activeItem}.jpg`}
         alt='notebook full size img'
         onLoad={() => setLoading(false)}
+        onError={handleImageError}
       />
 
       <SliderDots items={IMG_IDS} activeItem={activeItem} setActiveItemIndex={setActiveItemIndex} />

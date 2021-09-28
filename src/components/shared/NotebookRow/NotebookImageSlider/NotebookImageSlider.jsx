@@ -7,7 +7,6 @@ export const NotebookImageSlider = ({ notebook }) => {
   const [isError, setIsError] = useState(false)
 
   const onShowSlider = () => {
-    console.log('kek2')
     if (isError) return null
 
     setShowSlider(true)
