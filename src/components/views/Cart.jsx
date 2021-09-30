@@ -40,37 +40,38 @@ export const Cart = () => {
           <BreadCrumbs currentPage={PAGE_TITLE} />
 
           <PageTitleSection title={PAGE_TITLE} />
-          <CartWrapper>
+
+          {!storageCart.length &&
             <StyledCard>
-              <StyledTitle>
-                {storageCart.length
-                  ? <>Выбранные товары <SpacerH10 /></>
-                  : <StyledText>Вы еще ничего не выбрали. <StyledLink to='/'>Вернуться на главную</StyledLink></StyledText>}
-              </StyledTitle>
+              <StyledText>Вы еще ничего не выбрали. <StyledLink to='/'>Вернуться на главную</StyledLink></StyledText>
+            </StyledCard>}
 
-              {!!storageCart.length &&
-              storageCart.map(notebook =>
-                <CartRow key={notebook.serial_num}>
-                  <NotebookImage notebook={notebook} />
+          {!!storageCart.length &&
+            <CartWrapper>
+              <StyledCard>
+                <StyledTitle>Выбранные товары <SpacerH10 /></StyledTitle>
 
-                  <div>
-                    <StyledText>{notebook.mark_name}</StyledText>
-                    <p>{notebook.item_name}</p>
-                    <StyledText>{notebook.serial_num}</StyledText>
-                  </div>
+                {storageCart.map(notebook =>
+                  <CartRow key={notebook.serial_num}>
+                    <NotebookImage notebook={notebook} />
 
-                  <PriceText>Цена: <PriceWrapper>{notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}</PriceWrapper></PriceText>
+                    <div>
+                      <StyledText>{notebook.mark_name}</StyledText>
+                      <p>{notebook.item_name}</p>
+                      <StyledText>{notebook.serial_num}</StyledText>
+                    </div>
 
-                  <ActionsWrapper>
-                    <IconButton onClick={() => removeFromCart(notebook)}>
-                      <Trash />
-                    </IconButton>
-                  </ActionsWrapper>
-                </CartRow>
-              )}
-            </StyledCard>
+                    <PriceText>Цена: <PriceWrapper>{notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}</PriceWrapper></PriceText>
 
-            {!!storageCart.length &&
+                    <ActionsWrapper>
+                      <IconButton onClick={() => removeFromCart(notebook)}>
+                        <Trash />
+                      </IconButton>
+                    </ActionsWrapper>
+                  </CartRow>
+                )}
+              </StyledCard>
+
               <StyledCard>
                 <StyledTitle>Итого</StyledTitle>
                 <SpacerH20 />
@@ -86,8 +87,8 @@ export const Cart = () => {
                 <ActionWrapper>
                   <AppButton>Оформить заказ</AppButton>
                 </ActionWrapper>
-              </StyledCard>}
-          </CartWrapper>
+              </StyledCard>
+            </CartWrapper>}
 
         </InnerWrapPrivatePage>
       </WrapPrivatePage>
