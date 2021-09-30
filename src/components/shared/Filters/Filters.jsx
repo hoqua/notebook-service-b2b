@@ -19,8 +19,10 @@ export const VIDEO_OPTIONS = [
   }
 ]
 
-export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters }) => {
-  const { get, response: { data }, loading: loadingFilters } = useFetch('get-filters.php')
+export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters, isUnfinished }) => {
+  const API = isUnfinished ? 'get-filters-unfinished.php' : 'get-filters.php'
+
+  const { get, response: { data }, loading: loadingFilters } = useFetch(API)
   const [filters, setFilters] = useState({
     display: [],
     hdd: [],
@@ -37,7 +39,7 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters 
   useEffect(() => get(), [])
   useEffect(() => onFilterChange(filters), [filters])
 
-  const { display, hdd, lookout, mark, proc, ram } = data?.filters || {}
+  const { display, hdd, lookout, mark, proc, ram, poweron } = data?.filters || {}
 
   const onSelect = (filterName) => (selected) => setFilters({ ...filters, [filterName]: selected })
   const applyFilters = () => onFiltersSubmit()
@@ -53,15 +55,11 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters 
 
         <StyledLabeledSelect label='Экран' onChange={onSelect('display')} options={display} />
         <StyledLabeledSelect label='Внешний вид' onChange={onSelect('lookout')} options={lookout} />
-
-        {/* <StyledLabeledSelect label='Работоспособность' onChange={onSelect('mark')} options={mark} /> */}
-
+        {poweron ? <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} /> : <div />}
         <PriceRangeWrapper>
           <StyledLabeledInput label='Цена' onChange={onSelect('min_price')} width='96px' placeholder='От' />
           <StyledInput placeholder='До' onChange={e => onSelect('max_price')(e.target.value)} width='96px' />
         </PriceRangeWrapper>
-
-        <div />
 
         <ActionsWrapper>
           <StyledCheckbox

@@ -6,7 +6,7 @@ export const NotebookSliderImg = styled.img`
   height: 800px;
   width: 800px;
   transition: opacity 0.3s ease;
-  opacity: ${({ animate }) => animate ? 0.9 : 1};
+  opacity: ${({ animate }) => animate ? 0.7 : 1};
 `
 
 export const StyledSliderButton = styled(RoundButton)`

@@ -40,6 +40,7 @@ const privateRoutes = () => {
     <>
       <ProvideSession>
         <Route exact path='/showcase'><Showcase /></Route>
+        <Route exact path='/showcase-unfinished'><Showcase isUnfinished /></Route>
         <Route exact path='/shopping-cart'><Cart /></Route>
         <Route exact path='/'><Main /></Route>
       </ProvideSession>
