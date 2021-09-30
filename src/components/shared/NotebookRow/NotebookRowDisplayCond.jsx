@@ -15,7 +15,12 @@ export const NotebookRowDisplayCond = ({ displayCondition, title }) => {
     if (displayCondition === 'Под вопросом') return <Question stroke='#7547D1' fill='#7547D1' height='10px' />
     if (displayCondition === 'Плохая') return <Cross stroke={theme.status.error} height='10px' />
   }
-  return <StyledWrapper>{getIconByCondition(displayCondition)} <StyledText>{title}</StyledText></StyledWrapper>
+  return (
+    <StyledWrapper>
+      {getIconByCondition(displayCondition)}
+      <StyledText>{title}</StyledText>
+    </StyledWrapper>
+  )
 }
 
 const StyledWrapper = styled.div`
