@@ -47,6 +47,7 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters,
   return (
     <StyledCard hide={hideFilters}>
       <FiltersWrapper>
+
         <StyledLabeledSelect label='Производитель' onChange={onSelect('mark')} options={mark} />
         <StyledLabeledSelect label='Процессор' onChange={onSelect('proc')} options={proc} />
         <StyledLabeledSelect label='Дискретная видеокарта' onChange={onSelect('discrete_video')} options={VIDEO_OPTIONS} />
@@ -55,22 +56,17 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters,
 
         <StyledLabeledSelect label='Экран' onChange={onSelect('display')} options={display} />
         <StyledLabeledSelect label='Внешний вид' onChange={onSelect('lookout')} options={lookout} />
-        {poweron ? <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} /> : <div />}
+        {poweron && <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} />}
         <PriceRangeWrapper>
           <StyledLabeledInput label='Цена' onChange={onSelect('min_price')} width='96px' placeholder='От' />
           <StyledInput placeholder='До' onChange={e => onSelect('max_price')(e.target.value)} width='96px' />
         </PriceRangeWrapper>
-
+        {!poweron && <div />}
         <ActionsWrapper>
-          <StyledCheckbox
-            onChange={onSelect('new')}
-          >
+          <StyledCheckbox onChange={onSelect('new')}>
             <StyledText>Показать новинки</StyledText>
           </StyledCheckbox>
-          <AppButton
-            onClick={applyFilters}
-            disabled={loading || loadingFilters}
-          >
+          <AppButton onClick={applyFilters} disabled={loading || loadingFilters}>
             Применить
           </AppButton>
         </ActionsWrapper>

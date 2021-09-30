@@ -1,10 +1,15 @@
 import styled from 'styled-components'
 
-export const SpacerH15 = styled.div`
-  height: 15px;
+export const SpacerH5 = styled.div`
+  height: 5px;
 `
+
 export const SpacerH10 = styled.div`
   height: 10px;
+`
+
+export const SpacerH15 = styled.div`
+  height: 15px;
 `
 
 export const SpacerH20 = styled.div`

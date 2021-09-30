@@ -13,6 +13,8 @@ import { useSession } from '../../../service/SessonDataService'
 import { IconButton } from '../styled/IconButton'
 import { getDiscountPriceStyled } from '../../../utils/substractPercent'
 import { NotebookImageSlider } from './NotebookImageSlider/NotebookImageSlider'
+import { NotebookPowerOn } from './NotebookPowerOn'
+import { NotebookRowDisplayCond } from './NotebookRowDisplayCond'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -36,14 +38,18 @@ export const NotebookRow = ({ notebook, onClick }) => {
         <NotebookImageSlider notebook={notebook} />
 
         <NotebookRowItem>
-          <StyledText>Вн. вид</StyledText>
+          {notebook.poweron
+            ? <NotebookPowerOn powerOn={notebook.poweron} />
+            : <StyledText>Вн. вид</StyledText>}
           <div>
             <LookoutBadge classKey={notebook.lookout}>{notebook.lookout}</LookoutBadge>
           </div>
         </NotebookRowItem>
 
         <NotebookRowItem>
-          <StyledText>Экран</StyledText>
+          {notebook.display_cond
+            ? <NotebookRowDisplayCond displayCondition={notebook.display_cond} title='Экран' />
+            : <StyledText>Экран</StyledText>}
           <p>{notebook.display}</p>
         </NotebookRowItem>
 

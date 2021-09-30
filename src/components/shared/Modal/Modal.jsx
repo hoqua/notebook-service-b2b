@@ -5,8 +5,10 @@ import { IconButton } from '../styled/IconButton'
 import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
 import { ModalHeader, ModalWrapper } from './styles'
 import { StyledTitle } from '../styled/Typography'
+import { useTheme } from 'styled-components'
 
 export const Modal = ({ title = 'No title', children, onClose }) => {
+  const theme = useTheme()
   const modalRef = useRef(null)
 
   const handleClickOutside = event => {
@@ -31,7 +33,7 @@ export const Modal = ({ title = 'No title', children, onClose }) => {
           <StyledTitle>{title}</StyledTitle>
 
           <IconButton onClick={() => onClose?.()}>
-            <Cross height='12px' width='12px' />
+            <Cross stroke={theme.brand.dark} height='12px' />
           </IconButton>
         </ModalHeader>
 

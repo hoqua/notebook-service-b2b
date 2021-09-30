@@ -11,7 +11,8 @@ export const theme = {
     light: '#818895'
   },
   status: {
-    error: '#f0541e',
-    success: '#5FD071'
+    error: '#E1333D',
+    success: '#5FD071',
+    warning: '#FFAC30'
   }
 }

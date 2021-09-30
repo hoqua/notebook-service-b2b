@@ -26,7 +26,7 @@ export default function StyledCheckbox ({ onChange, children, error }) {
             cursor: 'pointer'
           }}
         >
-          <CheckMark fill='#fff' height='18px' />
+          <CheckMark stroke='#fff' height='11px' />
         </div>
       }
       onChange={checkState}

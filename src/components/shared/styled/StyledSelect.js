@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import Arrow from '../../../assets/icons/arrow-up.svg'
 import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
 import { darkBorder, darkColor, flexAlign, grayBorder, hoverDarkBorder, smallGap, Z_INDEX } from './css'
 
 export const StyledSelect = ({ options = [], onChange, multi = false, width }) => {
+  const theme = useTheme()
   const [selectedValues, setSelectedValues] = useState([])
   const selectRef = useRef(null)
 
@@ -35,7 +36,7 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
         {multi && selectedValues.map(selected =>
           <SelectedItem key={selected}>
             <Deselect onClick={() => removeSelected(selected)}>
-              <Cross />
+              <Cross stroke={theme.brand.dark} />
             </Deselect>
             {getLabel(selected)}
           </SelectedItem>
