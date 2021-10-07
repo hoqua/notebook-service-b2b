@@ -56,12 +56,13 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters,
 
         <StyledLabeledSelect label='Экран' onChange={onSelect('display')} options={display} />
         <StyledLabeledSelect label='Внешний вид' onChange={onSelect('lookout')} options={lookout} />
-        {poweron && <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} />}
+        {isUnfinished && <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} />}
         <PriceRangeWrapper>
           <StyledLabeledInput label='Цена' onChange={onSelect('min_price')} width='96px' placeholder='От' />
           <StyledInput placeholder='До' onChange={e => onSelect('max_price')(e.target.value)} width='96px' />
         </PriceRangeWrapper>
-        {!poweron && <div />}
+        {!isUnfinished && <div />}
+
         <ActionsWrapper>
           <StyledCheckbox onChange={onSelect('new')}>
             <StyledText>Показать новинки</StyledText>

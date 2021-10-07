@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import PrivateLayout from '../shared/layouts/PrivateLayout/PrivateLayout'
-import { InnerWrapPrivatePage, WrapPrivatePage } from '../shared/styled/WrapPrivatePage'
-import { BreadCrumbs } from '../shared/BreadCrumbs'
+import PrivateLayout from '../../shared/layouts/PrivateLayout/PrivateLayout'
+import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapPrivatePage'
+import { BreadCrumbs } from '../../shared/BreadCrumbs'
 import { useFetch } from 'use-http'
-import { useNotify } from '../../hooks/useSnakbar'
-import { NotebookRow } from '../shared/NotebookRow/NotebookRow'
-import { Loading } from '../shared/Loading/Loading'
-import { PageTitleSection } from '../shared/styled/PageTitleSection'
-import { Filters } from '../shared/Filters/Filters'
-import { SpacerH20 } from '../shared/styled/Spacers'
-import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { useNotify } from '../../../hooks/useSnakbar'
+import { NotebookRow } from '../../shared/NotebookRow/NotebookRow'
+import { Loading } from '../../shared/Loading/Loading'
+import { PageTitleSection } from '../../shared/styled/PageTitleSection'
+import { Filters } from '../../shared/Filters/Filters'
+import { SpacerH20 } from '../../shared/styled/Spacers'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
+import { EmptyResult } from './EmptyResult'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Витрина'
@@ -74,14 +75,10 @@ export const Showcase = ({ isUnfinished = false }) => {
 
           {loading && <Loading />}
 
-          {!loading && !notebooks.length && <p>No results found</p>}
+          {!loading && !notebooks.length && <EmptyResult />}
 
           {!loading && !!notebooks.length &&
-            <div style={{
-              display: 'grid',
-              gap: '10px'
-            }}
-            >
+            <div style={{ display: 'grid', gap: '10px' }}>
               {notebooks.map(notebook => <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />)}
             </div>}
 

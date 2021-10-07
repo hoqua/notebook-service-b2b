@@ -67,7 +67,6 @@ export const Cart = () => {
   const sumDiff = sum - discountTotal
 
   useEffect(() => getNotebooks(), [])
-
   useEffect(() => {
     const notebooks = data?.items
     if (!notebooks) return
@@ -86,7 +85,6 @@ export const Cart = () => {
           <PageTitleSection title={PAGE_TITLE} />
 
           {!storageCart.length && <EmptyCartPlaceholder />}
-
           {!!storageCart.length &&
             <CartWrapper>
               <StyledCard>
@@ -109,8 +107,7 @@ export const Cart = () => {
                         <Trash />
                       </IconButton>
                     </ActionsWrapper>
-                  </CartRow>
-                )}
+                  </CartRow>)}
               </StyledCard>
 
               <StyledCard>
