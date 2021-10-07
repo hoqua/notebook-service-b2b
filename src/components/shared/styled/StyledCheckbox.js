@@ -17,15 +17,7 @@ export default function StyledCheckbox ({ onChange, children, error }) {
   return (
     <Checkbox
       icon={
-        <div
-          style={{
-            display: 'flex',
-            flex: 1,
-            alignSelf: 'stretch',
-            alignItems: 'center',
-            cursor: 'pointer'
-          }}
-        >
+        <div>
           <CheckMark stroke='#fff' height='11px' />
         </div>
       }

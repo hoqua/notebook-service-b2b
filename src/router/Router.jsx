@@ -6,7 +6,7 @@ import { useAuth } from '../service/AuthService'
 import SuspenseView from '../components/views/SuspenseView'
 import { ProvideSession } from '../service/SessonDataService'
 import { Showcase } from '../components/views/Showcase'
-import { Cart } from '../components/views/Cart'
+import { Cart } from '../components/views/Cart/Cart'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 

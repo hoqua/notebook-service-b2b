@@ -5,6 +5,7 @@ import Zoom from '../../../../assets/icons/zoom.svg'
 export const NotebookImageWrapper = styled.div(
   ({ isError }) => css`
     height: 100%;
+    min-height: 82px;
     padding: 8px;
     transition: border 0.3s ease;
 
