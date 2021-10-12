@@ -1,9 +1,9 @@
 import React from 'react'
-import { SpacerH20 } from './styled/Spacers'
+import { SpacerH20 } from '../styled/Spacers'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
-import { RotatedArrow } from './styled/RotatedArrow'
-import { darkColor, flexAlign, smallGap } from './styled/css'
+import { RotatedArrow } from '../styled/RotatedArrow'
+import { darkColor, flexAlign, smallGap } from '../styled/css'
 
 export const BreadCrumbs = ({ currentPage }) => {
   return (

@@ -17,7 +17,7 @@ export default function Navigation () {
       }}
     >
       <NavItem>
-        <StyledTopNavLink exact to='/'>
+        <StyledTopNavLink exact to='/orders'>
           <Grid />
         </StyledTopNavLink>
       </NavItem>

@@ -7,7 +7,7 @@ import { HeadTile, StyledLink, StyledText } from '../../shared/styled/Typography
 import { SpacerH20, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
 import { AppButton } from '../../shared/styled/NavigationButton'
-import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './helpers'
+import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './service'
 import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
 import { LoginContentWrapper } from './styles'

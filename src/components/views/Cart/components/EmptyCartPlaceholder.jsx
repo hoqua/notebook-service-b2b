@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyledCard } from '../../shared/styled/StyledCard'
-import { StyledLink, StyledText } from '../../shared/styled/Typography'
+import { StyledCard } from '../../../shared/styled/StyledCard'
+import { StyledLink, StyledText } from '../../../shared/styled/Typography'
 
 export const EmptyCartPlaceholder = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PrivateLayout from '../../shared/layouts/PrivateLayout/PrivateLayout'
 import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapPrivatePage'
-import { BreadCrumbs } from '../../shared/BreadCrumbs'
+import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { useFetch } from 'use-http'
 import { useNotify } from '../../../hooks/useSnakbar'
 import { NotebookRow } from '../../shared/NotebookRow/NotebookRow'
@@ -10,7 +10,8 @@ import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { Filters } from '../../shared/Filters/Filters'
 import { SpacerH20 } from '../../shared/styled/Spacers'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { EmptyResult } from './EmptyResult'
+import { EmptyResult } from './components/EmptyResult'
+import { ErrorComponent } from '../../shared/ErrorComponent/ErrorComponent'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Витрина'
@@ -21,10 +22,6 @@ export const Showcase = ({ isUnfinished = false }) => {
   const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
   const [cart, addToCart] = useLocalStorage('cart', [])
-
-  useEffect(() => {
-    if (error) showError('Ошибка загрузки каталога')
-  }, [error])
 
   useEffect(() => get(), [])
 
@@ -51,6 +48,8 @@ export const Showcase = ({ isUnfinished = false }) => {
   }
 
   const notebooks = response?.data?.items || []
+
+  if (error) return <ErrorComponent />
 
   return (
     <PrivateLayout>

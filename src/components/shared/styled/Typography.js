@@ -21,3 +21,7 @@ export const StyledTitle = styled.p`
   font-weight: 500;
   line-height: 1rem;
 `
+
+export const SmallerText = styled.p`
+  font-size: .8rem;
+`

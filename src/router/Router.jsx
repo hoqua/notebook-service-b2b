@@ -7,6 +7,7 @@ import SuspenseView from '../components/views/SuspenseView'
 import { ProvideSession } from '../service/SessonDataService'
 import { Showcase } from '../components/views/Showcase/Showcase'
 import { Cart } from '../components/views/Cart/Cart'
+import { Orders } from '../components/views/Orders/Orders'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 
@@ -37,13 +38,12 @@ const publicRoutes = () => {
 
 const privateRoutes = () => {
   return (
-    <>
-      <ProvideSession>
-        <Route exact path='/showcase'><Showcase /></Route>
-        <Route exact path='/showcase-unfinished'><Showcase isUnfinished /></Route>
-        <Route exact path='/shopping-cart'><Cart /></Route>
-        <Route exact path='/'><Main /></Route>
-      </ProvideSession>
-    </>
+    <ProvideSession>
+      <Route exact path='/showcase'><Showcase /></Route>
+      <Route exact path='/showcase-unfinished'><Showcase isUnfinished /></Route>
+      <Route exact path='/shopping-cart'><Cart /></Route>
+      <Route exact path='/orders'><Orders /></Route>
+      <Route exact path='/'><Main /></Route>
+    </ProvideSession>
   )
 }
