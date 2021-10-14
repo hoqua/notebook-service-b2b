@@ -16,6 +16,9 @@ export const ManagerCard = ({ manager }) => {
           <SmallerTextBold>{manager?.mngr_name}</SmallerTextBold>
           <SpacerH10 />
 
+          <img src={'data:image/png;base64,' + manager?.mngr_photo} alt='Photo of the manager' width='100%' />
+
+          <SpacerH10 />
           {manager?.mngr_phone &&
             <>
               <TextWithIcon><Phone /> {manager.mngr_phone}</TextWithIcon>
@@ -28,7 +31,8 @@ export const ManagerCard = ({ manager }) => {
               <SpacerH10 />
             </>}
 
-          {manager?.mngr_viber && <TextWithIcon><Viber /> {manager.mngr_viber}</TextWithIcon>}
+          {manager?.mngr_viber &&
+            <TextWithIcon><Viber /> {manager.mngr_viber}</TextWithIcon>}
         </div>
       </ManagerCardWrapper>
     </StyledCard>

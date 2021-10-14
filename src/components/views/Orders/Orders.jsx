@@ -7,7 +7,7 @@ import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { ErrorComponent } from '../../shared/ErrorComponent/ErrorComponent'
 import { OrdersGrid } from './styles'
 import { ManagerCard } from './components/ManagerCard'
-import { OrderRow } from './components/OrderRow'
+import { OrderRow } from './components/OrderRow/OrderRow'
 import { Loading } from '../../shared/Loading/Loading'
 
 const PAGE_TITLE = 'Мои заказы'
