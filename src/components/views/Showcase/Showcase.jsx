@@ -5,13 +5,11 @@ import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { useFetch } from 'use-http'
 import { useNotify } from '../../../hooks/useSnakbar'
 import { NotebookRow } from './components/NotebookRow'
-import { Loading } from '../../shared/Loading/Loading'
 import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { Filters } from '../../shared/Filters/Filters'
 import { SpacerH20 } from '../../shared/styled/Spacers'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { EmptyResult } from '../../shared/EmptyResult/EmptyResult'
-import { ErrorComponent } from '../../shared/ErrorComponent/ErrorComponent'
+import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderWrapper'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Витрина'
@@ -49,8 +47,6 @@ export const Showcase = ({ isUnfinished = false }) => {
 
   const notebooks = response?.data?.items || []
 
-  if (error) return <ErrorComponent />
-
   return (
     <PrivateLayout>
       <WrapPrivatePage>
@@ -72,14 +68,17 @@ export const Showcase = ({ isUnfinished = false }) => {
           />
           <SpacerH20 />
 
-          {loading && <Loading />}
-
-          {!loading && !notebooks.length && <EmptyResult />}
-
-          {!loading && !!notebooks.length &&
+          <ErrorLoaderWrapper
+            isLoading={loading}
+            isEmpty={!notebooks.length}
+            isError={error}
+          >
             <div style={{ display: 'grid', gap: '10px' }}>
-              {notebooks.map(notebook => <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />)}
-            </div>}
+              {notebooks.map(notebook =>
+                <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />
+              )}
+            </div>
+          </ErrorLoaderWrapper>
 
         </InnerWrapPrivatePage>
       </WrapPrivatePage>

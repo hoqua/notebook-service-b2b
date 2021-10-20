@@ -8,31 +8,16 @@ import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderW
 import { StyledCard } from '../../shared/styled/StyledCard'
 import { StyledTitle } from '../../shared/styled/Typography'
 import { LotRow } from './components/LotRow'
+import { LotsGrid } from './styles'
+import { SpacerH20 } from '../../shared/styled/Spacers'
 
 export const Lots = () => {
   const PAGE_TITLE = 'Лоты'
   const API = 'get-items-lot.php '
 
   const { get, response, error, loading } = useFetch(API)
-  // const [cart, addToCart] = useLocalStorage('cart', [])
 
   useEffect(() => get(), [])
-
-  // const onPriceSortChange = (sortPrice) => {
-  //   const filtersWithPrice = { ...mergedFilters, sort_price: sortPrice }
-  //   setMergedFilters(filtersWithPrice)
-  //   getWithFilters(filtersWithPrice)
-  // }
-
-  // const addToShoppingCart = (notebook) => {
-  //   if (cart.some(n => n.serial_num === notebook.serial_num)) {
-  //     showError('Такой товар уже есть в корзине!')
-  //     return
-  //   }
-  //
-  //   addToCart([...cart, notebook])
-  //   showSuccess('Товар был добавлен в корзину!')
-  // }
 
   const lots = response?.data?.lots || []
 
@@ -50,11 +35,18 @@ export const Lots = () => {
             {
               lots.map(lot =>
                 <StyledCard key={lot.lot_name}>
+
                   <StyledTitle>
                     {lot.lot_name}
                   </StyledTitle>
+                  <SpacerH20 />
 
-                  {lot.items.map((lotItem, index) => <LotRow key={lotItem.item_name} countNum={index + 1} {...lotItem} />)}
+                  <LotsGrid>
+                    {lot.items.map((lotItem, index) =>
+                      <LotRow key={lotItem.serial_num} countNum={index + 1} {...lotItem} />
+                    )}
+                  </LotsGrid>
+
                 </StyledCard>
               )
             }

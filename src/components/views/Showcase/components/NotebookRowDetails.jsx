@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyledText } from '../../../shared/styled/Typography'
-import { NotebookRowItem } from './styles'
+import { RowItem } from '../../../shared/RowItem/RowItem'
 
 export const NotebookRowDetails = ({ notebook }) => {
   return (
@@ -10,15 +9,13 @@ export const NotebookRowDetails = ({ notebook }) => {
       <div />
       <div />
 
-      <NotebookRowItem>
-        <StyledText>Батарея</StyledText>
+      <RowItem title='Батарея'>
         <p>{notebook.battery}</p>
-      </NotebookRowItem>
+      </RowItem>
 
-      <NotebookRowItem>
-        <StyledText>Прим:</StyledText>
+      <RowItem title='Прим:'>
         <p>{notebook.note}</p>
-      </NotebookRowItem>
+      </RowItem>
     </>
   )
 }

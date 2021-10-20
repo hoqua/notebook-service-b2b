@@ -1,9 +1,9 @@
 import React from 'react'
-import { StyledOrderNumber, StyledOrderRow, StyledOrderRowItem } from '../styles'
+import { StyledOrderNumber, StyledOrderRow } from '../styles'
 import { StyledText } from '../../../../shared/styled/Typography'
-import { SpacerH5 } from '../../../../shared/styled/Spacers'
 import { ExpandButton } from '../../../../shared/ExpandButton/ExpandButton'
 import { OrderStatus } from './OrderStatus'
+import { RowItem } from '../../../../shared/RowItem/RowItem'
 
 const getOrderPrice = (orders) => orders.reduce((sum, order) => sum + order.item_price, 0)
 
@@ -11,39 +11,29 @@ export const OrderRow = ({ order }) => {
   return (
     <StyledOrderRow>
 
-      <StyledOrderRowItem>
-        <StyledText>Номер заказа</StyledText>
-        <SpacerH5 />
+      <RowItem title='Номер заказа'>
         <StyledOrderNumber>№ {order.order_id}</StyledOrderNumber>
-      </StyledOrderRowItem>
+      </RowItem>
 
-      <StyledOrderRowItem>
-        <StyledText>Статус заказа</StyledText>
-        <SpacerH5 />
+      <RowItem title='Статус заказа'>
         <OrderStatus satus={order.status} />
-      </StyledOrderRowItem>
+      </RowItem>
 
-      <StyledOrderRowItem>
-        <StyledText>Дата заказа</StyledText>
-        <SpacerH5 />
+      <RowItem title='Дата заказа'>
         <p>{order.order_date}</p>
-      </StyledOrderRowItem>
+      </RowItem>
 
-      <StyledOrderRowItem>
-        <StyledText>Кол-во</StyledText>
-        <SpacerH5 />
+      <RowItem title='Кол-во'>
         <p>{order.items.length}</p>
-      </StyledOrderRowItem>
+      </RowItem>
 
-      <StyledOrderRowItem>
+      <RowItem title='Цена'>
         <StyledText>Цена</StyledText>
-      </StyledOrderRowItem>
+      </RowItem>
 
-      <StyledOrderRowItem>
-        <StyledText>Сумма</StyledText>
-        <SpacerH5 />
+      <RowItem title='Сумма'>
         <p>{getOrderPrice(order.items)}</p>
-      </StyledOrderRowItem>
+      </RowItem>
 
       <ExpandButton />
     </StyledOrderRow>

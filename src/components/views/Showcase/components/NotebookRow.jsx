@@ -3,7 +3,6 @@ import { StyledText } from '../../../shared/styled/Typography'
 import {
   LookoutBadge,
   NewNotebookBadge,
-  NotebookRowItem,
   StyledNotebookRow,
   StyledShoppingCard
 } from './styles'
@@ -15,6 +14,7 @@ import { NotebookImageOrSlider } from './NotebookImageOrSlider/NotebookImageOrSl
 import { NotebookPowerOn } from './NotebookPowerOn'
 import { NotebookRowDisplayCond } from './NotebookRowDisplayCond'
 import { ExpandButton } from '../../../shared/ExpandButton/ExpandButton'
+import { RowItem } from '../../../shared/RowItem/RowItem'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -29,56 +29,48 @@ export const NotebookRow = ({ notebook, onClick }) => {
         <StyledShoppingCard />
       </IconButton>
 
-      <NotebookRowItem>
-        <StyledText>{notebook.mark_name}</StyledText>
+      <RowItem title={notebook.mark_name}>
         <p>{notebook.item_name}</p>
         <StyledText>{notebook.serial_num}</StyledText>
-      </NotebookRowItem>
+      </RowItem>
 
       <NotebookImageOrSlider notebook={notebook} />
 
-      <NotebookRowItem>
-        {notebook.poweron
-          ? <NotebookPowerOn powerOn={notebook.poweron} />
-          : <StyledText>Вн. вид</StyledText>}
-        <div>
-          <LookoutBadge classKey={notebook.lookout}>{notebook.lookout}</LookoutBadge>
-        </div>
-      </NotebookRowItem>
+      <RowItem
+        title={notebook.poweron ? <NotebookPowerOn powerOn={notebook.poweron} /> : 'Вн. вид'}
+      >
+        <LookoutBadge classKey={notebook.lookout}>{notebook.lookout}</LookoutBadge>
+      </RowItem>
 
-      <NotebookRowItem>
-        {notebook.display_cond
+      <RowItem
+        title={notebook.display_cond
           ? <NotebookRowDisplayCond displayCondition={notebook.display_cond} title='Экран' />
-          : <StyledText>Экран</StyledText>}
+          : 'Экран'}
+      >
         <p>{notebook.display}</p>
-      </NotebookRowItem>
+      </RowItem>
 
-      <NotebookRowItem>
-        <StyledText>Процессор</StyledText>
+      <RowItem title='Процессор'>
         <p>{notebook.proc}</p>
-      </NotebookRowItem>
+      </RowItem>
 
-      <NotebookRowItem>
-        <StyledText>Видеокарта</StyledText>
+      <RowItem title='Видеокарта'>
         <p>{notebook.video || notebook.integ_video}</p>
-      </NotebookRowItem>
+      </RowItem>
 
-      <NotebookRowItem>
-        <StyledText>Ram</StyledText>
+      <RowItem title='Ram'>
         <p>{notebook.ram}</p>
-      </NotebookRowItem>
+      </RowItem>
 
-      <NotebookRowItem>
-        <StyledText>Накопитель</StyledText>
+      <RowItem title='Накопитель'>
         <p>{notebook.hdd}</p>
-      </NotebookRowItem>
+      </RowItem>
 
-      <NotebookRowItem>
-        <StyledText>Цена (опт.)</StyledText>
+      <RowItem title='Цена (опт.)'>
         <p>
           {notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}
         </p>
-      </NotebookRowItem>
+      </RowItem>
 
       {isExpand && <NotebookRowDetails notebook={notebook} />}
 

@@ -11,10 +11,6 @@ export const StyledNotebookRow = styled(StyledCard)`
   ${mediumGap};
 `
 
-export const NotebookRowItem = styled.div`
-  height: 100%;
-`
-
 export const StyledShoppingCard = styled(ShoppingCart)`
   path {
     stroke: ${({ theme }) => theme.brand.dark};

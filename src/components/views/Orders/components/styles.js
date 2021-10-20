@@ -27,9 +27,6 @@ export const StyledOrderRow = styled(StyledCard)`
   ${mediumGap};
 `
 
-export const StyledOrderRowItem = styled.div`
-  height: 100%;
-`
 export const StyledOrderNumber = styled.p`
   color: ${({ theme }) => theme.brand.dark};
   font-size: 1rem;
