@@ -26,7 +26,7 @@ export default function Main () {
 
               <StyledSideNavLink to='/showcase'><Laptop />Витрина</StyledSideNavLink>
               <StyledSideNavLink to='/showcase-unfinished'><LaptopBroken />Не готовые</StyledSideNavLink>
-              <StyledSideNavLink to='/lot'><Shipping />Лоты ноутбуков</StyledSideNavLink>
+              <StyledSideNavLink to='/lots'><Shipping />Лоты ноутбуков</StyledSideNavLink>
 
             </SideBar>
 

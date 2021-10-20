@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledText } from '../styled/Typography'
+import { StyledText } from '../../../shared/styled/Typography'
 import { NotebookRowItem } from './styles'
 
 export const NotebookRowDetails = ({ notebook }) => {

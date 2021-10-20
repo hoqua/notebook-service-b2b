@@ -1,5 +1,5 @@
 import { SliderDot, SliderDotsWrapper, StyledSliderButton } from '../styles'
-import { RotatedArrow } from '../../styled/RotatedArrow'
+import { RotatedArrow } from '../../../../../shared/styled/RotatedArrow'
 import React from 'react'
 
 export const SliderButton = ({ positioning = 'right', onClick }) => {

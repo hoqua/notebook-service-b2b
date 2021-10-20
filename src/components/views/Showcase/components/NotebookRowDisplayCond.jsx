@@ -1,10 +1,10 @@
 import React from 'react'
-import { ReactComponent as Check } from '../../../assets/icons/check-mark.svg'
-import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
-import { ReactComponent as Question } from '../../../assets/icons/question-mark.svg'
+import { ReactComponent as Check } from '../../../../assets/icons/check-mark.svg'
+import { ReactComponent as Cross } from '../../../../assets/icons/cross.svg'
+import { ReactComponent as Question } from '../../../../assets/icons/question-mark.svg'
 import styled, { useTheme } from 'styled-components'
-import { flexAlign, smallGap } from '../styled/css'
-import { StyledText } from '../styled/Typography'
+import { flexAlign, smallGap } from '../../../shared/styled/css'
+import { StyledText } from '../../../shared/styled/Typography'
 
 export const NotebookRowDisplayCond = ({ displayCondition, title }) => {
   const theme = useTheme()

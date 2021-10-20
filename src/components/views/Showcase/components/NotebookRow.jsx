@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyledText } from '../styled/Typography'
+import { StyledText } from '../../../shared/styled/Typography'
 import {
   LookoutBadge,
   NewNotebookBadge,
@@ -8,13 +8,13 @@ import {
   StyledShoppingCard
 } from './styles'
 import { NotebookRowDetails } from './NotebookRowDetails'
-import { useSession } from '../../../service/SessonDataService'
-import { IconButton } from '../styled/IconButton'
-import { getDiscountPriceStyled } from '../../../utils/substractPercent'
-import { NotebookImageSlider } from './NotebookImageSlider/NotebookImageSlider'
+import { useSession } from '../../../../service/SessonDataService'
+import { IconButton } from '../../../shared/styled/IconButton'
+import { getDiscountPriceStyled } from '../../../../utils/substractPercent'
+import { NotebookImageOrSlider } from './NotebookImageOrSlider/NotebookImageOrSlider'
 import { NotebookPowerOn } from './NotebookPowerOn'
 import { NotebookRowDisplayCond } from './NotebookRowDisplayCond'
-import { ExpandButton } from '../ExpandButton/ExpandButton'
+import { ExpandButton } from '../../../shared/ExpandButton/ExpandButton'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -35,7 +35,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
         <StyledText>{notebook.serial_num}</StyledText>
       </NotebookRowItem>
 
-      <NotebookImageSlider notebook={notebook} />
+      <NotebookImageOrSlider notebook={notebook} />
 
       <NotebookRowItem>
         {notebook.poweron

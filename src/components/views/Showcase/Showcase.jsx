@@ -4,13 +4,13 @@ import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapP
 import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { useFetch } from 'use-http'
 import { useNotify } from '../../../hooks/useSnakbar'
-import { NotebookRow } from '../../shared/NotebookRow/NotebookRow'
+import { NotebookRow } from './components/NotebookRow'
 import { Loading } from '../../shared/Loading/Loading'
 import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { Filters } from '../../shared/Filters/Filters'
 import { SpacerH20 } from '../../shared/styled/Spacers'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { EmptyResult } from './components/EmptyResult'
+import { EmptyResult } from '../../shared/EmptyResult/EmptyResult'
 import { ErrorComponent } from '../../shared/ErrorComponent/ErrorComponent'
 
 export const Showcase = ({ isUnfinished = false }) => {

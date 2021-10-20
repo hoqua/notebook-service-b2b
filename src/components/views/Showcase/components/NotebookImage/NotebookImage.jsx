@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import notebookFallback from '../../../../assets/icons/notebook-icon.svg'
+import notebookFallback from '../../../../../assets/icons/notebook-icon.svg'
 import { NotebookImageWrapper } from './styles'
 
 export const NotebookImage = ({ notebook, onClick, onError }) => {

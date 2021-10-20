@@ -1,9 +1,9 @@
 import React from 'react'
-import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
-import { ReactComponent as Check } from '../../../assets/icons/check-mark.svg'
+import { ReactComponent as Cross } from '../../../../assets/icons/cross.svg'
+import { ReactComponent as Check } from '../../../../assets/icons/check-mark.svg'
 import styled from 'styled-components'
-import { flexAlign, smallGap } from '../styled/css'
-import { SpacerH5 } from '../styled/Spacers'
+import { flexAlign, smallGap } from '../../../shared/styled/css'
+import { SpacerH5 } from '../../../shared/styled/Spacers'
 
 export const NotebookPowerOn = ({ powerOn }) => {
   const isPowerOn = powerOn === 'Да'

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { ReactComponent as ShoppingCart } from '../../../assets/icons/shoping-cart.svg'
-import { mediumGap } from '../styled/css'
-import { theme } from '../../../styles/theme'
-import { StyledCard } from '../styled/StyledCard'
+import { ReactComponent as ShoppingCart } from '../../../../assets/icons/shoping-cart.svg'
+import { mediumGap } from '../../../shared/styled/css'
+import { theme } from '../../../../styles/theme'
+import { StyledCard } from '../../../shared/styled/StyledCard'
 
 export const StyledNotebookRow = styled(StyledCard)`
   display: grid;

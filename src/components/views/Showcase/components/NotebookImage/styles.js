@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
-import { darkColor, flexAlignJustify, grayBorder, hoverDarkBorder } from '../../styled/css'
-import Zoom from '../../../../assets/icons/zoom.svg'
+import { darkColor, flexAlignJustify, grayBorder, hoverDarkBorder } from '../../../../shared/styled/css'
+import Zoom from '../../../../../assets/icons/zoom.svg'
 
 export const NotebookImageWrapper = styled.div(
   ({ isError }) => css`

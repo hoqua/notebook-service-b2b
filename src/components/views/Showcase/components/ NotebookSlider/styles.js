@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { RoundButton } from '../styled/IconButton'
-import { CARD_PADDING, smallGap, Z_INDEX } from '../styled/css'
+import { RoundButton } from '../../../../shared/styled/IconButton'
+import { CARD_PADDING, smallGap, Z_INDEX } from '../../../../shared/styled/css'
 
 export const NotebookSliderImg = styled.img`
   height: 800px;

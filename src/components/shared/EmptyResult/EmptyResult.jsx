@@ -1,5 +1,5 @@
-import { StyledCard } from '../../../shared/styled/StyledCard'
-import { StyledText } from '../../../shared/styled/Typography'
+import { StyledCard } from '../styled/StyledCard'
+import { StyledText } from '../styled/Typography'
 import React from 'react'
 
 export const EmptyResult = () => {

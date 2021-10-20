@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Modal } from '../Modal/Modal'
+import { Modal } from '../../../../shared/Modal/Modal'
 import { NotebookSliderImg } from './styles'
-import { Loading } from '../Loading/Loading'
+import { Loading } from '../../../../shared/Loading/Loading'
 import { SliderButton, SliderDots } from './components/NotebookSliderComponents'
-import { Z_INDEX } from '../styled/css'
-import notebookFallback from '../../../assets/icons/notebook-icon.svg'
+import { Z_INDEX } from '../../../../shared/styled/css'
+import notebookFallback from '../../../../../assets/icons/notebook-icon.svg'
 
 const IMG_IDS = [1, 2, 3, 4]
 const LAST_IMG_INDEX = IMG_IDS.length - 1
