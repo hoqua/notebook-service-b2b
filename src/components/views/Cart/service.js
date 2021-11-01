@@ -1,12 +1,17 @@
 import { getDiscountPrice } from '../../../utils/substractPercent'
 
 export const getNotebookPriceSum = (notebooks) => notebooks.reduce((acc, notebook) => acc + notebook.item_price, 0)
-export const getNotebooksIds = (notebooks) => notebooks.map(notebook => notebook.serial_num)
 
-export const getQuery = (storageCart) => {
-  const addedToCardIds = getNotebooksIds(storageCart)
+export const getQuery = (notebooks) => {
+  const addedToCardIds = notebooks.map(notebook => notebook.serial_num)
 
   return '?' + new URLSearchParams({ serial_num: addedToCardIds })
+}
+
+export const getLotsQuery = (lotsStorageCart) => {
+  const addedToCartLotNames = lotsStorageCart.map(lot => lot.lot_name)
+
+  return '?' + new URLSearchParams({ lot_name: addedToCartLotNames })
 }
 
 export const getRemainingNotebooks = (cart, notebookToRemove) => {
@@ -20,6 +25,8 @@ export const getRemainingNotebooks = (cart, notebookToRemove) => {
 }
 
 export const getSumCounts = (storageCart, user) => {
+  if (!storageCart?.length) return {}
+
   const currentSum = getNotebookPriceSum(storageCart)
   const discountTotal = getDiscountPrice(user, currentSum)
   const sumDiff = currentSum - discountTotal

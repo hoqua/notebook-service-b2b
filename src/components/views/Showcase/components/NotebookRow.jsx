@@ -3,18 +3,17 @@ import { StyledText } from '../../../shared/styled/Typography'
 import {
   LookoutBadge,
   NewNotebookBadge,
-  StyledNotebookRow,
-  StyledShoppingCard
+  StyledNotebookRow
 } from './styles'
 import { NotebookRowDetails } from './NotebookRowDetails'
 import { useSession } from '../../../../service/SessonDataService'
-import { IconButton } from '../../../shared/styled/IconButton'
 import { getDiscountPriceStyled } from '../../../../utils/substractPercent'
 import { NotebookImageOrSlider } from './NotebookImageOrSlider/NotebookImageOrSlider'
 import { NotebookPowerOn } from './NotebookPowerOn'
 import { NotebookRowDisplayCond } from './NotebookRowDisplayCond'
 import { ExpandButton } from '../../../shared/ExpandButton/ExpandButton'
 import { RowItem } from '../../../shared/RowItem/RowItem'
+import { ShoppingCartButton } from '../../../shared/ShoppingCartButton/ShoppingCartButton'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -25,9 +24,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
 
       {!!notebook.is_new && <NewNotebookBadge>Новинка</NewNotebookBadge>}
 
-      <IconButton onClick={() => onClick(notebook)}>
-        <StyledShoppingCard />
-      </IconButton>
+      <ShoppingCartButton onClick={() => onClick(notebook)} />
 
       <RowItem title={notebook.mark_name}>
         <p>{notebook.item_name}</p>

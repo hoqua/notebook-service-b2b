@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { ReactComponent as ShoppingCart } from '../../../../assets/icons/shoping-cart.svg'
 import { mediumGap } from '../../../shared/styled/css'
 import { theme } from '../../../../styles/theme'
 import { StyledCard } from '../../../shared/styled/StyledCard'
@@ -9,12 +8,6 @@ export const StyledNotebookRow = styled(StyledCard)`
   grid-template-columns: .05fr .15fr .1fr .08fr .07fr .23fr .1fr .05fr .1fr .07fr;
   align-items: center;
   ${mediumGap};
-`
-
-export const StyledShoppingCard = styled(ShoppingCart)`
-  path {
-    stroke: ${({ theme }) => theme.brand.dark};
-  }
 `
 
 export const NewNotebookBadge = styled.div`

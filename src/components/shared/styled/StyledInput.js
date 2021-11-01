@@ -8,7 +8,6 @@ export const StyledInput = styled.input`
   height: 38px;
   box-sizing: border-box;
   ${grayBorder};
-  transition: border 0.3s ease;
   padding: 0 12px 0 12px;
 
   &:focus {

@@ -8,15 +8,18 @@ export const Z_INDEX = {
 }
 
 export const CARD_PADDING = '25px'
+export const NOTEBOOK_IMG_HEIGHT = '85px'
 
 export const darkBorder = css`
   border: 1px solid ${({ theme }) => theme.brand.dark};
   border-radius: 4px;
+  transition: border 0.3s ease;
 `
 
 export const grayBorder = css`
   border: 1px solid ${({ theme }) => theme.brand.gray};
   border-radius: 4px;
+  transition: border 0.3s ease;
 `
 
 export const darkColor = css`

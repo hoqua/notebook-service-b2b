@@ -14,11 +14,11 @@ export const CartRow = styled.div`
   align-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-top: 1px solid ${({ theme }) => theme.brand.gray};
+  border-bottom: 1px solid ${({ theme }) => theme.brand.gray};
 
   ${largeGap}
-  &:first-of-type {
-    border-top: none;
+  &:last-of-type {
+    border-bottom: none;
   }
 `
 

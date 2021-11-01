@@ -1,67 +1,65 @@
 import React, { useEffect } from 'react'
 import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapPrivatePage'
 import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
-import { ActionsWrapper, PageTitleSection } from '../../shared/styled/PageTitleSection'
+import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import PrivateLayout from '../../shared/layouts/PrivateLayout/PrivateLayout'
-import { StyledCard } from '../../shared/styled/StyledCard'
-import { StyledText, StyledTitle } from '../../shared/styled/Typography'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { ReactComponent as Trash } from '../../../assets/icons/trash.svg'
-import { AppButton } from '../../shared/styled/NavigationButton'
-import { SpacerH10, SpacerH20, SpacerH30 } from '../../shared/styled/Spacers'
-import { IconButton } from '../../shared/styled/IconButton'
-import { getDiscountPriceStyled } from '../../../utils/substractPercent'
-import { useSession } from '../../../service/SessonDataService'
-import { NotebookImage } from '../Showcase/components/NotebookImage/NotebookImage'
-import { useFetch } from 'use-http'
-import { useNotify } from '../../../hooks/useSnakbar'
-import { ActionWrapper, CartRow, CartWrapper, PriceText, PriceWrapper } from './styles'
 import { EmptyCartPlaceholder } from './components/EmptyCartPlaceholder'
-import { getNotebookPriceSum, getQuery, getRemainingNotebooks, getSumCounts } from './service'
+import { NotebooksCart } from './components/NotebooksCart'
+import { StyledCard } from '../../shared/styled/StyledCard'
+import { StyledTitle } from '../../shared/styled/Typography'
+import { SpacerH10, SpacerH20, SpacerH30 } from '../../shared/styled/Spacers'
+import { ActionWrapper, CartWrapper, PriceText, PriceWrapper } from './styles'
+import { AppButton } from '../../shared/styled/NavigationButton'
+import { useFetch } from 'use-http'
+import { getLotsQuery, getNotebookPriceSum, getQuery, getRemainingNotebooks, getSumCounts } from './service'
+import { useSession } from '../../../service/SessonDataService'
+import { useNotify } from '../../../hooks/useSnakbar'
+import { LotsCart } from './components/LotsCart'
 
 const PAGE_TITLE = 'Корзина'
 
 export const Cart = () => {
   const { user } = useSession()
+  const [lotsCart] = useLocalStorage('lotsCart', [])
   const { showError, showSuccess } = useNotify()
-  const [storageCart, setStorageCart] = useLocalStorage('cart', [])
-  const { get: getNotebooksById, data, loading } = useFetch('get-items-by-serial.php')
+  const [notebookCart, setNotebookCart] = useLocalStorage('notebookCart', [])
+  const { get: getNotebooksById, data: notebooksData, loading } = useFetch('get-items-by-serial.php')
+  const { get: getLotsByName, data: lotsData } = useFetch('get-items-lot.php')
   const { post: postOrder, loading: loadingOrder } = useFetch('do-order-by-serial.php')
 
-  const removeFromCart = (notebookToRemove) => setStorageCart(getRemainingNotebooks(storageCart, notebookToRemove))
+  useEffect(() => getNotebooks(), [])
+  useEffect(() => getLots(), [])
 
   const getNotebooks = async () => {
-    if (!storageCart.length) return null
-    return getNotebooksById(getQuery(storageCart))
+    if (!notebookCart.length) return null
+    return getNotebooksById(getQuery(notebookCart))
   }
-
+  const getLots = async () => {
+    if (!lotsCart.length) return null
+    return getLotsByName(getLotsQuery(lotsCart))
+  }
   const placeOrder = async () => {
     try {
       const { items: notebooks } = await getNotebooks() || {}
       if (!notebooks?.length) return
-      if (storageCart.length < notebooks.length || currentSum !== getNotebookPriceSum(notebooks)) { // if price or number of items changed => update && notify
-        setStorageCart(notebooks)
+      if (notebookCart.length < notebooks.length || currentSum !== getNotebookPriceSum(notebooks)) { // if price or number of items changed => update && notify
+        setNotebookCart(notebooks)
         return
       }
 
       await postOrder(getQuery(notebooks))
-      setStorageCart([])
+      setNotebookCart([])
       showSuccess('Заказ отправлен менеджеру. Спасибо!')
     } catch (e) {
       showError('Возникла ошибка заказа. Попробуйте позже!')
     }
   }
-  const { currentSum, discountTotal, sumDiff } = getSumCounts(storageCart, user)
 
-  useEffect(() => getNotebooks(), [])
-  useEffect(() => {
-    const notebooks = data?.items
-    if (!notebooks) return
-    if (currentSum !== getNotebookPriceSum(notebooks)) showError('Цена товаров была изменена.')
-    if (storageCart.length > notebooks.length) showError('Некоторые ноутбуки больше не доступны и были удалены из корзины.')
-
-    setStorageCart(data.items)
-  }, [data])
+  const { currentSum, discountTotal, sumDiff } = getSumCounts(notebookCart, user)
+  const areCartsEmpty = !notebookCart.length && !lotsCart.length
+  const fetchedNotebooks = notebooksData?.items
+  const fetchedLots = lotsData?.lots
 
   return (
     <PrivateLayout>
@@ -69,54 +67,47 @@ export const Cart = () => {
         <InnerWrapPrivatePage>
           <BreadCrumbs currentPage={PAGE_TITLE} />
 
-          <PageTitleSection title={PAGE_TITLE} />
+          <PageTitleSection title='Корзина' />
 
-          {!storageCart.length && <EmptyCartPlaceholder />}
-          {!!storageCart.length &&
-            <CartWrapper>
-              <StyledCard>
-                <StyledTitle>Выбранные товары </StyledTitle>
-                <SpacerH10 />
-
+          {areCartsEmpty
+            ? <EmptyCartPlaceholder />
+            : (
+              <CartWrapper>
                 <div>
-                  {storageCart.map(notebook =>
-                    <CartRow key={notebook.serial_num}>
-                      <NotebookImage notebook={notebook} />
+                  <NotebooksCart
+                    notebookCart={notebookCart}
+                    fetchedNotebooks={fetchedNotebooks}
+                    updateNotebooksCart={() => setNotebookCart(fetchedNotebooks)}
+                    removeNotebook={notebookToRemove => setNotebookCart(getRemainingNotebooks(notebookCart, notebookToRemove))}
+                  />
+                  <SpacerH20 />
 
-                      <div>
-                        <StyledText>{notebook.mark_name}</StyledText>
-                        <p>{notebook.item_name}</p>
-                        <StyledText>{notebook.serial_num}</StyledText>
-                      </div>
-
-                      <PriceText>Цена: <PriceWrapper>{notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}</PriceWrapper></PriceText>
-
-                      <ActionsWrapper>
-                        <IconButton onClick={() => removeFromCart(notebook)}>
-                          <Trash />
-                        </IconButton>
-                      </ActionsWrapper>
-                    </CartRow>)}
+                  <LotsCart
+                    lotsCart={lotsCart}
+                    fetchedLots={fetchedLots}
+                    removeLot={() => {}}
+                  />
                 </div>
-              </StyledCard>
 
-              <StyledCard>
-                <StyledTitle>Итого</StyledTitle>
-                <SpacerH20 />
+                <StyledCard>
+                  <StyledTitle>Итого</StyledTitle>
+                  <SpacerH20 />
 
-                <PriceText>Товаров - {storageCart.length}, на сумму: <PriceWrapper>{currentSum}</PriceWrapper></PriceText>
-                <SpacerH10 />
+                  <PriceText>Товаров - {notebookCart.length}, на сумму: <PriceWrapper>{currentSum}</PriceWrapper></PriceText>
+                  <SpacerH10 />
 
-                <PriceText>Скидка: <PriceWrapper>{sumDiff} ({user.ppg_perc}%)</PriceWrapper></PriceText>
-                <SpacerH10 />
+                  <PriceText>Скидка: <PriceWrapper>{sumDiff} ({user.ppg_perc}%)</PriceWrapper></PriceText>
+                  <SpacerH10 />
 
-                <PriceText>Итог: <PriceWrapper>{discountTotal}</PriceWrapper></PriceText>
-                <SpacerH30 />
-                <ActionWrapper>
-                  <AppButton onClick={placeOrder} disabled={loading || loadingOrder}>Оформить заказ</AppButton>
-                </ActionWrapper>
-              </StyledCard>
-            </CartWrapper>}
+                  <PriceText>Итог: <PriceWrapper>{discountTotal}</PriceWrapper></PriceText>
+                  <SpacerH30 />
+                  <ActionWrapper>
+                    <AppButton onClick={placeOrder} disabled={loading || loadingOrder}>Оформить заказ</AppButton>
+                  </ActionWrapper>
+                </StyledCard>
+
+              </CartWrapper>
+              )}
 
         </InnerWrapPrivatePage>
       </WrapPrivatePage>

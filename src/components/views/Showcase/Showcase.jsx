@@ -19,7 +19,7 @@ export const Showcase = ({ isUnfinished = false }) => {
   const { get, response, error, loading } = useFetch(API)
   const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
-  const [cart, addToCart] = useLocalStorage('cart', [])
+  const [cart, addToCart] = useLocalStorage('notebookCart', [])
 
   useEffect(() => get(), [])
 

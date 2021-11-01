@@ -1,13 +1,19 @@
 import styled, { css } from 'styled-components'
-import { darkColor, flexAlignJustify, grayBorder, hoverDarkBorder } from '../../../../shared/styled/css'
+import {
+  darkColor,
+  flexAlignJustify,
+  grayBorder,
+  hoverDarkBorder,
+  NOTEBOOK_IMG_HEIGHT
+} from '../../../../shared/styled/css'
 import Zoom from '../../../../../assets/icons/zoom.svg'
 
+const PADDING = '5px'
 export const NotebookImageWrapper = styled.div(
   ({ isError }) => css`
-    height: 100%;
-    min-height: 82px;
-    padding: 8px;
-    transition: border 0.3s ease;
+    height: calc(${NOTEBOOK_IMG_HEIGHT} + ${PADDING});
+    width: calc(${NOTEBOOK_IMG_HEIGHT} + ${PADDING});
+    padding: ${PADDING};
 
     ${flexAlignJustify};
     ${grayBorder};
@@ -15,6 +21,16 @@ export const NotebookImageWrapper = styled.div(
     ${!isError && css`
       cursor: pointer;
       ${hoverDarkBorder};
+      
+      img {
+        height: 100%;
+        transition: opacity 0.3s ease;
+      }
+      &:hover {
+        img {
+          opacity: .3;
+        }
+      }
       
       &:hover{
         &:before {
@@ -28,14 +44,6 @@ export const NotebookImageWrapper = styled.div(
           background-repeat: no-repeat;
         }
       }
-      
-      img {
-        transition: opacity 0.3s ease;
-        &:hover {
-          opacity: .1;
-        }
-      }
-
       &:after{ // hack for preloading hover icon
         content: '';
         background-image: url(${Zoom});

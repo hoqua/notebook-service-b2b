@@ -3,9 +3,9 @@ import { flexAlignJustify, grayBorder } from './css'
 
 export const IconButton = styled.button`
   ${flexAlignJustify};
-  background: none;
+  background-color: #FFFFFF;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
   padding: 8px;
   ${grayBorder}
 

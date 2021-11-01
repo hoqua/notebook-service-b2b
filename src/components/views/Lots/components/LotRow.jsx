@@ -1,10 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
-import { mediumGap } from '../../../shared/styled/css'
 import { RowItem } from '../../../shared/RowItem/RowItem'
 import { NotebookPowerOn } from '../../Showcase/components/NotebookPowerOn'
 import { NotebookRowDisplayCond } from '../../Showcase/components/NotebookRowDisplayCond'
-import { DisplayCondWrapper } from './styles'
+import { DisplayCondWrapper, StyledLotRow } from './styles'
 
 export const LotRow = (props) => {
   const first = props.countNum === 1
@@ -50,15 +48,3 @@ export const LotRow = (props) => {
     </StyledLotRow>
   )
 }
-
-export const StyledLotRow = styled.div`
-  display: grid;
-  grid-template-columns: .1fr .2fr .1fr .1fr .2fr .1fr .1fr .1fr;
-  align-items: center;
-  ${mediumGap};
-  border-top:  1px solid ${({ theme }) => theme.brand.gray};
-  
-  &:first-of-type {
-    border-top:  none;
-  }
-`
