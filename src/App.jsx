@@ -13,7 +13,7 @@ function App () {
   return (
     <SnackbarProvider>
       <ProvideAuth auth={auth}>
-        <HttpProvider url={auth.API} options={auth.options}>
+        <HttpProvider url={auth.API_ROOT} options={auth.options}>
           <ThemeProvider theme={theme}>
             <GlobalStyleReset />
 

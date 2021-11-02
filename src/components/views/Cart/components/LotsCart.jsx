@@ -17,7 +17,7 @@ export const LotsCart = ({ fetchedLots, lotsCart, removeLot }) => {
       <StyledTitle>Лоты</StyledTitle>
       <SpacerH10 />
       {lotsCart.map(lot =>
-        <CartRow key={lot.serial_num}>
+        <CartRow key={lot.lot_name}>
 
           <p>{lot.lot_name}</p>
 

@@ -10,16 +10,17 @@ import { Filters } from '../../shared/Filters/Filters'
 import { SpacerH20 } from '../../shared/styled/Spacers'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderWrapper'
+import { API_NOTEBOOKS, API_NOTEBOOKS_UNFINISHED, NOTEBOOKS_CART_KEY } from '../../../constants/constants'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Витрина'
-  const API = isUnfinished ? 'get-items-unfinished.php' : 'get-items-main.php'
+  const API = isUnfinished ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
 
   const { showError, showSuccess } = useNotify()
   const { get, response, error, loading } = useFetch(API)
   const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
-  const [cart, addToCart] = useLocalStorage('notebookCart', [])
+  const [cart, addToCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
 
   useEffect(() => get(), [])
 

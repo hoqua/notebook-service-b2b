@@ -6,6 +6,7 @@ import { HeadTile } from '../shared/styled/Typography'
 import { SpacerH40 } from '../shared/styled/Spacers'
 import { NavigationButton } from '../shared/styled/NavigationButton'
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../constants/constants'
 
 export default function Home () {
   return (
@@ -22,8 +23,8 @@ export default function Home () {
           <SpacerH40 />
 
           <ActionButtonsContainer>
-            <NavigationButton to='/registration'>Регистрация</NavigationButton>
-            <NavigationButton to='/login'>Вход</NavigationButton>
+            <NavigationButton to={REGISTRATION_ROUTE}>Регистрация</NavigationButton>
+            <NavigationButton to={LOGIN_ROUTE}>Вход</NavigationButton>
           </ActionButtonsContainer>
         </HomeContainer>
 

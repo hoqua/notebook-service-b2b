@@ -14,14 +14,14 @@ import { ShoppingCartButton } from '../../shared/ShoppingCartButton/ShoppingCart
 import { StyledHeaderTitle } from '../../shared/layouts/PrivateLayout/styles'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { useNotify } from '../../../hooks/useSnakbar'
+import { API_LOTS, LOTS_CART_KEY } from '../../../constants/constants'
 
 const PAGE_TITLE = 'Лоты'
-const LOTS_API = 'get-items-lot.php '
 
 export const Lots = () => {
-  const [lotsCart, addToLotsCart] = useLocalStorage('lotsCart', [])
+  const [lotsCart, addToLotsCart] = useLocalStorage(LOTS_CART_KEY, [])
   const { showError, showSuccess } = useNotify()
-  const { get, response, error, loading } = useFetch(LOTS_API)
+  const { get, response, error, loading } = useFetch(API_LOTS)
 
   const addToShoppingCart = (lot) => {
     if (lotsCart.some(lotInCart => lotInCart.lot_name === lot.lot_name)) {

@@ -39,6 +39,7 @@ export const PageTitleSection = ({ title, onFilterClick, onPriceSortChange, acti
 
 export const ActionsWrapper = styled.div`
   ${flexAlign};
+  justify-content: flex-end;
   ${mediumGap};
 `
 

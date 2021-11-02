@@ -1,41 +1,77 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyledOrderNumber, StyledOrderRow } from '../styles'
-import { StyledText } from '../../../../shared/styled/Typography'
 import { ExpandButton } from '../../../../shared/ExpandButton/ExpandButton'
 import { OrderStatus } from './OrderStatus'
 import { RowItem } from '../../../../shared/RowItem/RowItem'
+import { StyledCard } from '../../../../shared/styled/StyledCard'
+import { SpacerH10 } from '../../../../shared/styled/Spacers'
 
 const getOrderPrice = (orders) => orders.reduce((sum, order) => sum + order.item_price, 0)
 
 export const OrderRow = ({ order }) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
-    <StyledOrderRow>
+    <>
+      <StyledCard>
+        <StyledOrderRow>
 
-      <RowItem title='Номер заказа'>
-        <StyledOrderNumber>№ {order.order_id}</StyledOrderNumber>
-      </RowItem>
+          <RowItem title='Номер заказа'>
+            <StyledOrderNumber>№ {order.order_id}</StyledOrderNumber>
+          </RowItem>
 
-      <RowItem title='Статус заказа'>
-        <OrderStatus satus={order.status} />
-      </RowItem>
+          <RowItem title='Статус заказа'>
+            <OrderStatus satus={order.status} />
+          </RowItem>
 
-      <RowItem title='Дата заказа'>
-        <p>{order.order_date}</p>
-      </RowItem>
+          <RowItem title='Дата заказа'>
+            <p>{order.order_date}</p>
+          </RowItem>
 
-      <RowItem title='Кол-во'>
-        <p>{order.items.length}</p>
-      </RowItem>
+          <RowItem title='Кол-во'>
+            <p>{order.items.length}</p>
+          </RowItem>
 
-      <RowItem title='Цена'>
-        <StyledText>Цена</StyledText>
-      </RowItem>
+          <RowItem title='Цена' />
 
-      <RowItem title='Сумма'>
-        <p>{getOrderPrice(order.items)}</p>
-      </RowItem>
+          <RowItem title='Сумма'>
+            <p>{getOrderPrice(order.items)}</p>
+          </RowItem>
+        </StyledOrderRow>
 
-      <ExpandButton />
-    </StyledOrderRow>
+        {isExpanded && <SpacerH10 />}
+        {isExpanded && order.items.map((item, index) => (
+          <StyledOrderRow key={item.serial_num}>
+            <div />
+
+            <RowItem title={!index && 'Артикул'}>
+              <p> {item.serial_num}</p>
+            </RowItem>
+
+            <RowItem title={!index && 'Наименование'}>
+              <p>{item.item_name}</p>
+            </RowItem>
+
+            <RowItem>
+              <p>{item.num}</p>
+            </RowItem>
+
+            <RowItem>
+              <p>{item.item_price}</p>
+            </RowItem>
+
+            <RowItem>
+              <p>{item.item_sum}</p>
+            </RowItem>
+
+          </StyledOrderRow>
+        ))}
+
+        <ExpandButton isExpand={isExpanded} onClick={() => setIsExpanded(!isExpanded)} />
+      </StyledCard>
+
+      <SpacerH10 />
+    </>
+
   )
 }

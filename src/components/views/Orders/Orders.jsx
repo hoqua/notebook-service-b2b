@@ -8,12 +8,13 @@ import { OrdersGrid } from './styles'
 import { ManagerCard } from './components/ManagerCard'
 import { OrderRow } from './components/OrderRow/OrderRow'
 import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderWrapper'
+import { API_MANAGER, API_ORDERS } from '../../../constants/constants'
 
 const PAGE_TITLE = 'Мои заказы'
 
 export const Orders = () => {
-  const { get: getOrders, error, data, loading } = useFetch('get-orders.php')
-  const { get: getManager, error: errorManager, data: manager, loadingManager } = useFetch('get-mngr-info.php')
+  const { get: getOrders, error, data, loading } = useFetch(API_ORDERS)
+  const { get: getManager, error: errorManager, data: manager, loadingManager } = useFetch(API_MANAGER)
 
   useEffect(() => {
     getManager()

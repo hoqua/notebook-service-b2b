@@ -7,8 +7,8 @@ export const Z_INDEX = {
   modalLoading: 1000
 }
 
-export const CARD_PADDING = '25px'
-export const NOTEBOOK_IMG_HEIGHT = '85px'
+export const CARD_PADDING = '20px'
+export const NOTEBOOK_IMG_HEIGHT = '70px'
 
 export const darkBorder = css`
   border: 1px solid ${({ theme }) => theme.brand.dark};

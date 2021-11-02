@@ -9,7 +9,7 @@ export const CartWrapper = styled.div`
 
 export const CartRow = styled.div`
   display: grid;
-  grid-template-columns: .2fr .4fr .3fr .3fr;
+  grid-template-columns: .2fr .4fr .2fr .2fr;
   align-items: center;
   align-content: center;
   padding-top: 10px;

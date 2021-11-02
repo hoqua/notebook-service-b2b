@@ -2,7 +2,6 @@ import { RotatedArrow } from '../styled/RotatedArrow'
 import React from 'react'
 import styled from 'styled-components'
 import { IconButton } from '../styled/IconButton'
-import { CARD_PADDING } from '../styled/css'
 
 export const ExpandButton = ({ isExpand, onClick }) => {
   return (
@@ -14,8 +13,8 @@ export const ExpandButton = ({ isExpand, onClick }) => {
 
 export const StyledExpandButton = styled(IconButton)`
   position: absolute;
-  right: ${CARD_PADDING};
-  bottom: ${CARD_PADDING};
+  right: 10px;
+  bottom: 10px;
   height: 20px;
   width: 20px;
   padding: 0;

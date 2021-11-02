@@ -9,6 +9,13 @@ import { Showcase } from '../components/views/Showcase/Showcase'
 import { Cart } from '../components/views/Cart/Cart'
 import { Orders } from '../components/views/Orders/Orders'
 import { Lots } from '../components/views/Lots/Lots'
+import {
+  LOTS_ROUTE, ORDERS_ROUTE,
+  REGISTRATION_ROUTE,
+  ROOT_ROUTE, SHOPPING_CART_ROUTE,
+  SHOWCASE_ROUTE,
+  SHOWCASE_UNFINISHED_ROUTE
+} from '../constants/constants'
 
 const Registration = lazy(() => import('../components/views/Registration/Registration'))
 
@@ -31,10 +38,10 @@ export default function Router () {
 const publicRoutes = () => {
   return (
     <>
-      <Route exact path='/'><Login /></Route>
-      <Route exact path='/registration'><Registration /></Route>
+      <Route exact path={ROOT_ROUTE}><Login /></Route>
+      <Route exact path={REGISTRATION_ROUTE}><Registration /></Route>
 
-      <Redirect to='/' />
+      <Redirect to={ROOT_ROUTE} />
     </>
   )
 }
@@ -42,14 +49,14 @@ const publicRoutes = () => {
 const privateRoutes = () => {
   return (
     <ProvideSession>
-      <Route exact path='/showcase'><Showcase /></Route>
-      <Route exact path='/showcase-unfinished'><Showcase isUnfinished /></Route>
-      <Route exact path='/lots'><Lots /></Route>
+      <Route exact path={SHOWCASE_ROUTE}><Showcase /></Route>
+      <Route exact path={SHOWCASE_UNFINISHED_ROUTE}><Showcase isUnfinished /></Route>
+      <Route exact path={LOTS_ROUTE}><Lots /></Route>
 
-      <Route exact path='/shopping-cart'><Cart /></Route>
-      <Route exact path='/orders'><Orders /></Route>
+      <Route exact path={SHOPPING_CART_ROUTE}><Cart /></Route>
+      <Route exact path={ORDERS_ROUTE}><Orders /></Route>
 
-      <Route exact path='/'><Main /></Route>
+      <Route exact path={ROOT_ROUTE}><Main /></Route>
     </ProvideSession>
   )
 }

@@ -5,9 +5,14 @@ import { ReactComponent as Grid } from '../../../../assets/icons/grid.svg'
 import { StyledTopNavLink } from '../../styled/StyledNavLink'
 import { flexAlignJustify } from '../../styled/css'
 import { useLocalStorage } from '../../../../hooks/useLocalStorage'
+import { LOTS_CART_KEY, NOTEBOOKS_CART_KEY, ORDERS_ROUTE, SHOPPING_CART_ROUTE } from '../../../../constants/constants'
 
 export default function Navigation () {
-  const [storageCart] = useLocalStorage('cart', [])
+  const [notebooksCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
+  const [lostCart] = useLocalStorage(LOTS_CART_KEY, [])
+
+  const numberItemsInCart = (notebooksCart?.length || 0) + (lostCart?.length || 0)
+  const isSomethingInCart = numberItemsInCart > 0
 
   return (
     <div
@@ -17,15 +22,15 @@ export default function Navigation () {
       }}
     >
       <NavItem>
-        <StyledTopNavLink exact to='/orders'>
+        <StyledTopNavLink exact to={ORDERS_ROUTE}>
           <Grid />
         </StyledTopNavLink>
       </NavItem>
 
       <NavItem>
-        <StyledTopNavLink exact to='/shopping-cart'>
+        <StyledTopNavLink exact to={SHOPPING_CART_ROUTE}>
           <div style={{ position: 'relative' }}>
-            {!!storageCart.length && <Badge>{storageCart.length}</Badge>}
+            {isSomethingInCart && <Badge>{numberItemsInCart}</Badge>}
             <ShoppingCart />
           </div>
         </StyledTopNavLink>

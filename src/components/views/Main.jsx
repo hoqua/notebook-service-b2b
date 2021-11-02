@@ -10,6 +10,7 @@ import { ReactComponent as Laptop } from '../../assets/icons/laptop.svg'
 import { ReactComponent as LaptopBroken } from '../../assets/icons/laptop-broken.svg'
 import { ReactComponent as Shipping } from '../../assets/icons/shipping.svg'
 import { largeGap } from '../shared/styled/css'
+import { LOTS_ROUTE, SHOWCASE_ROUTE, SHOWCASE_UNFINISHED_ROUTE } from '../../constants/constants'
 
 export default function Main () {
   return (
@@ -24,9 +25,9 @@ export default function Main () {
               <StyledTitle>Каталог</StyledTitle>
               <SpacerH25 />
 
-              <StyledSideNavLink to='/showcase'><Laptop />Витрина</StyledSideNavLink>
-              <StyledSideNavLink to='/showcase-unfinished'><LaptopBroken />Не готовые</StyledSideNavLink>
-              <StyledSideNavLink to='/lots'><Shipping />Лоты ноутбуков</StyledSideNavLink>
+              <StyledSideNavLink to={SHOWCASE_ROUTE}><Laptop />Витрина</StyledSideNavLink>
+              <StyledSideNavLink to={SHOWCASE_UNFINISHED_ROUTE}><LaptopBroken />Не готовые</StyledSideNavLink>
+              <StyledSideNavLink to={LOTS_ROUTE}><Shipping />Лоты ноутбуков</StyledSideNavLink>
 
             </SideBar>
 

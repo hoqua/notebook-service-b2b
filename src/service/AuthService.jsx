@@ -3,13 +3,12 @@ import { useFetch } from 'use-http'
 import { formatDate } from '../utils/date'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { isExpired } from '../utils/validators'
-
-const API = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : `https://${window.location.host}/api`
+import { API_LOGIN, API_ROOT, AUTH_TOKEN_KEY, TOKEN_EXP_TIME_KEY } from '../constants/constants'
 
 export function useAuthProvidable () {
-  const [token, setToken] = useLocalStorage('token')
-  const [tokenExpTime, setTokenExpTime] = useLocalStorage('tokenExpTime')
-  const { get: authGet, response: authRes, error: authError, loading: authLoading } = useFetch(API + '/login.php', { cachePolicy: 'no-cache' }) // api prefix necessary here because options not provided
+  const [token, setToken] = useLocalStorage(AUTH_TOKEN_KEY)
+  const [tokenExpTime, setTokenExpTime] = useLocalStorage(TOKEN_EXP_TIME_KEY)
+  const { get: authGet, response: authRes, error: authError, loading: authLoading } = useFetch(API_ROOT + '/' + API_LOGIN, { cachePolicy: 'no-cache' }) // api prefix necessary here because options not provided
 
   const signIn = async (userName, password) => {
     await authGet(`?u=${userName}&p=${password}`)
@@ -57,7 +56,7 @@ export function useAuthProvidable () {
     loading: authLoading,
     error: authError,
     options,
-    API
+    API_ROOT
   }
 }
 

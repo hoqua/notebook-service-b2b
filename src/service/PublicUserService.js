@@ -1,9 +1,11 @@
 import { useFetch } from 'use-http'
+import { API_REGISTER } from '../constants/constants'
 
 export const useSignUp = () => {
-  const { post, error, loading, response } = useFetch('/do-register.php')
+  const { post, error, loading, response } = useFetch(API_REGISTER)
 
   const signUpWithBody = ({ firm, name, email, password, phone, telegram }) => {
+    // eslint-disable-next-line no-undef
     const formData = new FormData()
     formData.append('cname', firm)
     formData.append('email', email)

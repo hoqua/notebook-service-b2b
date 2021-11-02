@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { flexAlign, flexAlignJustify, mediumGap, smallGap } from '../../../shared/styled/css'
 import { SmallerText } from '../../../shared/styled/Typography'
-import { StyledCard } from '../../../shared/styled/StyledCard'
 
 export const ManagerCardWrapper = styled.div`
   ${flexAlignJustify}
@@ -20,9 +19,9 @@ export const SmallerTextBold = styled(SmallerText)`
   font-weight: 500;
 `
 
-export const StyledOrderRow = styled(StyledCard)`
+export const StyledOrderRow = styled.div`
   display: grid;
-  grid-template-columns: .2fr .2fr .2fr .1fr .1fr .2fr;
+  grid-template-columns: .15fr .15fr .4fr .1fr .1fr .1fr;
   align-items: center;
   ${mediumGap};
 `
