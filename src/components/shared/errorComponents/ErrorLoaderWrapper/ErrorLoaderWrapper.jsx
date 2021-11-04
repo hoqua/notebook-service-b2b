@@ -1,5 +1,5 @@
 import React from 'react'
-import { Loading } from '../Loading/Loading'
+import { Loading } from '../../Loading/Loading'
 import { EmptyResult } from '../EmptyResult/EmptyResult'
 
 export const ErrorLoaderWrapper = ({ isLoading, isError, isEmpty, children }) => {

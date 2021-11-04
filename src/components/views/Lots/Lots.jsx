@@ -4,7 +4,7 @@ import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapP
 import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { useFetch } from 'use-http'
 import { PageTitleSection } from '../../shared/styled/PageTitleSection'
-import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderWrapper'
+import { ErrorLoaderWrapper } from '../../shared/errorComponents/ErrorLoaderWrapper/ErrorLoaderWrapper'
 import { StyledCard } from '../../shared/styled/StyledCard'
 import { StyledText, StyledTitle } from '../../shared/styled/Typography'
 import { LotRow } from './components/LotRow'
@@ -15,6 +15,7 @@ import { StyledHeaderTitle } from '../../shared/layouts/PrivateLayout/styles'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { useNotify } from '../../../hooks/useSnakbar'
 import { API_LOTS, LOTS_CART_KEY } from '../../../constants/constants'
+import { IfAble, USER_ACTION } from '../../../permissions/permissions'
 
 const PAGE_TITLE = 'Лоты'
 
@@ -63,7 +64,10 @@ export const Lots = () => {
                       <StyledHeaderTitle>{lot.lot_sum}</StyledHeaderTitle>
                     </StyledPriceWrapper>
 
-                    <ShoppingCartButton onClick={() => addToShoppingCart(lot)} />
+                    <IfAble toDo={[USER_ACTION.DO_ORDER]} errorComponent={null}>
+                      <ShoppingCartButton onClick={() => addToShoppingCart(lot)} />
+                    </IfAble>
+
                   </StyledCheckoutWrapper>
                 </StyledCard>
 

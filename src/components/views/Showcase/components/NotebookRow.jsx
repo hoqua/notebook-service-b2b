@@ -14,6 +14,7 @@ import { NotebookRowDisplayCond } from './NotebookRowDisplayCond'
 import { ExpandButton } from '../../../shared/ExpandButton/ExpandButton'
 import { RowItem } from '../../../shared/RowItem/RowItem'
 import { ShoppingCartButton } from '../../../shared/ShoppingCartButton/ShoppingCartButton'
+import { IfAble, USER_ACTION } from '../../../../permissions/permissions'
 
 export const NotebookRow = ({ notebook, onClick }) => {
   const [isExpand, setIsExpand] = useState(false)
@@ -24,7 +25,12 @@ export const NotebookRow = ({ notebook, onClick }) => {
 
       {!!notebook.is_new && <NewNotebookBadge>Новинка</NewNotebookBadge>}
 
-      <ShoppingCartButton onClick={() => onClick(notebook)} />
+      <IfAble
+        toDo={[USER_ACTION.DO_ORDER]}
+        errorComponent={<div />}
+      >
+        <ShoppingCartButton onClick={() => onClick(notebook)} />
+      </IfAble>
 
       <RowItem title={notebook.mark_name}>
         <p>{notebook.item_name}</p>

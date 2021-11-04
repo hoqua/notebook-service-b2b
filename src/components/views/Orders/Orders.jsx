@@ -7,8 +7,10 @@ import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { OrdersGrid } from './styles'
 import { ManagerCard } from './components/ManagerCard'
 import { OrderRow } from './components/OrderRow/OrderRow'
-import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderWrapper'
+import { ErrorLoaderWrapper } from '../../shared/errorComponents/ErrorLoaderWrapper/ErrorLoaderWrapper'
 import { API_MANAGER, API_ORDERS } from '../../../constants/constants'
+import { IfAble, USER_ACTION } from '../../../permissions/permissions'
+import { ErrorNotActiveUser } from '../../shared/errorComponents/ErrorNotActiveUser/ErrorNotActiveUser'
 
 const PAGE_TITLE = 'Мои заказы'
 
@@ -29,18 +31,20 @@ export const Orders = () => {
 
           <PageTitleSection title={PAGE_TITLE} />
 
-          <ErrorLoaderWrapper
-            isError={!!errorManager || !!error}
-            isLoading={loadingManager || loading}
-            isEmpty={!data?.orders.length}
-          >
-            <OrdersGrid>
-              <ManagerCard manager={manager} />
-              <div>
-                {data?.orders.map(order => <OrderRow key={order.order_id} order={order} />)}
-              </div>
-            </OrdersGrid>
-          </ErrorLoaderWrapper>
+          <IfAble toDo={[USER_ACTION.DO_ORDER]} errorComponent={<ErrorNotActiveUser />}>
+            <ErrorLoaderWrapper
+              isError={!!errorManager || !!error}
+              isLoading={loadingManager || loading}
+              isEmpty={!data?.orders.length}
+            >
+              <OrdersGrid>
+                <ManagerCard manager={manager} />
+                <div>
+                  {data?.orders.map(order => <OrderRow key={order.order_id} order={order} />)}
+                </div>
+              </OrdersGrid>
+            </ErrorLoaderWrapper>
+          </IfAble>
 
         </InnerWrapPrivatePage>
       </WrapPrivatePage>

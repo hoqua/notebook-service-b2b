@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledCard } from '../styled/StyledCard'
+import { StyledCard } from '../../styled/StyledCard'
 import styled from 'styled-components'
 
 export const ErrorComponent = () => {

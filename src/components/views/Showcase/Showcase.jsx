@@ -9,7 +9,7 @@ import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { Filters } from '../../shared/Filters/Filters'
 import { SpacerH20 } from '../../shared/styled/Spacers'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { ErrorLoaderWrapper } from '../../shared/ErrorLoaderWrapper/ErrorLoaderWrapper'
+import { ErrorLoaderWrapper } from '../../shared/errorComponents/ErrorLoaderWrapper/ErrorLoaderWrapper'
 import { API_NOTEBOOKS, API_NOTEBOOKS_UNFINISHED, NOTEBOOKS_CART_KEY } from '../../../constants/constants'
 
 export const Showcase = ({ isUnfinished = false }) => {
