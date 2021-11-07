@@ -8,13 +8,15 @@ import { OrdersGrid } from './styles'
 import { ManagerCard } from './components/ManagerCard'
 import { OrderRow } from './components/OrderRow/OrderRow'
 import { ErrorLoaderWrapper } from '../../shared/errorComponents/ErrorLoaderWrapper/ErrorLoaderWrapper'
-import { API_MANAGER, API_ORDERS } from '../../../constants/constants'
+import { API_MANAGER, API_ORDERS, ORDERS_STORE_KEY } from '../../../constants/constants'
 import { IfAble, USER_ACTION } from '../../../permissions/permissions'
 import { ErrorNotActiveUser } from '../../shared/errorComponents/ErrorNotActiveUser/ErrorNotActiveUser'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
 
 const PAGE_TITLE = 'Мои заказы'
 
 export const Orders = () => {
+  const [orders, setOrders] = useLocalStorage(ORDERS_STORE_KEY, [])
   const { get: getOrders, error, data, loading } = useFetch(API_ORDERS)
   const { get: getManager, error: errorManager, data: manager, loadingManager } = useFetch(API_MANAGER)
 
@@ -22,6 +24,14 @@ export const Orders = () => {
     getManager()
     getOrders()
   }, [])
+  useEffect(() => {
+    if (!data) return
+    if (data?.orders?.length) {
+      setOrders(data.orders)
+    } else {
+      setOrders([])
+    }
+  }, [data])
 
   return (
     <PrivateLayout>
@@ -35,12 +45,12 @@ export const Orders = () => {
             <ErrorLoaderWrapper
               isError={!!errorManager || !!error}
               isLoading={loadingManager || loading}
-              isEmpty={!data?.orders.length}
+              isEmpty={!data?.orders?.length}
             >
               <OrdersGrid>
                 <ManagerCard manager={manager} />
                 <div>
-                  {data?.orders.map(order => <OrderRow key={order.order_id} order={order} />)}
+                  {orders.map(order => <OrderRow key={order.order_id} order={order} />)}
                 </div>
               </OrdersGrid>
             </ErrorLoaderWrapper>

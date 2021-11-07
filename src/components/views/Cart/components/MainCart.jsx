@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { NotebooksCart } from './NotebooksCart'
 import {
-  getItemsPriceSum,
-  getLotsQuery,
+  getLotsPriceSum,
+  getLotsQuery, getNotebooksPriceSum,
   getQuery,
   getRemainingLots,
   getRemainingNotebooks,
-  getSumCounts
+  getSumCounts, useApi
 } from '../service'
 import { SpacerH10, SpacerH20, SpacerH30 } from '../../../shared/styled/Spacers'
 import { LotsCart } from './LotsCart'
@@ -18,30 +18,21 @@ import { useSession } from '../../../../service/SessonDataService'
 import { useNotify } from '../../../../hooks/useSnakbar'
 import { useLocalStorage } from '../../../../hooks/useLocalStorage'
 import {
-  API_DO_ORDER, API_DO_ORDER_LOTS,
-  API_LOTS,
-  API_NOTEBOOKS_BY_SERIAL,
   LOTS_CART_KEY,
   NOTEBOOKS_CART_KEY, ORDERS_ROUTE
 } from '../../../../constants/constants'
-import { useFetch } from 'use-http'
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 export const MainCart = () => {
   const { user } = useSession()
+  const history = useHistory()
   const { showError, showSuccess } = useNotify()
+  const { getNotebooksById, fetchedNotebooks, getLotsByName, fetchedLots, postLotOrder, postOrder, isSomethingLoading } = useApi()
   const [notebookCart, setNotebookCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
   const [lotsCart, setLotsCart] = useLocalStorage(LOTS_CART_KEY, [])
-  const { get: getNotebooksById, data: notebooksData, loading } = useFetch(API_NOTEBOOKS_BY_SERIAL)
-  const { get: getLotsByName, data: lotsData, loading: loadingLots } = useFetch(API_LOTS)
-  const { post: postOrder, loading: loadingOrder } = useFetch(API_DO_ORDER)
-  const { post: postLotOrder, loading: loadingLotOrder } = useFetch(API_DO_ORDER_LOTS)
-  const fetchedNotebooks = notebooksData?.items || []
-  const fetchedLots = lotsData?.lots || []
   const { currentSum, discountTotal, sumDiff } = getSumCounts(notebookCart, lotsCart, user)
   const isLotsCartEmpty = !lotsCart?.length
   const isNotebooksCartEmpty = !notebookCart?.length
-  const isSomethingLoading = loading || loadingOrder || loadingLotOrder || loadingLots
 
   useEffect(() => getNotebooks(), [])
   useEffect(() => getLots(), [])
@@ -55,7 +46,7 @@ export const MainCart = () => {
     const isLotsAmountChanged = lotsCart?.length > fetchedLots?.length
     if (isLotsAmountChanged || isNotebooksAmountChanged) {
       showError('Некоторые ноутбуки больше не доступны и были удалены из корзины.')
-    } else if (currentSum !== getItemsPriceSum(fetchedNotebooks, fetchedLots)) {
+    } else if (currentSum !== (getLotsPriceSum(fetchedLots) + getNotebooksPriceSum(fetchedNotebooks))) {
       showError('Цена товаров была изменена.')
     }
 
@@ -63,14 +54,8 @@ export const MainCart = () => {
     setLotsCart(fetchedLots)
   }, [fetchedNotebooks, fetchedLots])
 
-  const getNotebooks = async () => {
-    if (isNotebooksCartEmpty) return null
-    return getNotebooksById(getQuery(notebookCart))
-  }
-  const getLots = async () => {
-    if (isLotsCartEmpty) return null
-    return getLotsByName(getLotsQuery(lotsCart))
-  }
+  const getNotebooks = async () => isNotebooksCartEmpty ? null : getNotebooksById(getQuery(notebookCart))
+  const getLots = async () => isLotsCartEmpty ? null : getLotsByName(getLotsQuery(lotsCart))
   const placeOrder = async () => {
     try {
       const { items: notebooks = [] } = await getNotebooks() || {}
@@ -88,25 +73,22 @@ export const MainCart = () => {
         return
       }
 
-      if (currentSum !== getItemsPriceSum(notebooks, lots)) {
+      const fetchedSum = getNotebooksPriceSum(notebooks) + getLotsPriceSum(lots)
+      if (currentSum !== fetchedSum) {
         setLotsCart(lots)
         setNotebookCart(notebooks)
         showError('Сумма заказа была изменена. Проверьте ее и нажмите заказать еще раз!')
         return
       }
 
-      if (!isNotebooksCartEmpty) {
-        await postOrder(getQuery(notebooks))
-      }
-
-      if (!isLotsCartEmpty) {
-        await postLotOrder(getLotsQuery(lots))
-      }
+      if (!isNotebooksCartEmpty) await postOrder(getQuery(notebooks))
+      if (!isLotsCartEmpty) await postLotOrder(getLotsQuery(lots))
 
       setNotebookCart([])
       setLotsCart([])
       showSuccess('Заказ отправлен менеджеру. Спасибо!')
-      return <Redirect to={ORDERS_ROUTE} />
+      history.push(ORDERS_ROUTE)
+      return null
     } catch (e) {
       showError('Возникла ошибка заказа. Попробуйте позже!')
     }

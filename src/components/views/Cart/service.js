@@ -1,9 +1,12 @@
 import { getDiscountPrice } from '../../../utils/substractPercent'
+import { useFetch } from 'use-http'
+import { API_DO_ORDER, API_DO_ORDER_LOTS, API_LOTS, API_NOTEBOOKS_BY_SERIAL } from '../../../constants/constants'
 
-export const getItemsPriceSum = (notebooks, lots) => {
-  const notebooksSum = notebooks?.reduce((acc, notebook) => acc + notebook.item_price, 0) || 0
-  const lotsSum = lots?.reduce((acc, lot) => acc + lot.lot_sum, 0) || 0
-  return notebooksSum + lotsSum
+export const getNotebooksPriceSum = (notebooks) => {
+  return notebooks?.reduce((acc, notebook) => acc + notebook.item_price, 0) || 0
+}
+export const getLotsPriceSum = (lots) => {
+  return lots?.reduce((acc, lot) => acc + lot.lot_sum, 0) || 0
 }
 
 export const getQuery = (notebooks) => {
@@ -41,9 +44,27 @@ export const getRemainingLots = (lotsCart, lotToRemove) => {
 export const getSumCounts = (notebooksCart, lotsCart, user) => {
   if (!notebooksCart?.length && !lotsCart?.length) return {}
 
-  const currentSum = getItemsPriceSum(notebooksCart, lotsCart)
-  const discountTotal = getDiscountPrice(user, currentSum)
+  const nSum = getNotebooksPriceSum(notebooksCart)
+  const lSum = getLotsPriceSum(lotsCart)
+  const discountTotal = getDiscountPrice(user, nSum) // discount works only for notebooks
+  const currentSum = lSum + nSum
   const sumDiff = currentSum - discountTotal
 
-  return { currentSum, discountTotal, sumDiff }
+  return {
+    currentSum,
+    discountTotal,
+    sumDiff
+  }
+}
+
+export const useApi = () => {
+  const { get: getNotebooksById, data: notebooksData, loading: loadingNotebooks } = useFetch(API_NOTEBOOKS_BY_SERIAL)
+  const { get: getLotsByName, data: lotsData, loading: loadingLots } = useFetch(API_LOTS)
+  const { post: postOrder, loading: loadingOrder } = useFetch(API_DO_ORDER)
+  const { post: postLotOrder, loading: loadingLotOrder } = useFetch(API_DO_ORDER_LOTS)
+  const fetchedNotebooks = notebooksData?.items || []
+  const fetchedLots = lotsData?.lots || []
+  const isSomethingLoading = loadingNotebooks || loadingOrder || loadingLotOrder || loadingLots
+
+  return { getNotebooksById, fetchedNotebooks, getLotsByName, fetchedLots, postOrder, postLotOrder, isSomethingLoading }
 }

@@ -1,6 +1,7 @@
 // local storage
 export const LOTS_CART_KEY = 'lotsCart'
 export const NOTEBOOKS_CART_KEY = 'notebookCart'
+export const ORDERS_STORE_KEY = 'ordersStore'
 
 export const AUTH_TOKEN_KEY = 'token'
 export const TOKEN_EXP_TIME_KEY = 'tokenExpTime'

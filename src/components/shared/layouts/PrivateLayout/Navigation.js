@@ -3,13 +3,22 @@ import styled from 'styled-components'
 import { ReactComponent as ShoppingCart } from '../../../../assets/icons/shoping-cart.svg'
 import { ReactComponent as Grid } from '../../../../assets/icons/grid.svg'
 import { StyledTopNavLink } from '../../styled/StyledNavLink'
-import { flexAlignJustify } from '../../styled/css'
 import { useLocalStorage } from '../../../../hooks/useLocalStorage'
-import { LOTS_CART_KEY, NOTEBOOKS_CART_KEY, ORDERS_ROUTE, SHOPPING_CART_ROUTE } from '../../../../constants/constants'
+import {
+  LOTS_CART_KEY,
+  NOTEBOOKS_CART_KEY,
+  ORDERS_ROUTE, ORDERS_STORE_KEY,
+  SHOPPING_CART_ROUTE
+} from '../../../../constants/constants'
+import { flexAlignJustify } from '../../styled/css'
 
 export default function Navigation () {
   const [notebooksCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
   const [lostCart] = useLocalStorage(LOTS_CART_KEY, [])
+  const [orders] = useLocalStorage(ORDERS_STORE_KEY, [])
+
+  const numberOrders = orders?.length || 0
+  const isSomethingOrdered = numberOrders > 0
 
   const numberItemsInCart = (notebooksCart?.length || 0) + (lostCart?.length || 0)
   const isSomethingInCart = numberItemsInCart > 0
@@ -23,7 +32,10 @@ export default function Navigation () {
     >
       <NavItem>
         <StyledTopNavLink exact to={ORDERS_ROUTE}>
-          <Grid />
+          <div style={{ position: 'relative' }}>
+            {isSomethingOrdered && <Badge>{numberOrders}</Badge>}
+            <Grid />
+          </div>
         </StyledTopNavLink>
       </NavItem>
 
