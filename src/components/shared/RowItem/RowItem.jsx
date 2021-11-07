@@ -9,7 +9,10 @@ export const RowItem = ({
 }) => {
   return (
     <StyledRowItem>
-      <StyledText>{title}</StyledText>
+      {typeof title === 'string' // render styled paragraph if string provided
+        ? <StyledText>{title}</StyledText>
+        : title}
+
       <SpacerH10 />
 
       {children}

@@ -20,7 +20,7 @@ export const VIDEO_OPTIONS = [
   }
 ]
 
-export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters, isUnfinished = false }) => {
+export const Filters = ({ onFiltersSubmit, loading, hideFilters, isUnfinished = false }) => {
   const API = isUnfinished ? API_FILTERS_UNFINISHED : API_FILTERS
   const { get, response: { data }, loading: loadingFilters } = useFetch(API)
   const [filters, setFilters] = useState({
@@ -37,12 +37,11 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters,
   })
 
   useEffect(() => get(), [])
-  useEffect(() => onFilterChange(filters), [filters])
 
   const { display, hdd, lookout, mark, proc, ram, poweron } = data?.filters || {}
 
   const onSelect = (filterName) => (selected) => setFilters({ ...filters, [filterName]: selected })
-  const applyFilters = () => onFiltersSubmit()
+  const applyFilters = () => onFiltersSubmit(filters)
 
   return (
     <StyledCard hide={hideFilters}>

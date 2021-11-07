@@ -36,3 +36,8 @@ export const LookoutBadge = styled.div`
   background-color: ${({ classKey }) => classColorMap[classKey]};
   display: inline-block;
 `
+
+export const StyledRowsGrid = styled.div`
+  display: grid;
+  ${mediumGap}
+`

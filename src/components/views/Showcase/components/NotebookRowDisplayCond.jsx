@@ -5,22 +5,34 @@ import { ReactComponent as Question } from '../../../../assets/icons/question-ma
 import styled, { useTheme } from 'styled-components'
 import { flexAlign, smallGap } from '../../../shared/styled/css'
 import { StyledText } from '../../../shared/styled/Typography'
+import { DisplayConditions } from '../../../../constants/constants'
 
 export const NotebookRowDisplayCond = ({ displayCondition, title }) => {
   const theme = useTheme()
 
-  const getIconByCondition = (displayCondition) => {
-    if (displayCondition === 'Хорошая') return <Cross stroke={theme.status.success} height='10px' />
-    if (displayCondition === 'С дефектом') return <Check stroke={theme.status.warning} height='10px' />
-    if (displayCondition === 'Под вопросом') return <Question stroke='#7547D1' fill='#7547D1' height='10px' />
-    if (displayCondition === 'Плохая') return <Cross stroke={theme.status.error} height='10px' />
-  }
   return (
     <StyledWrapper>
-      {getIconByCondition(displayCondition)}
+      {iconConditionMap[displayCondition](theme)}
       <StyledText>{title}</StyledText>
     </StyledWrapper>
   )
+}
+
+const iconConditionMap = {
+  [DisplayConditions.Good]: (theme) => <CheckGreen theme={theme} />,
+  [DisplayConditions.Defective]: (theme) => <CheckOrange theme={theme} />,
+  [DisplayConditions.Questionable]: () => <QuestionMark />,
+  [DisplayConditions.Bad]: (theme) => <CrossRed theme={theme} />
+}
+
+const CheckGreen = ({ theme }) => <Check stroke={theme.status.success} title='Рабочее состояние' style={iconStyles} />
+const CheckOrange = ({ theme }) => <Check stroke={theme.status.warning} title='Показывает но есть дефекты в виде полос или засветов' style={iconStyles} />
+const QuestionMark = () => <Question stroke='#7547D1' fill='#7547D1' title='Нет возможности проверить, без видимых дефектов' style={iconStyles} />
+const CrossRed = ({ theme }) => <Cross stroke={theme.status.error} title='Разбит или отсутствует' style={iconStyles} />
+
+const iconStyles = {
+  height: '10px',
+  cursor: 'pointer'
 }
 
 const StyledWrapper = styled.div`

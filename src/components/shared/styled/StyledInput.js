@@ -12,17 +12,28 @@ export const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-    ${darkBorder}
+    ${({ error }) => !error && darkBorder}
   }
   
-  ${hoverDarkBorder};
+  ${({ error }) => !error && hoverDarkBorder};
 
   &:focus-visible {
     outline: none;
   }
+  
 
   ${({ error, theme }) => error && `border-color: ${theme.status.error};`}
   ${({ width }) => width && `width: ${width}`}
+  
+  
+  ::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `
 
 export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChange, type = 'text' }) => {

@@ -33,3 +33,12 @@ export const SHOWCASE_UNFINISHED_ROUTE = '/showcase-unfinished'
 export const LOTS_ROUTE = '/lots'
 export const SHOPPING_CART_ROUTE = '/shopping-cart'
 export const ORDERS_ROUTE = '/orders'
+
+// enum constants
+export const DisplayConditions = {
+  Good: 'Хорошая',
+  Defective: 'С дефектом',
+  Questionable: 'Под вопросом',
+  Bad: 'Плохая'
+
+}

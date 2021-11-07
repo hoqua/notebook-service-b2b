@@ -8,7 +8,10 @@ import { SpacerH20, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
 import { AppButton } from '../../shared/styled/NavigationButton'
 import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './service'
-import { PublicForm, PublicFromActionsContainer } from '../../shared/styled/PublicForm'
+import {
+  PublicFromActionsContainer,
+  StyledFromInputsWrapper
+} from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
 import { LoginContentWrapper } from './styles'
 import { useAuth } from '../../../service/AuthService'
@@ -44,32 +47,35 @@ export default function Registration () {
 
               <HeadTile>Вход</HeadTile>
 
-              <PublicForm>
-                <SpacerH40 />
+              <form>
+                <StyledFromInputsWrapper>
+                  <SpacerH40 />
 
-                <label>Эл. почта (login)</label>
-                <StyledInput
-                  type='email' placeholder='Введите эл. почту'
-                  onChange={({ target }) => setFormData({
-                    ...formData,
-                    email: target.value
-                  })}
-                  error={formErrors.email}
-                  onKeyDown={e => e.key === 'Enter' && login()}
-                />
+                  <label>Эл. почта (login)</label>
+                  <StyledInput
+                    type='email' placeholder='Введите эл. почту'
+                    onChange={({ target }) => setFormData({
+                      ...formData,
+                      email: target.value
+                    })}
+                    error={formErrors.email}
+                    onKeyDown={e => e.key === 'Enter' && login()}
+                  />
 
-                <label>Пароль</label>
-                <StyledInput
-                  type='password'
-                  placeholder='Введите пароль'
-                  onChange={({ target }) => setFormData({
-                    ...formData,
-                    password: target.value
-                  })}
-                  error={formErrors.password}
-                  onKeyDown={e => e.key === 'Enter' && login()}
-                />
-              </PublicForm>
+                  <label>Пароль</label>
+                  <StyledInput
+                    type='password'
+                    placeholder='Введите пароль'
+                    onChange={({ target }) => setFormData({
+                      ...formData,
+                      password: target.value
+                    })}
+                    error={formErrors.password}
+                    onKeyDown={e => e.key === 'Enter' && login()}
+                  />
+                </StyledFromInputsWrapper>
+
+              </form>
               <SpacerH20 />
 
               <PublicFromActionsContainer>

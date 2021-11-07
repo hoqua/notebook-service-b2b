@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { mediumGap } from './css'
 
-export const PublicForm = styled.form`
+export const StyledFromInputsWrapper = styled.div`
   display: grid;
   align-items: center;
 

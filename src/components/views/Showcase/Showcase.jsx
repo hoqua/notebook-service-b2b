@@ -11,6 +11,7 @@ import { SpacerH20 } from '../../shared/styled/Spacers'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { ErrorLoaderWrapper } from '../../shared/errorComponents/ErrorLoaderWrapper/ErrorLoaderWrapper'
 import { API_NOTEBOOKS, API_NOTEBOOKS_UNFINISHED, NOTEBOOKS_CART_KEY } from '../../../constants/constants'
+import { StyledRowsGrid } from './components/styles'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Витрина'
@@ -20,14 +21,14 @@ export const Showcase = ({ isUnfinished = false }) => {
   const { get, data, error, loading } = useFetch(API)
   const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
-  const [cart, addToCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
+  const [notebookCart, addToCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
 
   useEffect(() => get(), [])
 
-  const getWithFilters = (providedFilters) => {
-    const search = new URLSearchParams(providedFilters || mergedFilters)
-    const query = '?' + search.toString()
-    get(query)
+  const getWithFilters = (latestFilters) => {
+    setMergedFilters(latestFilters)
+    const search = new URLSearchParams(latestFilters)
+    get('?' + search.toString())
   }
 
   const onPriceSortChange = (sortPrice) => {
@@ -37,17 +38,17 @@ export const Showcase = ({ isUnfinished = false }) => {
   }
 
   const addToShoppingCart = (notebook) => {
-    if (cart.some(n => n.serial_num === notebook.serial_num)) {
+    if (notebookCart.some(n => n.serial_num === notebook.serial_num)) {
       showError('Такой товар уже есть в корзине!')
       return
     }
 
-    addToCart([...cart, notebook])
+    addToCart([...notebookCart, notebook])
     showSuccess('Товар был добавлен в корзину!')
   }
 
   const notebooks = data?.items || []
-  const isLoadingOrNotFetchedYet = !data || !notebooks.length
+  const isLoadingOrNotFetchedYet = !data || loading
 
   return (
     <PrivateLayout>
@@ -62,24 +63,19 @@ export const Showcase = ({ isUnfinished = false }) => {
             actions
           />
           <Filters
-            onFiltersSubmit={() => getWithFilters()}
-            onFilterChange={filters => setMergedFilters({ ...mergedFilters, ...filters })}
+            onFiltersSubmit={filters => getWithFilters({ ...mergedFilters, ...filters })} // override old filters with new selected
             loading={loading}
             hideFilters={hideFilters}
             isUnfinished={isUnfinished}
           />
           <SpacerH20 />
 
-          <ErrorLoaderWrapper
-            isLoading={isLoadingOrNotFetchedYet}
-            isEmpty={!notebooks.length}
-            isError={error}
-          >
-            <div style={{ display: 'grid', gap: '10px' }}>
+          <ErrorLoaderWrapper isLoading={isLoadingOrNotFetchedYet} isEmpty={!notebooks.length} isError={error}>
+            <StyledRowsGrid>
               {notebooks.map(notebook =>
                 <NotebookRow notebook={notebook} onClick={addToShoppingCart} key={notebook.serial_num} />
               )}
-            </div>
+            </StyledRowsGrid>
           </ErrorLoaderWrapper>
 
         </InnerWrapPrivatePage>

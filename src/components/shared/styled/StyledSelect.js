@@ -50,8 +50,8 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
         width={width}
         onChange={({ target }) => multi ? onMultiChange(target.value) : onChange(target.value)}
       >
-        {multi && <option hidden />}
-        {options.map(option => <option key={option.label} value={option.value} onChange={() => multi && onMultiChange(option.value)}>{option.label}</option>)}
+        {multi && <option hidden />} {/* somehow fixes first selected item */}
+        {options.map(option => <option key={option.label} value={option.value} disabled={selectedValues.includes(option.value)} onChange={() => multi && onMultiChange(option.value)}>{option.label}</option>)}
       </Select>
     </SelectWrapper>
   )
@@ -95,6 +95,9 @@ export const Select = styled.select`
 
   option {
     ${darkColor};
+  }
+  option:disabled {
+    color: ${({ theme }) => theme.brand.gray};
   }
 
   &:focus-visible {
