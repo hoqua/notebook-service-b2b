@@ -7,6 +7,7 @@ import { StyledText } from '../styled/Typography'
 import { AppButton } from '../styled/NavigationButton'
 import { mediumGap } from '../styled/css'
 import { useFetch } from 'use-http'
+import { API_FILTERS, API_FILTERS_UNFINISHED } from '../../../constants/constants'
 
 export const VIDEO_OPTIONS = [
   {
@@ -19,9 +20,8 @@ export const VIDEO_OPTIONS = [
   }
 ]
 
-export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters, isUnfinished }) => {
-  const API = isUnfinished ? 'get-filters-unfinished.php' : 'get-filters.php'
-
+export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters, isUnfinished = false }) => {
+  const API = isUnfinished ? API_FILTERS_UNFINISHED : API_FILTERS
   const { get, response: { data }, loading: loadingFilters } = useFetch(API)
   const [filters, setFilters] = useState({
     display: [],
@@ -58,8 +58,8 @@ export const Filters = ({ onFiltersSubmit, onFilterChange, loading, hideFilters,
         <StyledLabeledSelect label='Внешний вид' onChange={onSelect('lookout')} options={lookout} />
         {isUnfinished && <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} />}
         <PriceRangeWrapper>
-          <StyledLabeledInput label='Цена' onChange={onSelect('min_price')} width='96px' placeholder='От' />
-          <StyledInput placeholder='До' onChange={e => onSelect('max_price')(e.target.value)} width='96px' />
+          <StyledLabeledInput type='number' label='Цена' onChange={onSelect('min_price')} width='96px' placeholder='От' />
+          <StyledInput type='number' placeholder='До' onChange={e => onSelect('max_price')(e.target.value)} width='96px' />
         </PriceRangeWrapper>
         {!isUnfinished && <div />}
 

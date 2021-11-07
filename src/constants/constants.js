@@ -1,3 +1,6 @@
+// app essentials
+export const NOT_ACTIVE_PHONE = '094-917-5358'
+
 // local storage
 export const LOTS_CART_KEY = 'lotsCart'
 export const NOTEBOOKS_CART_KEY = 'notebookCart'
@@ -18,6 +21,8 @@ export const API_MANAGER = 'get-mngr-info.php'
 export const API_REGISTER = 'do-register.php'
 export const API_DO_ORDER = 'do-order-by-serial.php'
 export const API_DO_ORDER_LOTS = 'do-order-lot.php'
+export const API_FILTERS = 'get-filters.php'
+export const API_FILTERS_UNFINISHED = 'get-filters-unfinished.php'
 
 // app routes
 export const ROOT_ROUTE = '/'

@@ -6,6 +6,7 @@ import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
 import { ModalHeader, ModalWrapper } from './styles'
 import { StyledTitle } from '../styled/Typography'
 import { useTheme } from 'styled-components'
+import { SpacerH20 } from '../styled/Spacers'
 
 export const Modal = ({ title = 'No title', children, onClose }) => {
   const theme = useTheme()
@@ -36,6 +37,7 @@ export const Modal = ({ title = 'No title', children, onClose }) => {
             <Cross stroke={theme.brand.dark} height='12px' />
           </IconButton>
         </ModalHeader>
+        <SpacerH20 />
 
         {children}
       </StyledCard>

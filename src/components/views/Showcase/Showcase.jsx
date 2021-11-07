@@ -17,7 +17,7 @@ export const Showcase = ({ isUnfinished = false }) => {
   const API = isUnfinished ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
 
   const { showError, showSuccess } = useNotify()
-  const { get, response, error, loading } = useFetch(API)
+  const { get, data, error, loading } = useFetch(API)
   const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
   const [cart, addToCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
@@ -46,7 +46,8 @@ export const Showcase = ({ isUnfinished = false }) => {
     showSuccess('Товар был добавлен в корзину!')
   }
 
-  const notebooks = response?.data?.items || []
+  const notebooks = data?.items || []
+  const isLoadingOrNotFetchedYet = !data || !notebooks.length
 
   return (
     <PrivateLayout>
@@ -70,7 +71,7 @@ export const Showcase = ({ isUnfinished = false }) => {
           <SpacerH20 />
 
           <ErrorLoaderWrapper
-            isLoading={loading}
+            isLoading={isLoadingOrNotFetchedYet}
             isEmpty={!notebooks.length}
             isError={error}
           >

@@ -25,7 +25,7 @@ export const StyledInput = styled.input`
   ${({ width }) => width && `width: ${width}`}
 `
 
-export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChange }) => {
+export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChange, type = 'text' }) => {
   return (
     <StyledLabeledInputWrapper>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
@@ -33,7 +33,7 @@ export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChang
       <StyledInput
         name={label}
         placeholder={placeholder}
-        type='text'
+        type={type}
         width={width}
         onChange={({ target }) => onChange(target.value)}
       />

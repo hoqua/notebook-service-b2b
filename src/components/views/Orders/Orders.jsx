@@ -19,6 +19,7 @@ export const Orders = () => {
   const [orders, setOrders] = useLocalStorage(ORDERS_STORE_KEY, [])
   const { get: getOrders, error, data, loading } = useFetch(API_ORDERS)
   const { get: getManager, error: errorManager, data: manager, loadingManager } = useFetch(API_MANAGER)
+  const isLoadingOrNotFetchedYet = !data || loadingManager || loading
 
   useEffect(() => {
     getManager()
@@ -44,7 +45,7 @@ export const Orders = () => {
           <IfAble toDo={[USER_ACTION.DO_ORDER]} errorComponent={<ErrorNotActiveUser />}>
             <ErrorLoaderWrapper
               isError={!!errorManager || !!error}
-              isLoading={loadingManager || loading}
+              isLoading={isLoadingOrNotFetchedYet}
               isEmpty={!data?.orders?.length}
             >
               <OrdersGrid>

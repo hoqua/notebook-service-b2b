@@ -22,7 +22,7 @@ const PAGE_TITLE = 'Лоты'
 export const Lots = () => {
   const [lotsCart, addToLotsCart] = useLocalStorage(LOTS_CART_KEY, [])
   const { showError, showSuccess } = useNotify()
-  const { get, response, error, loading } = useFetch(API_LOTS)
+  const { get, data, error, loading } = useFetch(API_LOTS)
 
   const addToShoppingCart = (lot) => {
     if (lotsCart.some(lotInCart => lotInCart.lot_name === lot.lot_name)) {
@@ -36,7 +36,8 @@ export const Lots = () => {
 
   useEffect(() => get(), [])
 
-  const lots = response?.data?.lots || []
+  const lots = data?.lots || []
+  const isLoadingOrNotFetchedYet = !data || loading
 
   return (
     <PrivateLayout>
@@ -46,7 +47,7 @@ export const Lots = () => {
 
           <PageTitleSection title={PAGE_TITLE} />
 
-          <ErrorLoaderWrapper isError={!!error} isLoading={loading} isEmpty={!lots.length}>
+          <ErrorLoaderWrapper isError={!!error} isLoading={isLoadingOrNotFetchedYet} isEmpty={!lots.length}>
             {lots.map(lot =>
               <div key={lot.lot_name}>
                 <StyledCard>
