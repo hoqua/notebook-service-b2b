@@ -9,6 +9,9 @@ export const ORDERS_STORE_KEY = 'ordersStore'
 export const AUTH_TOKEN_KEY = 'token'
 export const TOKEN_EXP_TIME_KEY = 'tokenExpTime'
 
+// sentry
+export const SENTRY_DSN = process.env.NODE_ENV === 'development' ? '' : 'https://9109d47a099f408da3b9429fc9c9dcc5@o1062531.ingest.sentry.io/6052948'
+
 // api
 export const API_ROOT = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : `https://${window.location.host}/api`
 export const API_LOGIN = 'login.php'
