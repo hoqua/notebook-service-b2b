@@ -32,7 +32,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "react-scripts build",
     "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {
