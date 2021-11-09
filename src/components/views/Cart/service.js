@@ -46,8 +46,10 @@ export const getSumCounts = (notebooksCart, lotsCart, user) => {
 
   const nSum = getNotebooksPriceSum(notebooksCart)
   const lSum = getLotsPriceSum(lotsCart)
-  const discountTotal = getDiscountPrice(user, nSum) // discount works only for notebooks
+  const nDiscountSum = getDiscountPrice(user, nSum) // discount works only for notebooks
+
   const currentSum = lSum + nSum
+  const discountTotal = nSum - nDiscountSum
   const sumDiff = currentSum - discountTotal
 
   return {

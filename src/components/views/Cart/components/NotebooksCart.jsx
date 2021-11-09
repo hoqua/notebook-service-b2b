@@ -21,7 +21,7 @@ export const NotebooksCart = ({ notebookCart, removeNotebook }) => {
 
       {notebookCart.map(notebook =>
         <CartRow key={notebook.serial_num}>
-          <NotebookImage notebook={notebook} />
+          <NotebookImage notebook={notebook} noSlider />
 
           <div>
             <StyledText>{notebook.mark_name}</StyledText>

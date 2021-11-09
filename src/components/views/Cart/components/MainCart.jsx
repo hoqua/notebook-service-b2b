@@ -123,13 +123,13 @@ export const MainCart = () => {
         <StyledTitle>Итого</StyledTitle>
         <SpacerH20 />
 
-        <PriceText>Товаров - {notebookCart.length}, на сумму: <PriceWrapper>{currentSum}</PriceWrapper></PriceText>
+        <PriceText>Товаров - {notebookCart?.length || 0 + lotsCart?.length || 0}, на сумму: <PriceWrapper>{currentSum}</PriceWrapper></PriceText>
         <SpacerH10 />
 
-        <PriceText>Скидка: <PriceWrapper>{sumDiff} ({user.ppg_perc}%)</PriceWrapper></PriceText>
+        {discountTotal > 0 ? <PriceText>Скидка: <PriceWrapper>{discountTotal} ({user.ppg_perc}%)</PriceWrapper></PriceText> : null}
         <SpacerH10 />
 
-        <PriceText>Итог: <PriceWrapper>{discountTotal}</PriceWrapper></PriceText>
+        <PriceText>Итог: <PriceWrapper>{sumDiff}</PriceWrapper></PriceText>
         <SpacerH30 />
         <ActionWrapper>
           <AppButton onClick={placeOrder} disabled={isSomethingLoading}>Оформить заказ</AppButton>

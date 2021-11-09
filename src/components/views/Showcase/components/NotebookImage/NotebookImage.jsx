@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import notebookFallback from '../../../../../assets/icons/notebook-icon.svg'
 import { NotebookImageWrapper } from './styles'
 
-export const NotebookImage = ({ notebook, onClick, onError }) => {
+export const NotebookImage = ({ notebook, onClick, onError, noSlider = false }) => {
   const [isError, setIsError] = useState(false)
 
   const handleImageError = event => {
@@ -12,7 +12,7 @@ export const NotebookImage = ({ notebook, onClick, onError }) => {
   }
 
   return (
-    <NotebookImageWrapper isError={isError}>
+    <NotebookImageWrapper isError={isError} noSlider={noSlider}>
       <img
         onError={handleImageError}
         onClick={() => onClick?.()}

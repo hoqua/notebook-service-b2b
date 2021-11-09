@@ -12,7 +12,7 @@ export const StyledText = styled.p`
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: .8rem;
+  font-size: .9rem;
   ${darkColor};
 `
 

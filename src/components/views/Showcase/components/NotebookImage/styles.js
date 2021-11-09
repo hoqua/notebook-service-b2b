@@ -10,7 +10,7 @@ import Zoom from '../../../../../assets/icons/zoom.svg'
 
 const PADDING = '5px'
 export const NotebookImageWrapper = styled.div(
-  ({ isError }) => css`
+  ({ isError, noSlider }) => css`
     height: calc(${NOTEBOOK_IMG_HEIGHT} + ${PADDING});
     width: calc(${NOTEBOOK_IMG_HEIGHT} + ${PADDING});
     padding: ${PADDING};
@@ -18,7 +18,7 @@ export const NotebookImageWrapper = styled.div(
     ${flexAlignJustify};
     ${grayBorder};
     
-    ${!isError && css`
+    ${(!noSlider && !isError) && css`
       cursor: pointer;
       ${hoverDarkBorder};
       
