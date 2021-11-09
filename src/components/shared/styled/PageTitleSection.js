@@ -1,9 +1,9 @@
 import React from 'react'
-import { HeadTile } from './Typography'
+import { HeadTile, StyledText } from './Typography'
 import styled from 'styled-components'
 import { StyledSelect } from './StyledSelect'
 import { ReactComponent as Filters } from '../../../assets/icons/filters.svg'
-import { SpacerH20 } from './Spacers'
+import { SpacerH20, SpacerH5 } from './Spacers'
 import { darkColor, flexAlign, grayBorder, hoverDarkBorder, mediumGap, smallGap } from './css'
 
 const PRICE_OPTIONS = [
@@ -21,11 +21,28 @@ const PRICE_OPTIONS = [
   }
 ]
 
-export const PageTitleSection = ({ title, onFilterClick, onPriceSortChange, actions = false }) => {
+export const PageTitleSection = (props) => {
+  const {
+    title,
+    subtitle,
+    onFilterClick,
+    onPriceSortChange,
+    actions = false
+  } = props
+
   return (
     <>
       <SectionWrapper>
-        <HeadTile>{title}</HeadTile>
+        <div>
+          <HeadTile>{title}</HeadTile>
+          {subtitle && (
+            <>
+              <SpacerH5 />
+              <StyledText>{subtitle}</StyledText>
+            </>
+          )}
+        </div>
+
         {actions &&
           <ActionsWrapper>
             <StyledSelect options={PRICE_OPTIONS} onChange={value => onPriceSortChange(value)} />

@@ -15,6 +15,7 @@ import { StyledRowsGrid } from './components/styles'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Витрина'
+  const PAGE_SUBTITLE = isUnfinished ? 'Гарантия на "Не готовые" ноутбуки не предоставляется.' : 'Гарантия на все ноутбуки с Витрины - 1 месяц.'
   const API = isUnfinished ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
 
   const { showError, showSuccess } = useNotify()
@@ -58,6 +59,7 @@ export const Showcase = ({ isUnfinished = false }) => {
 
           <PageTitleSection
             title={PAGE_TITLE}
+            subtitle={PAGE_SUBTITLE}
             onPriceSortChange={onPriceSortChange}
             onFilterClick={() => setHideFilters(!hideFilters)}
             actions

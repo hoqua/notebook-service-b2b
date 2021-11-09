@@ -12,10 +12,16 @@ export const NotebookRowDisplayCond = ({ displayCondition, title }) => {
 
   return (
     <StyledWrapper>
-      {iconConditionMap[displayCondition](theme)}
+      {getDisplayConditionIcon(displayCondition, theme)}
       <StyledText>{title}</StyledText>
     </StyledWrapper>
   )
+}
+
+const getDisplayConditionIcon = (displayCondition, theme) => {
+  if (!(displayCondition in iconConditionMap)) return null
+
+  return iconConditionMap[displayCondition](theme)
 }
 
 const iconConditionMap = {
