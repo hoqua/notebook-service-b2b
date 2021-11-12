@@ -3,7 +3,7 @@ import PublicLayout from '../../shared/layouts/PublicLayout'
 import { PublicContentContainer } from '../../shared/styled/PublicContentContainer'
 import { WrapPageLight } from '../../shared/styled/WrapPageLight'
 import { HeadTile, StyledLink, StyledText } from '../../shared/styled/Typography'
-import { SpacerH20, SpacerH25, SpacerH40 } from '../../shared/styled/Spacers'
+import { SpacerH20, SpacerH25, SpacerH40, SpacerH10 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
 import ClientCaptcha from 'react-client-captcha'
 import StyledCheckbox from '../../shared/styled/StyledCheckbox'
@@ -30,7 +30,6 @@ export default function Registration () {
   }, [formData])
 
   const register = async (event) => {
-    if (event.key !== 'Enter') return
     event.stopPropagation()
     event.preventDefault()
     const invalidProp = validate(formData, validationSchemaArr)
@@ -59,7 +58,7 @@ export default function Registration () {
           <FullPage>
             <HeadTile>Регистрация</HeadTile>
 
-            <form onKeyPress={register} ref={formRef}>
+            <form onKeyPress={event => event.key === 'Enter' ? register() : null} ref={formRef}>
               <StyledFromInputsWrapper>
                 <SpacerH40 />
 
@@ -152,6 +151,7 @@ export default function Registration () {
                   required
                 />
               </StyledFromInputsWrapper>
+              <SpacerH10 />
 
               <StyledCheckbox
                 error={formErrors.agreed}
