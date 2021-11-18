@@ -58,7 +58,7 @@ export default function Registration () {
           <FullPage>
             <HeadTile>Регистрация</HeadTile>
 
-            <form onKeyPress={event => event.key === 'Enter' ? register() : null} ref={formRef}>
+            <form onKeyPress={event => event.key === 'Enter' ? register(event) : null} ref={formRef}>
               <StyledFromInputsWrapper>
                 <SpacerH40 />
 
