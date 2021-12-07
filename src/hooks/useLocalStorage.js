@@ -1,36 +1,47 @@
 import { useEffect, useState } from 'react'
 
-export function useLocalStorage (key, initialValue) {
-  const storageEventKey = 'update.localStorage.' + key
-  const getState = () => {
-    try {
-      const item = window.localStorage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      console.log('storage parse', error)
-      return initialValue
-    }
+const CROSS_TAB_STORAGE_EVENT_KEY = 'storage'
+const CUSTOM_STORAGE_PREFIX = 'update.localStorage.'
+
+const getStorageState = (key, initialValue) => {
+  try {
+    const storageItem = window.localStorage.getItem(key)
+
+    return storageItem ? JSON.parse(storageItem) : initialValue // if nothing set return initial val
+  } catch (error) {
+    console.log('UseLocalStorage hook -> storage parse error:', error)
+
+    return initialValue
   }
-  const [storedValue, setStoredValue] = useState(getState())
-  const updateState = () => setStoredValue(getState())
+}
+
+export function useLocalStorage (localStorageKey, initialValue) {
+  const PER_TAB_STORAGE_EVENT_KEY = CUSTOM_STORAGE_PREFIX + localStorageKey
+  const [storedValue, setStoredValue] = useState(getStorageState(localStorageKey, initialValue))
+
+  const updateState = () => setStoredValue(getStorageState(localStorageKey, initialValue))
+  const updateCrossTabState = (event) => event.key === localStorageKey ? updateState() : undefined // run update only for specific storage hook
 
   useEffect(() => {
-    window.addEventListener(storageEventKey, updateState)
-    return () => window.removeEventListener(storageEventKey, updateState)
+    window.addEventListener(PER_TAB_STORAGE_EVENT_KEY, updateState)
+    window.addEventListener(CROSS_TAB_STORAGE_EVENT_KEY, updateCrossTabState)
+
+    return () => {
+      window.removeEventListener(PER_TAB_STORAGE_EVENT_KEY, updateState)
+      window.removeEventListener(CROSS_TAB_STORAGE_EVENT_KEY, updateCrossTabState)
+    }
   })
 
   const setValue = (value) => {
     try {
-      const valueToStore = value instanceof Function
-        ? value(storedValue)
-        : value
-      setStoredValue(valueToStore)
-      window.localStorage.setItem(key, JSON.stringify(valueToStore))
+      setStoredValue(value)
+      const storageItem = JSON.stringify(value)
+      window.localStorage.setItem(localStorageKey, storageItem) // this will trigger between tabs event
+
       // eslint-disable-next-line no-undef
-      const event = new Event(storageEventKey)
-      window.dispatchEvent(event)
+      window.dispatchEvent(new Event(PER_TAB_STORAGE_EVENT_KEY)) // send update event per tab event
     } catch (error) {
-      console.log('storage set value', error)
+      console.log('UseLocalStorage hook -> storage set value error:', error)
     }
   }
 

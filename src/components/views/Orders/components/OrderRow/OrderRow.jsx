@@ -35,7 +35,7 @@ export const OrderRow = ({ order }) => {
           <RowItem title='Цена' />
 
           <RowItem title='Сумма'>
-            <p>{getOrderPrice(order.items)}</p>
+            <p>{getOrderPrice(order.items).toFixed(2)}</p>
           </RowItem>
         </StyledOrderRow>
 
