@@ -6,8 +6,6 @@ import { RowItem } from '../../../../shared/RowItem/RowItem'
 import { StyledCard } from '../../../../shared/styled/StyledCard'
 import { SpacerH10 } from '../../../../shared/styled/Spacers'
 
-const getOrderPrice = (orders) => orders.reduce((sum, order) => sum + order.item_price, 0)
-
 export const OrderRow = ({ order }) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -35,7 +33,7 @@ export const OrderRow = ({ order }) => {
           <RowItem title='Цена' />
 
           <RowItem title='Сумма'>
-            <p>{getOrderPrice(order.items).toFixed(2)}</p>
+            <p>{order.order_sum}</p>
           </RowItem>
         </StyledOrderRow>
 
