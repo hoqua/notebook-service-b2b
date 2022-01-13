@@ -6,6 +6,12 @@ import { RowItem } from '../../../../shared/RowItem/RowItem'
 import { StyledCard } from '../../../../shared/styled/StyledCard'
 import { SpacerH10 } from '../../../../shared/styled/Spacers'
 
+const formatPrice = (number) => {
+  if (!number) return 0
+
+  return number?.toFixed(2) || 0
+}
+
 export const OrderRow = ({ order }) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -33,7 +39,7 @@ export const OrderRow = ({ order }) => {
           <RowItem title='Цена' />
 
           <RowItem title='Сумма'>
-            <p>{order.order_sum}</p>
+            <p>{formatPrice(order.order_sum)}</p>
           </RowItem>
         </StyledOrderRow>
 
@@ -55,11 +61,11 @@ export const OrderRow = ({ order }) => {
             </RowItem>
 
             <RowItem>
-              <p>{item.item_price}</p>
+              <p>{formatPrice(item.item_price)}</p>
             </RowItem>
 
             <RowItem>
-              <p>{item.item_sum}</p>
+              <p>{formatPrice(item.item_sum)}</p>
             </RowItem>
 
           </StyledOrderRow>
