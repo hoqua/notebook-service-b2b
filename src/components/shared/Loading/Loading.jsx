@@ -86,5 +86,4 @@ const Spinner = styled.div`
       transform: translate(24px, 0);
     }
   }
-
 `

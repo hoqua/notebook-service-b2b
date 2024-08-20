@@ -1,5 +1,13 @@
 import styled from 'styled-components'
-import { flexAlign, flexAlignJustify, fullPage, largeGap, scrollFix, smallGap, Z_INDEX } from '../../styled/css'
+import {
+  flexAlign,
+  flexAlignJustify,
+  fullPage,
+  largeGap,
+  scrollFix,
+  smallGap,
+  Z_INDEX
+} from '../../styled/css'
 export const StyledHeaderTitle = styled.p`
   font-size: 0.9rem;
   font-weight: 500;

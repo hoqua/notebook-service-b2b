@@ -3,7 +3,7 @@ import Checkbox from 'react-custom-checkbox'
 import { useTheme } from 'styled-components'
 import { ReactComponent as CheckMark } from '../../../assets/icons/check-mark.svg'
 
-export default function StyledCheckbox ({ onChange, children, error }) {
+export default function StyledCheckbox({ onChange, children, error }) {
   const theme = useTheme()
   const [isChecked, setIsChecked] = useState(false)
 
@@ -18,7 +18,7 @@ export default function StyledCheckbox ({ onChange, children, error }) {
     <Checkbox
       icon={
         <div>
-          <CheckMark stroke='#fff' height='11px' />
+          <CheckMark stroke="#fff" height="11px" />
         </div>
       }
       onChange={checkState}

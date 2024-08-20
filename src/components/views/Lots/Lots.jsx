@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import PrivateLayout from '../../shared/layouts/PrivateLayout/PrivateLayout'
-import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapPrivatePage'
+import {
+  InnerWrapPrivatePage,
+  WrapPrivatePage
+} from '../../shared/styled/WrapPrivatePage'
 import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { useFetch } from 'use-http'
 import { PageTitleSection } from '../../shared/styled/PageTitleSection'
@@ -25,7 +28,7 @@ export const Lots = () => {
   const { get, data, error, loading } = useFetch(API_LOTS)
 
   const addToShoppingCart = (lot) => {
-    if (lotsCart.some(lotInCart => lotInCart.lot_name === lot.lot_name)) {
+    if (lotsCart.some((lotInCart) => lotInCart.lot_name === lot.lot_name)) {
       showError('Такой товар уже есть в корзине!')
       return
     }
@@ -47,16 +50,25 @@ export const Lots = () => {
 
           <PageTitleSection title={PAGE_TITLE} />
 
-          <ErrorLoaderWrapper isError={!!error} isLoading={isLoadingOrNotFetchedYet} isEmpty={!lots.length}>
-            {lots.map(lot =>
+          <ErrorLoaderWrapper
+            isError={!!error}
+            isLoading={isLoadingOrNotFetchedYet}
+            isEmpty={!lots.length}
+          >
+            {lots.map((lot) => (
               <div key={lot.lot_name}>
                 <StyledCard>
-
                   <StyledTitle>{lot.lot_name}</StyledTitle>
                   <SpacerH20 />
 
                   <LotsGrid>
-                    {lot.items.map((lotItem, index) => <LotRow key={lotItem.serial_num} countNum={index + 1} {...lotItem} />)}
+                    {lot.items.map((lotItem, index) => (
+                      <LotRow
+                        key={lotItem.serial_num}
+                        countNum={index + 1}
+                        {...lotItem}
+                      />
+                    ))}
                   </LotsGrid>
 
                   <StyledCheckoutWrapper>
@@ -66,17 +78,17 @@ export const Lots = () => {
                     </StyledPriceWrapper>
 
                     <IfAble toDo={[USER_ACTION.DO_ORDER]} errorComponent={null}>
-                      <ShoppingCartButton onClick={() => addToShoppingCart(lot)} />
+                      <ShoppingCartButton
+                        onClick={() => addToShoppingCart(lot)}
+                      />
                     </IfAble>
-
                   </StyledCheckoutWrapper>
                 </StyledCard>
 
                 <SpacerH10 />
               </div>
-            )}
+            ))}
           </ErrorLoaderWrapper>
-
         </InnerWrapPrivatePage>
       </WrapPrivatePage>
     </PrivateLayout>

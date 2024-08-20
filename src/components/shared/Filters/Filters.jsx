@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { StyledCard } from '../styled/StyledCard'
-import { StyledInput, StyledLabeledInput, StyledLabeledSelect } from '../styled/StyledInput'
+import {
+  StyledInput,
+  StyledLabeledInput,
+  StyledLabeledSelect
+} from '../styled/StyledInput'
 import styled from 'styled-components'
 import StyledCheckbox from '../styled/StyledCheckbox'
 import { StyledText } from '../styled/Typography'
 import { AppButton } from '../styled/NavigationButton'
 import { mediumGap } from '../styled/css'
 import { useFetch } from 'use-http'
-import { API_FILTERS, API_FILTERS_UNFINISHED } from '../../../constants/constants'
+import {
+  API_FILTERS,
+  API_FILTERS_UNFINISHED
+} from '../../../constants/constants'
 
 export const VIDEO_OPTIONS = [
   {
@@ -20,9 +27,18 @@ export const VIDEO_OPTIONS = [
   }
 ]
 
-export const Filters = ({ onFiltersSubmit, loading, hideFilters, isUnfinished = false }) => {
+export const Filters = ({
+  onFiltersSubmit,
+  loading,
+  hideFilters,
+  isUnfinished = false
+}) => {
   const API = isUnfinished ? API_FILTERS_UNFINISHED : API_FILTERS
-  const { get, response: { data }, loading: loadingFilters } = useFetch(API)
+  const {
+    get,
+    response: { data },
+    loading: loadingFilters
+  } = useFetch(API)
   const [filters, setFilters] = useState({
     display: [],
     hdd: [],
@@ -38,27 +54,73 @@ export const Filters = ({ onFiltersSubmit, loading, hideFilters, isUnfinished = 
 
   useEffect(() => get(), [])
 
-  const { display, hdd, lookout, mark, proc, ram, poweron } = data?.filters || {}
+  const { display, hdd, lookout, mark, proc, ram, poweron } =
+    data?.filters || {}
 
-  const onSelect = (filterName) => (selected) => setFilters({ ...filters, [filterName]: selected })
+  const onSelect = (filterName) => (selected) =>
+    setFilters({ ...filters, [filterName]: selected })
   const applyFilters = () => onFiltersSubmit(filters)
 
   return (
     <StyledCard hide={hideFilters}>
       <FiltersWrapper>
+        <StyledLabeledSelect
+          label="Производитель"
+          onChange={onSelect('mark')}
+          options={mark}
+        />
+        <StyledLabeledSelect
+          label="Процессор"
+          onChange={onSelect('proc')}
+          options={proc}
+        />
+        <StyledLabeledSelect
+          label="Дискретная видеокарта"
+          onChange={onSelect('discrete_video')}
+          options={VIDEO_OPTIONS}
+        />
+        <StyledLabeledSelect
+          label="Оперативная память"
+          onChange={onSelect('ram')}
+          options={ram}
+        />
+        <StyledLabeledSelect
+          label="Накопитель"
+          onChange={onSelect('hdd')}
+          options={hdd}
+        />
 
-        <StyledLabeledSelect label='Производитель' onChange={onSelect('mark')} options={mark} />
-        <StyledLabeledSelect label='Процессор' onChange={onSelect('proc')} options={proc} />
-        <StyledLabeledSelect label='Дискретная видеокарта' onChange={onSelect('discrete_video')} options={VIDEO_OPTIONS} />
-        <StyledLabeledSelect label='Оперативная память' onChange={onSelect('ram')} options={ram} />
-        <StyledLabeledSelect label='Накопитель' onChange={onSelect('hdd')} options={hdd} />
-
-        <StyledLabeledSelect label='Экран' onChange={onSelect('display')} options={display} />
-        <StyledLabeledSelect label='Внешний вид' onChange={onSelect('lookout')} options={lookout} />
-        {isUnfinished && <StyledLabeledSelect label='Работоспособность' onChange={onSelect('poweron')} options={poweron} />}
+        <StyledLabeledSelect
+          label="Экран"
+          onChange={onSelect('display')}
+          options={display}
+        />
+        <StyledLabeledSelect
+          label="Внешний вид"
+          onChange={onSelect('lookout')}
+          options={lookout}
+        />
+        {isUnfinished && (
+          <StyledLabeledSelect
+            label="Работоспособность"
+            onChange={onSelect('poweron')}
+            options={poweron}
+          />
+        )}
         <PriceRangeWrapper>
-          <StyledLabeledInput type='number' label='Цена' onChange={onSelect('min_price')} width='96px' placeholder='От' />
-          <StyledInput type='number' placeholder='До' onChange={e => onSelect('max_price')(e.target.value)} width='96px' />
+          <StyledLabeledInput
+            type="number"
+            label="Цена"
+            onChange={onSelect('min_price')}
+            width="96px"
+            placeholder="От"
+          />
+          <StyledInput
+            type="number"
+            placeholder="До"
+            onChange={(e) => onSelect('max_price')(e.target.value)}
+            width="96px"
+          />
         </PriceRangeWrapper>
         {!isUnfinished && <div />}
 
@@ -66,11 +128,13 @@ export const Filters = ({ onFiltersSubmit, loading, hideFilters, isUnfinished = 
           <StyledCheckbox onChange={onSelect('new')}>
             <StyledText>Показать новинки</StyledText>
           </StyledCheckbox>
-          <AppButton onClick={applyFilters} disabled={loading || loadingFilters}>
+          <AppButton
+            onClick={applyFilters}
+            disabled={loading || loadingFilters}
+          >
             Применить
           </AppButton>
         </ActionsWrapper>
-
       </FiltersWrapper>
     </StyledCard>
   )

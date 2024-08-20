@@ -6,7 +6,9 @@ import { SadEmoji } from '../../styled/SadEmoji'
 export const EmptyResult = () => {
   return (
     <StyledCard>
-      <StyledText><SadEmoji /> Ничего не найдено.</StyledText>
+      <StyledText>
+        <SadEmoji /> Ничего не найдено.
+      </StyledText>
     </StyledCard>
   )
 }

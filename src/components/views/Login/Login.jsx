@@ -3,11 +3,19 @@ import { useNotify } from '../../../hooks/useSnakbar'
 import PublicLayout from '../../shared/layouts/PublicLayout'
 import { WrapPageLight } from '../../shared/styled/WrapPageLight'
 import { PublicContentContainer } from '../../shared/styled/PublicContentContainer'
-import { HeadTile, StyledLink, StyledText } from '../../shared/styled/Typography'
+import {
+  HeadTile,
+  StyledLink,
+  StyledText
+} from '../../shared/styled/Typography'
 import { SpacerH20, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
 import { AppButton } from '../../shared/styled/NavigationButton'
-import { defaultFormErrorsState, defaultFormState, validationSchemaArr } from './service'
+import {
+  defaultFormErrorsState,
+  defaultFormState,
+  validationSchemaArr
+} from './service'
 import {
   PublicFromActionsContainer,
   StyledFromInputsWrapper
@@ -16,7 +24,7 @@ import { validate } from '../../../utils/validators'
 import { LoginContentWrapper } from './styles'
 import { useAuth } from '../../../service/AuthService'
 
-export default function Registration () {
+export default function Registration() {
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
   const { signIn, loading } = useAuth()
@@ -28,7 +36,8 @@ export default function Registration () {
 
   const login = async () => {
     const invalidProp = validate(formData, validationSchemaArr)
-    if (invalidProp) return setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
+    if (invalidProp)
+      return setFormError({ ...defaultFormErrorsState, [invalidProp]: true })
 
     try {
       await signIn(formData.email, formData.password)
@@ -44,7 +53,6 @@ export default function Registration () {
         <PublicContentContainer>
           <LoginContentWrapper>
             <div>
-
               <HeadTile>Вход</HeadTile>
 
               <form>
@@ -53,36 +61,37 @@ export default function Registration () {
 
                   <label>Эл. почта (login)</label>
                   <StyledInput
-                    type='email' placeholder='Введите эл. почту'
-                    onChange={({ target }) => setFormData({
-                      ...formData,
-                      email: target.value
-                    })}
+                    type="email"
+                    placeholder="Введите эл. почту"
+                    onChange={({ target }) =>
+                      setFormData({
+                        ...formData,
+                        email: target.value
+                      })
+                    }
                     error={formErrors.email}
-                    onKeyDown={e => e.key === 'Enter' && login()}
+                    onKeyDown={(e) => e.key === 'Enter' && login()}
                   />
 
                   <label>Пароль</label>
                   <StyledInput
-                    type='password'
-                    placeholder='Введите пароль'
-                    onChange={({ target }) => setFormData({
-                      ...formData,
-                      password: target.value
-                    })}
+                    type="password"
+                    placeholder="Введите пароль"
+                    onChange={({ target }) =>
+                      setFormData({
+                        ...formData,
+                        password: target.value
+                      })
+                    }
                     error={formErrors.password}
-                    onKeyDown={e => e.key === 'Enter' && login()}
+                    onKeyDown={(e) => e.key === 'Enter' && login()}
                   />
                 </StyledFromInputsWrapper>
-
               </form>
               <SpacerH20 />
 
               <PublicFromActionsContainer>
-                <AppButton
-                  onClick={() => login()}
-                  disabled={loading}
-                >
+                <AppButton onClick={() => login()} disabled={loading}>
                   Войти
                 </AppButton>
               </PublicFromActionsContainer>
@@ -90,10 +99,12 @@ export default function Registration () {
             </div>
 
             <PublicFromActionsContainer>
-              <StyledText>У вас ещё нет аккаунта? <StyledLink to='/registration'>Зарегистрируйтесь</StyledLink></StyledText>
+              <StyledText>
+                У вас ещё нет аккаунта?{' '}
+                <StyledLink to="/registration">Зарегистрируйтесь</StyledLink>
+              </StyledText>
             </PublicFromActionsContainer>
           </LoginContentWrapper>
-
         </PublicContentContainer>
       </WrapPageLight>
     </PublicLayout>

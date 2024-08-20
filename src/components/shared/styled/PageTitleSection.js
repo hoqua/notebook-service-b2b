@@ -4,7 +4,15 @@ import styled from 'styled-components'
 import { StyledSelect } from './StyledSelect'
 import { ReactComponent as Filters } from '../../../assets/icons/filters.svg'
 import { SpacerH20, SpacerH5 } from './Spacers'
-import { darkColor, flexAlign, grayBorder, hoverDarkBorder, mediumGap, smallGap } from './css'
+import {
+  darkColor,
+  flexAlign,
+  grayBorder,
+  hoverDarkBorder,
+  mediumGap,
+  smallGap
+} from './css'
+import { StyledInput } from './StyledInput'
 
 const PRICE_OPTIONS = [
   {
@@ -27,6 +35,8 @@ export const PageTitleSection = (props) => {
     subtitle,
     onFilterClick,
     onPriceSortChange,
+    serialNum,
+    setSerialNum,
     actions = false
   } = props
 
@@ -43,11 +53,23 @@ export const PageTitleSection = (props) => {
           )}
         </div>
 
-        {actions &&
+        {actions && (
           <ActionsWrapper>
-            <StyledSelect options={PRICE_OPTIONS} onChange={value => onPriceSortChange(value)} />
-            <FiltersButton onClick={() => onFilterClick()}> <Filters /> Фильтры </FiltersButton>
-          </ActionsWrapper>}
+            <StyledInput
+              value={serialNum}
+              placeholder="Введите серийный номер"
+              onChange={(e) => setSerialNum(e.target.value)}
+            />
+            <StyledSelect
+              options={PRICE_OPTIONS}
+              onChange={(value) => onPriceSortChange(value)}
+            />
+            <FiltersButton onClick={() => onFilterClick()}>
+              {' '}
+              <Filters /> Фильтры{' '}
+            </FiltersButton>
+          </ActionsWrapper>
+        )}
       </SectionWrapper>
       <SpacerH20 />
     </>
@@ -70,7 +92,7 @@ export const FiltersButton = styled.button`
   font: inherit;
   background-color: white;
   padding: 12px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   cursor: pointer;
   ${smallGap};
   ${darkColor};

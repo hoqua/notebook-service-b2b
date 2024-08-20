@@ -1,5 +1,10 @@
 import React from 'react'
-import { ManagerCardWrapper, SmallerTextBold, SmallerTextCenter, TextWithIcon } from './styles'
+import {
+  ManagerCardWrapper,
+  SmallerTextBold,
+  SmallerTextCenter,
+  TextWithIcon
+} from './styles'
 import { ReactComponent as Phone } from '../../../../assets/icons/phone.svg'
 import { ReactComponent as Telegram } from '../../../../assets/icons/telegram.svg'
 import { ReactComponent as Viber } from '../../../../assets/icons/viber.svg'
@@ -16,23 +21,36 @@ export const ManagerCard = ({ manager }) => {
           <SmallerTextBold>{manager?.mngr_name}</SmallerTextBold>
           <SpacerH10 />
 
-          <img src={'data:image/png;base64,' + manager?.mngr_photo} alt='Photo of the manager' width='100%' />
+          <img
+            src={'data:image/png;base64,' + manager?.mngr_photo}
+            alt="Photo of the manager"
+            width="100%"
+          />
 
           <SpacerH10 />
-          {manager?.mngr_phone &&
+          {manager?.mngr_phone && (
             <>
-              <TextWithIcon><Phone /> {manager.mngr_phone}</TextWithIcon>
+              <TextWithIcon>
+                <Phone /> {manager.mngr_phone}
+              </TextWithIcon>
               <SpacerH10 />
-            </>}
+            </>
+          )}
 
-          {manager?.mngr_telegram &&
+          {manager?.mngr_telegram && (
             <>
-              <TextWithIcon><Telegram /> {manager.mngr_telegram}</TextWithIcon>
+              <TextWithIcon>
+                <Telegram /> {manager.mngr_telegram}
+              </TextWithIcon>
               <SpacerH10 />
-            </>}
+            </>
+          )}
 
-          {manager?.mngr_viber &&
-            <TextWithIcon><Viber /> {manager.mngr_viber}</TextWithIcon>}
+          {manager?.mngr_viber && (
+            <TextWithIcon>
+              <Viber /> {manager.mngr_viber}
+            </TextWithIcon>
+          )}
         </div>
       </ManagerCardWrapper>
     </StyledCard>

@@ -3,13 +3,13 @@ import { flexAlignJustify, grayBorder } from './css'
 
 export const IconButton = styled.button`
   ${flexAlignJustify};
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   cursor: pointer;
   transition: background-color 0.5s ease;
   padding: 8px;
   ${grayBorder}
 
-  &:hover{
+  &:hover {
     background-color: ${({ theme }) => theme.brand.gray};
   }
 `

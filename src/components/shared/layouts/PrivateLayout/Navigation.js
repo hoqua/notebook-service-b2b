@@ -7,12 +7,13 @@ import { useLocalStorage } from '../../../../hooks/useLocalStorage'
 import {
   LOTS_CART_KEY,
   NOTEBOOKS_CART_KEY,
-  ORDERS_ROUTE, ORDERS_STORE_KEY,
+  ORDERS_ROUTE,
+  ORDERS_STORE_KEY,
   SHOPPING_CART_ROUTE
 } from '../../../../constants/constants'
 import { flexAlignJustify } from '../../styled/css'
 
-export default function Navigation () {
+export default function Navigation() {
   const [notebooksCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
   const [lostCart] = useLocalStorage(LOTS_CART_KEY, [])
   const [orders] = useLocalStorage(ORDERS_STORE_KEY, [])
@@ -20,7 +21,8 @@ export default function Navigation () {
   const numberOrders = orders?.length || 0
   const isSomethingOrdered = numberOrders > 0
 
-  const numberItemsInCart = (notebooksCart?.length || 0) + (lostCart?.length || 0)
+  const numberItemsInCart =
+    (notebooksCart?.length || 0) + (lostCart?.length || 0)
   const isSomethingInCart = numberItemsInCart > 0
 
   return (
@@ -74,8 +76,8 @@ const Badge = styled.div`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.brand.dark};
   color: #fff;
-  font-size: .65rem;
-  line-height: .65rem;
+  font-size: 0.65rem;
+  line-height: 0.65rem;
   height: 15px;
   width: 15px;
   padding: 2px;

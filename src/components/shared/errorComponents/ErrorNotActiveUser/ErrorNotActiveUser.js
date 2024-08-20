@@ -6,7 +6,10 @@ import { SadEmoji } from '../../styled/SadEmoji'
 export const ErrorNotActiveUser = () => {
   return (
     <StyledCard>
-      <StyledText><SadEmoji /> Функционал не пока не доступен. Менеджер должен подтвердить ваши данные.</StyledText>
+      <StyledText>
+        <SadEmoji /> Функционал не пока не доступен. Менеджер должен подтвердить
+        ваши данные.
+      </StyledText>
     </StyledCard>
   )
 }

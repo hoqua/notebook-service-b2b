@@ -26,9 +26,7 @@ const RightContainer = styled.div`
 export const PublicContentContainer = ({ children }) => {
   return (
     <ContentContainer>
-      <LeftContainer>
-        {children}
-      </LeftContainer>
+      <LeftContainer>{children}</LeftContainer>
 
       <RightContainer />
     </ContentContainer>

@@ -6,7 +6,10 @@ import { SadEmoji } from '../../../shared/styled/SadEmoji'
 export const EmptyCartPlaceholder = () => {
   return (
     <StyledCard>
-      <StyledText><SadEmoji /> Вы еще ничего не выбрали. <StyledLink to='/'>Вернуться на главную</StyledLink></StyledText>
+      <StyledText>
+        <SadEmoji /> Вы еще ничего не выбрали.{' '}
+        <StyledLink to="/">Вернуться на главную</StyledLink>
+      </StyledText>
     </StyledCard>
   )
 }

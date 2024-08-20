@@ -16,16 +16,16 @@ const buttonCss = css`
   transition: all 0.3s ease;
   transition-property: background-color, color, border-color;
 
-  ${({ disabled, theme }) => disabled
-          ? `border-color: #D7D7D7;
+  ${({ disabled, theme }) =>
+    disabled
+      ? `border-color: #D7D7D7;
    background-color: #D7D7D7;
    color: #ACACAC;`
-          : `&:hover {
+      : `&:hover {
      background-color: white;
      cursor: pointer;
      color: ${theme.brand.dark};
-   }`
-  }
+   }`}
 `
 
 export const NavigationButton = styled(Link)`

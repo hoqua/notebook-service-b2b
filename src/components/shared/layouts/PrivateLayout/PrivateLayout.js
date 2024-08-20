@@ -7,7 +7,7 @@ import UserName from './UserName'
 import { useAuth } from '../../../../service/AuthService'
 import { ReactComponent as Logo } from '../../../../assets/icons/logo.svg'
 
-export default function PrivateLayout ({ children }) {
+export default function PrivateLayout({ children }) {
   const history = useHistory()
   const authService = useAuth()
 
@@ -17,8 +17,12 @@ export default function PrivateLayout ({ children }) {
     <>
       <StyledHeader>
         <InnerHeaderContainer>
-
-          <Logo width='194' height='29' onClick={() => history.push('/')} style={{ cursor: 'pointer' }} />
+          <Logo
+            width="194"
+            height="29"
+            onClick={() => history.push('/')}
+            style={{ cursor: 'pointer' }}
+          />
 
           <Info />
 

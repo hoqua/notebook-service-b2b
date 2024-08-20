@@ -8,7 +8,7 @@ import { NavigationButton } from '../shared/styled/NavigationButton'
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg'
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../constants/constants'
 
-export default function Home () {
+export default function Home() {
   return (
     <WrapPageLight>
       <PublicContentContainer>
@@ -16,18 +16,17 @@ export default function Home () {
           <Logo />
           <SpacerH40 />
 
-          <HeadTile>
-            Оптовый портал ноутбуков и комплектующих
-          </HeadTile>
+          <HeadTile>Оптовый портал ноутбуков и комплектующих</HeadTile>
 
           <SpacerH40 />
 
           <ActionButtonsContainer>
-            <NavigationButton to={REGISTRATION_ROUTE}>Регистрация</NavigationButton>
+            <NavigationButton to={REGISTRATION_ROUTE}>
+              Регистрация
+            </NavigationButton>
             <NavigationButton to={LOGIN_ROUTE}>Вход</NavigationButton>
           </ActionButtonsContainer>
         </HomeContainer>
-
       </PublicContentContainer>
     </WrapPageLight>
   )

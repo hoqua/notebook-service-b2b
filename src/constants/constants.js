@@ -10,10 +10,16 @@ export const AUTH_TOKEN_KEY = 'token'
 export const TOKEN_EXP_TIME_KEY = 'tokenExpTime'
 
 // sentry
-export const SENTRY_DSN = process.env.NODE_ENV === 'development' ? '' : 'https://9109d47a099f408da3b9429fc9c9dcc5@o1062531.ingest.sentry.io/6052948'
+export const SENTRY_DSN =
+  process.env.NODE_ENV === 'development'
+    ? ''
+    : 'https://9109d47a099f408da3b9429fc9c9dcc5@o1062531.ingest.sentry.io/6052948'
 
 // api
-export const API_ROOT = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : `https://${window.location.host}/api`
+export const API_ROOT =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/api'
+    : `https://${window.location.host}/api`
 export const API_LOGIN = 'login.php'
 export const API_LOTS = 'get-items-lot.php'
 export const API_NOTEBOOKS = 'get-items-main.php'
@@ -26,6 +32,7 @@ export const API_DO_ORDER = 'do-order-by-serial.php'
 export const API_DO_ORDER_LOTS = 'do-order-lot.php'
 export const API_FILTERS = 'get-filters.php'
 export const API_FILTERS_UNFINISHED = 'get-filters-unfinished.php'
+export const GET_ITEMS_MAIN_XLSX = 'get-items-main-xlsx.php'
 
 // app routes
 export const ROOT_ROUTE = '/'
@@ -43,5 +50,4 @@ export const DisplayConditions = {
   Defective: 'С дефектом',
   Questionable: 'Под вопросом',
   Bad: 'Плохая'
-
 }

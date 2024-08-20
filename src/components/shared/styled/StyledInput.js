@@ -14,29 +14,34 @@ export const StyledInput = styled.input`
     outline: none;
     ${({ error }) => !error && darkBorder}
   }
-  
+
   ${({ error }) => !error && hoverDarkBorder};
 
   &:focus-visible {
     outline: none;
   }
-  
 
   ${({ error, theme }) => error && `border-color: ${theme.status.error};`}
   ${({ width }) => width && `width: ${width}`}
   
   
-  ::-webkit-inner-spin-button{
+  ::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-  ::-webkit-outer-spin-button{
+  ::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 `
 
-export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChange, type = 'text' }) => {
+export const StyledLabeledInput = ({
+  label,
+  placeholder,
+  width = '100%',
+  onChange,
+  type = 'text'
+}) => {
   return (
     <StyledLabeledInputWrapper>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
@@ -52,17 +57,18 @@ export const StyledLabeledInput = ({ label, placeholder, width = '100%', onChang
   )
 }
 
-export const StyledLabeledSelect = ({ label, options, width = '100%', onChange, multi }) => {
+export const StyledLabeledSelect = ({
+  label,
+  options,
+  width = '100%',
+  onChange,
+  multi
+}) => {
   return (
     <StyledLabeledInputWrapper>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
       <SpacerH10 />
-      <StyledSelect
-        options={options}
-        onChange={onChange}
-        width={width}
-        multi
-      />
+      <StyledSelect options={options} onChange={onChange} width={width} multi />
     </StyledLabeledInputWrapper>
   )
 }
@@ -71,5 +77,5 @@ const StyledLabeledInputWrapper = styled.div``
 const StyledLabel = styled.label`
   display: block;
   color: ${({ theme }) => theme.typography.light};
-  font-size: .8rem;
+  font-size: 0.8rem;
 `

@@ -3,12 +3,22 @@ import { useFetch } from 'use-http'
 import { formatDate } from '../utils/date'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { isExpired } from '../utils/validators'
-import { API_LOGIN, API_ROOT, AUTH_TOKEN_KEY, TOKEN_EXP_TIME_KEY } from '../constants/constants'
+import {
+  API_LOGIN,
+  API_ROOT,
+  AUTH_TOKEN_KEY,
+  TOKEN_EXP_TIME_KEY
+} from '../constants/constants'
 
-export function useAuthProvidable () {
+export function useAuthProvidable() {
   const [token, setToken] = useLocalStorage(AUTH_TOKEN_KEY)
   const [tokenExpTime, setTokenExpTime] = useLocalStorage(TOKEN_EXP_TIME_KEY)
-  const { get: authGet, response: authRes, error: authError, loading: authLoading } = useFetch(API_ROOT + '/' + API_LOGIN, { cachePolicy: 'no-cache' }) // api prefix necessary here because options not provided
+  const {
+    get: authGet,
+    response: authRes,
+    error: authError,
+    loading: authLoading
+  } = useFetch(API_ROOT + '/' + API_LOGIN, { cachePolicy: 'no-cache' }) // api prefix necessary here because options not provided
 
   const signIn = async (userName, password) => {
     await authGet(`?u=${userName}&p=${password}`)
@@ -64,10 +74,6 @@ const authContext = createContext()
 
 export const useAuth = () => useContext(authContext)
 
-export function ProvideAuth ({ auth, children }) {
-  return (
-    <authContext.Provider value={auth}>
-      {children}
-    </authContext.Provider>
-  )
+export function ProvideAuth({ auth, children }) {
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>
 }

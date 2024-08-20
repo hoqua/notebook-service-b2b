@@ -2,9 +2,22 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import Arrow from '../../../assets/icons/arrow-up.svg'
 import { ReactComponent as Cross } from '../../../assets/icons/cross.svg'
-import { darkBorder, darkColor, flexAlign, grayBorder, hoverDarkBorder, smallGap, Z_INDEX } from './css'
+import {
+  darkBorder,
+  darkColor,
+  flexAlign,
+  grayBorder,
+  hoverDarkBorder,
+  smallGap,
+  Z_INDEX
+} from './css'
 
-export const StyledSelect = ({ options = [], onChange, multi = false, width }) => {
+export const StyledSelect = ({
+  options = [],
+  onChange,
+  multi = false,
+  width
+}) => {
   const theme = useTheme()
   const [selectedValues, setSelectedValues] = useState([])
   const selectRef = useRef(null)
@@ -24,7 +37,8 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
     selectRef.current.value = selectedValues.toString() // to clear last selected item and fix bug
   }
 
-  const getLabel = (selected) => options.find(option => option.value.toString() === selected).label
+  const getLabel = (selected) =>
+    options.find((option) => option.value.toString() === selected).label
 
   useEffect(() => {
     onChange(selectedValues)
@@ -33,25 +47,37 @@ export const StyledSelect = ({ options = [], onChange, multi = false, width }) =
   return (
     <SelectWrapper multi={multi}>
       <MultiWrapper>
-        {multi && selectedValues.map(selected =>
-          <SelectedItem key={selected}>
-            <Deselect onClick={() => removeSelected(selected)}>
-              <Cross stroke={theme.brand.dark} />
-            </Deselect>
-            {getLabel(selected)}
-          </SelectedItem>
-        )}
+        {multi &&
+          selectedValues.map((selected) => (
+            <SelectedItem key={selected}>
+              <Deselect onClick={() => removeSelected(selected)}>
+                <Cross stroke={theme.brand.dark} />
+              </Deselect>
+              {getLabel(selected)}
+            </SelectedItem>
+          ))}
       </MultiWrapper>
 
       <Select
         ref={selectRef}
-        name='select-component'
+        name="select-component"
         multi={multi}
         width={width}
-        onChange={({ target }) => multi ? onMultiChange(target.value) : onChange(target.value)}
+        onChange={({ target }) =>
+          multi ? onMultiChange(target.value) : onChange(target.value)
+        }
       >
         {multi && <option hidden />} {/* somehow fixes first selected item */}
-        {options.map(option => <option key={option.label} value={option.value} disabled={selectedValues.includes(option.value)} onChange={() => multi && onMultiChange(option.value)}>{option.label}</option>)}
+        {options.map((option) => (
+          <option
+            key={option.label}
+            value={option.value}
+            disabled={selectedValues.includes(option.value)}
+            onChange={() => multi && onMultiChange(option.value)}
+          >
+            {option.label}
+          </option>
+        ))}
       </Select>
     </SelectWrapper>
   )
@@ -65,7 +91,9 @@ export const SelectWrapper = styled.div`
 
   ${({ width }) => width && `width: ${width}`}
 
-  ${({ multi }) => !multi && `
+  ${({ multi }) =>
+    !multi &&
+    `
       &:after {
       content: '';
       background-image: url(${Arrow});
@@ -86,8 +114,8 @@ export const Select = styled.select`
   ${({ width }) => width && `width: ${width}`};
   position: relative;
   padding: ${PADDING};
-  color: ${({ theme, multi }) => multi ? 'transparent' : theme.brand.dark};
-  font-size: .8rem;
+  color: ${({ theme, multi }) => (multi ? 'transparent' : theme.brand.dark)};
+  font-size: 0.8rem;
   font-family: inherit;
   appearance: none;
   min-width: 150px;
@@ -104,13 +132,13 @@ export const Select = styled.select`
     ${darkBorder};
     outline: none;
   }
-  
+
   ${hoverDarkBorder};
   ${grayBorder};
 `
 
 export const SelectedItem = styled.div`
-  font-size: .8rem;
+  font-size: 0.8rem;
   z-index: ${Z_INDEX.select};
   pointer-events: none;
   height: 22px;

@@ -3,13 +3,13 @@ import { flexAlignJustify, largeGap } from '../../shared/styled/css'
 
 export const CartWrapper = styled.div`
   display: grid;
-  grid-template-columns: .7fr .3fr;
+  grid-template-columns: 0.7fr 0.3fr;
   ${largeGap}
 `
 
 export const CartRow = styled.div`
   display: grid;
-  grid-template-columns: .2fr .4fr .2fr .2fr;
+  grid-template-columns: 0.2fr 0.4fr 0.2fr 0.2fr;
   align-items: center;
   align-content: center;
   padding-top: 10px;
@@ -31,7 +31,7 @@ export const ActionsWrapper = styled.div`
 export const PriceText = styled.p`
   display: flex;
   justify-content: space-between;
-  font-size: .9rem;
+  font-size: 0.9rem;
 `
 
 export const PriceWrapper = styled.span`

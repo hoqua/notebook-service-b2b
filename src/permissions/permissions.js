@@ -16,7 +16,7 @@ const ABILITIES_MAP = {
 }
 
 const isUserAble = (toDo, grantedAbilities) => {
-  return toDo.some(userAction => grantedAbilities.includes(userAction))
+  return toDo.some((userAction) => grantedAbilities.includes(userAction))
 }
 
 export const IfAble = ({ children, toDo = [], errorComponent = null }) => {

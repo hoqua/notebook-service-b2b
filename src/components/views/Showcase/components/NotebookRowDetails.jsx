@@ -9,11 +9,11 @@ export const NotebookRowDetails = ({ notebook }) => {
       <div />
       <div />
 
-      <RowItem title='Батарея'>
+      <RowItem title="Батарея">
         <p>{notebook.battery}</p>
       </RowItem>
 
-      <RowItem title='Прим:'>
+      <RowItem title="Прим:">
         <p>{notebook.note}</p>
       </RowItem>
     </>

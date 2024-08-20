@@ -39,26 +39,30 @@ export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
     }
   }
 
-  const handleImageError = event => {
+  const handleImageError = (event) => {
     event.target.src = notebookFallback
   }
 
   return (
     <Modal title={title} onClose={onClose}>
-      <SliderButton positioning='left' onClick={decrease} />
-      <SliderButton positioning='right' onClick={increase} />
+      <SliderButton positioning="left" onClick={decrease} />
+      <SliderButton positioning="right" onClick={increase} />
 
       {loading && <Loading zIndex={Z_INDEX.modalLoading} />}
       <NotebookSliderImg
         animate={loading}
         ref={image}
         src={`media/img/${notebookSerialNum}/${activeItem}.jpg`}
-        alt='notebook full size img'
+        alt="notebook full size img"
         onLoad={() => setLoading(false)}
         onError={handleImageError}
       />
 
-      <SliderDots items={IMG_IDS} activeItem={activeItem} setActiveItemIndex={setActiveItemIndex} />
+      <SliderDots
+        items={IMG_IDS}
+        activeItem={activeItem}
+        setActiveItemIndex={setActiveItemIndex}
+      />
     </Modal>
   )
 }

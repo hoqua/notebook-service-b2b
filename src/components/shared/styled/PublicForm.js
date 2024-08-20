@@ -6,9 +6,8 @@ export const StyledFromInputsWrapper = styled.div`
   align-items: center;
 
   ${mediumGap};
-  
+
   @media (min-width: 900px) {
-    
     grid-template-columns: 150px 1fr;
 
     label {

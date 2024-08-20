@@ -5,14 +5,19 @@ import { StyledHeader } from './PrivateLayout/styles'
 import { ReactComponent as Logo } from '../../../assets/icons/logo.svg'
 import { flexAlign, fullPage } from '../styled/css'
 
-export default function PublicLayout ({ children }) {
+export default function PublicLayout({ children }) {
   const history = useHistory()
 
   return (
     <>
       <StyledHeader>
         <InnerHeaderContainer>
-          <Logo width='194' height='29' onClick={() => history.push('/')} style={{ cursor: 'pointer' }} />
+          <Logo
+            width="194"
+            height="29"
+            onClick={() => history.push('/')}
+            style={{ cursor: 'pointer' }}
+          />
         </InnerHeaderContainer>
       </StyledHeader>
       {children}
@@ -22,6 +27,6 @@ export default function PublicLayout ({ children }) {
 
 const InnerHeaderContainer = styled.header`
   ${fullPage};
-  max-width: 1170px;
+  max-width: 1440px;
   ${flexAlign};
 `
