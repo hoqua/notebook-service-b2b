@@ -7,7 +7,7 @@ import { Provider as HttpProvider } from 'use-http'
 import SnackbarProvider from 'react-simple-snackbar'
 import { ProvideAuth, useAuthProvidable } from './service/AuthService'
 
-function App () {
+function App() {
   const auth = useAuthProvidable()
 
   return (

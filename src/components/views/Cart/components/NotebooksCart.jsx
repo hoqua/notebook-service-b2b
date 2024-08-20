@@ -12,14 +12,13 @@ import { useSession } from '../../../../service/SessonDataService'
 import { SpacerH10 } from '../../../shared/styled/Spacers'
 
 export const NotebooksCart = ({ notebookCart, removeNotebook }) => {
-  const { user } = useSession()
-
+  const { user, exchangeRate } = useSession()
   return (
     <StyledCard>
       <StyledTitle>Ноутбуки</StyledTitle>
       <SpacerH10 />
 
-      {notebookCart.map(notebook =>
+      {notebookCart.map((notebook) => (
         <CartRow key={notebook.serial_num}>
           <NotebookImage notebook={notebook} noSlider />
 
@@ -29,14 +28,24 @@ export const NotebooksCart = ({ notebookCart, removeNotebook }) => {
             <StyledText>{notebook.serial_num}</StyledText>
           </div>
 
-          <PriceText>Цена: <PriceWrapper>{notebook.item_price} {getDiscountPriceStyled(user, notebook.item_price)}</PriceWrapper></PriceText>
+          <PriceText>
+            Цена:{' '}
+            <PriceWrapper>
+              {notebook.item_price}{' '}
+              {getDiscountPriceStyled(user, notebook.item_price)}
+            </PriceWrapper>
+            <PriceWrapper>
+              {Math.floor(notebook.item_price * exchangeRate.rate)}
+            </PriceWrapper>
+          </PriceText>
 
           <ActionsWrapper>
             <IconButton onClick={() => removeNotebook(notebook)}>
               <Trash />
             </IconButton>
           </ActionsWrapper>
-        </CartRow>)}
+        </CartRow>
+      ))}
     </StyledCard>
   )
 }

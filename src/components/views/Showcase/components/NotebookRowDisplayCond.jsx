@@ -31,10 +31,35 @@ const iconConditionMap = {
   [DisplayConditions.Bad]: (theme) => <CrossRed theme={theme} />
 }
 
-const CheckGreen = ({ theme }) => <Check stroke={theme.status.success} title='Рабочее состояние' style={iconStyles} />
-const CheckOrange = ({ theme }) => <Check stroke={theme.status.warning} title='Показывает но есть дефекты в виде полос или засветов' style={iconStyles} />
-const QuestionMark = () => <Question stroke='#7547D1' fill='#7547D1' title='Нет возможности проверить, без видимых дефектов' style={iconStyles} />
-const CrossRed = ({ theme }) => <Cross stroke={theme.status.error} title='Разбит или отсутствует' style={iconStyles} />
+const CheckGreen = ({ theme }) => (
+  <Check
+    stroke={theme.status.success}
+    title="Рабочее состояние"
+    style={iconStyles}
+  />
+)
+const CheckOrange = ({ theme }) => (
+  <Check
+    stroke={theme.status.warning}
+    title="Показывает но есть дефекты в виде полос или засветов"
+    style={iconStyles}
+  />
+)
+const QuestionMark = () => (
+  <Question
+    stroke="#7547D1"
+    fill="#7547D1"
+    title="Нет возможности проверить, без видимых дефектов"
+    style={iconStyles}
+  />
+)
+const CrossRed = ({ theme }) => (
+  <Cross
+    stroke={theme.status.error}
+    title="Разбит или отсутствует"
+    style={iconStyles}
+  />
+)
 
 const iconStyles = {
   height: '10px',

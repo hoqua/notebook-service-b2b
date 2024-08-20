@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { CARD_PADDING, flexAlign, flexAlignJustify, fullPage, mediumGap } from './css'
+import {
+  CARD_PADDING,
+  flexAlign,
+  flexAlignJustify,
+  fullPage,
+  mediumGap
+} from './css'
 
 export const StyledTopNavLink = styled(NavLink).attrs({
   activeClassName: 'active'
@@ -31,10 +37,10 @@ export const StyledSideNavLink = styled(NavLink).attrs({
   transition: background-color 0.3s ease;
 
   &.active {
-    background-color:  ${({ color, theme }) => color || theme.bg.light};
+    background-color: ${({ color, theme }) => color || theme.bg.light};
   }
 
-  &:not(.active):hover{
+  &:not(.active):hover {
     background-color: ${({ theme }) => theme.bg.light};
   }
 

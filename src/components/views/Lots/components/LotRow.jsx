@@ -25,9 +25,7 @@ export const LotRow = (props) => {
           <p>{props.item_name}</p>
         </RowItem>
 
-        <RowItem
-          title={first && 'Состояние'}
-        >
+        <RowItem title={first && 'Состояние'}>
           <NotebookPowerOn powerOn={props.poweron} big />
         </RowItem>
 
@@ -53,29 +51,27 @@ export const LotRow = (props) => {
         <RowItem title={first && 'Накопитель'}>
           <p>{props.hdd}</p>
         </RowItem>
-
       </StyledLotRow>
       <SpacerH5 />
       <StyledLotSubRow>
         <div />
-        {props?.battery
-          ? (
-            <StyledSubRowTextWrapper>
-              <StyledText>Батарея:</StyledText>
-              <SmallerText>{props.battery}</SmallerText>
-            </StyledSubRowTextWrapper>
-            )
-          : <div />}
-        {props?.note
-          ? (
-            <StyledSubRowTextWrapper>
-              <StyledText>Прим.:</StyledText>
-              <SmallerText>{props.note}</SmallerText>
-            </StyledSubRowTextWrapper>
-            )
-          : <div />}
+        {props?.battery ? (
+          <StyledSubRowTextWrapper>
+            <StyledText>Батарея:</StyledText>
+            <SmallerText>{props.battery}</SmallerText>
+          </StyledSubRowTextWrapper>
+        ) : (
+          <div />
+        )}
+        {props?.note ? (
+          <StyledSubRowTextWrapper>
+            <StyledText>Прим.:</StyledText>
+            <SmallerText>{props.note}</SmallerText>
+          </StyledSubRowTextWrapper>
+        ) : (
+          <div />
+        )}
       </StyledLotSubRow>
-
     </StyledLotRowWrapper>
   )
 }

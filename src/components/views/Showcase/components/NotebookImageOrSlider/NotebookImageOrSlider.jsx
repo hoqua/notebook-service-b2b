@@ -14,12 +14,13 @@ export const NotebookImageOrSlider = ({ notebook }) => {
 
   return (
     <>
-      {showSlider &&
+      {showSlider && (
         <NotebookSlider
           title={notebook.item_name}
           notebookSerialNum={notebook.serial_num}
           onClose={() => setShowSlider(false)}
-        />}
+        />
+      )}
 
       <NotebookImage
         notebook={notebook}

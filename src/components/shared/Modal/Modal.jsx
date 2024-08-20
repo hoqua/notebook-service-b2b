@@ -12,8 +12,9 @@ export const Modal = ({ title = 'No title', children, onClose }) => {
   const theme = useTheme()
   const modalRef = useRef(null)
 
-  const handleClickOutside = event => {
-    const isTargetOfEventInsideModal = modalRef.current && !modalRef.current.contains(event.target)
+  const handleClickOutside = (event) => {
+    const isTargetOfEventInsideModal =
+      modalRef.current && !modalRef.current.contains(event.target)
     if (isTargetOfEventInsideModal) return onClose?.()
   }
 
@@ -34,7 +35,7 @@ export const Modal = ({ title = 'No title', children, onClose }) => {
           <StyledTitle>{title}</StyledTitle>
 
           <IconButton onClick={() => onClose?.()}>
-            <Cross stroke={theme.brand.dark} height='12px' />
+            <Cross stroke={theme.brand.dark} height="12px" />
           </IconButton>
         </ModalHeader>
         <SpacerH20 />

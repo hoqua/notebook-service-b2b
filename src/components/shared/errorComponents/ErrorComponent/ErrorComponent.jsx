@@ -12,5 +12,5 @@ export const ErrorComponent = () => {
 
 const StyledErrorText = styled.p`
   color: ${({ theme }) => theme.status.error};
-  font-size: .8rem;
+  font-size: 0.8rem;
 `

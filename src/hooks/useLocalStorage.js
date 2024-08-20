@@ -15,12 +15,16 @@ const getStorageState = (key, initialValue) => {
   }
 }
 
-export function useLocalStorage (localStorageKey, initialValue) {
+export function useLocalStorage(localStorageKey, initialValue) {
   const PER_TAB_STORAGE_EVENT_KEY = CUSTOM_STORAGE_PREFIX + localStorageKey
-  const [storedValue, setStoredValue] = useState(getStorageState(localStorageKey, initialValue))
+  const [storedValue, setStoredValue] = useState(
+    getStorageState(localStorageKey, initialValue)
+  )
 
-  const updateState = () => setStoredValue(getStorageState(localStorageKey, initialValue))
-  const updateCrossTabState = (event) => event.key === localStorageKey ? updateState() : undefined // run update only for specific storage hook
+  const updateState = () =>
+    setStoredValue(getStorageState(localStorageKey, initialValue))
+  const updateCrossTabState = (event) =>
+    event.key === localStorageKey ? updateState() : undefined // run update only for specific storage hook
 
   useEffect(() => {
     window.addEventListener(PER_TAB_STORAGE_EVENT_KEY, updateState)
@@ -28,7 +32,10 @@ export function useLocalStorage (localStorageKey, initialValue) {
 
     return () => {
       window.removeEventListener(PER_TAB_STORAGE_EVENT_KEY, updateState)
-      window.removeEventListener(CROSS_TAB_STORAGE_EVENT_KEY, updateCrossTabState)
+      window.removeEventListener(
+        CROSS_TAB_STORAGE_EVENT_KEY,
+        updateCrossTabState
+      )
     }
   })
 

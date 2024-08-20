@@ -1,14 +1,14 @@
 import React from 'react'
-import { InnerWrapPrivatePage, WrapPrivatePage } from '../../shared/styled/WrapPrivatePage'
+import {
+  InnerWrapPrivatePage,
+  WrapPrivatePage
+} from '../../shared/styled/WrapPrivatePage'
 import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import PrivateLayout from '../../shared/layouts/PrivateLayout/PrivateLayout'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { EmptyCartPlaceholder } from './components/EmptyCartPlaceholder'
-import {
-  LOTS_CART_KEY,
-  NOTEBOOKS_CART_KEY
-} from '../../../constants/constants'
+import { LOTS_CART_KEY, NOTEBOOKS_CART_KEY } from '../../../constants/constants'
 import { MainCart } from './components/MainCart'
 import { IfAble, USER_ACTION } from '../../../permissions/permissions'
 import { ErrorNotActiveUser } from '../../shared/errorComponents/ErrorNotActiveUser/ErrorNotActiveUser'
@@ -26,14 +26,14 @@ export const Cart = () => {
         <InnerWrapPrivatePage>
           <BreadCrumbs currentPage={PAGE_TITLE} />
 
-          <PageTitleSection title='Корзина' />
+          <PageTitleSection title="Корзина" />
 
-          <IfAble toDo={[USER_ACTION.DO_ORDER]} errorComponent={<ErrorNotActiveUser />}>
-            {areCartsEmpty
-              ? <EmptyCartPlaceholder />
-              : <MainCart />}
+          <IfAble
+            toDo={[USER_ACTION.DO_ORDER]}
+            errorComponent={<ErrorNotActiveUser />}
+          >
+            {areCartsEmpty ? <EmptyCartPlaceholder /> : <MainCart />}
           </IfAble>
-
         </InnerWrapPrivatePage>
       </WrapPrivatePage>
     </PrivateLayout>

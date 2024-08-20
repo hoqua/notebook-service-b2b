@@ -5,16 +5,16 @@ import { StyledCard } from '../../../shared/styled/StyledCard'
 
 export const StyledNotebookRow = styled(StyledCard)`
   display: grid;
-  grid-template-columns: .05fr .15fr .1fr .08fr .07fr .23fr .1fr .05fr .1fr .07fr;
+  grid-template-columns: 0.05fr 0.15fr 0.1fr 0.08fr 0.07fr 0.23fr 0.1fr 0.05fr 0.1fr 0.07fr;
   align-items: center;
   ${mediumGap};
 `
 
 export const NewNotebookBadge = styled.div`
   color: #fff;
-  font-size: .7rem;
+  font-size: 0.7rem;
   line-height: 1rem;
-  background-color: #FFAC30;
+  background-color: #ffac30;
   display: block;
   position: absolute;
   top: 10px;
@@ -31,7 +31,7 @@ const classColorMap = {
 
 export const LookoutBadge = styled.div`
   color: #fff;
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: 4px 10px 4px 10px;
   background-color: ${({ classKey }) => classColorMap[classKey]};
   display: inline-block;

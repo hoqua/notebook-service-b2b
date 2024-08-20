@@ -9,8 +9,8 @@ export const BreadCrumbs = ({ currentPage }) => {
   return (
     <>
       <Wrapper>
-        <StyledBreadCrumb to='/'>Главная</StyledBreadCrumb>
-        <RotatedArrow color='#CCC' deg={90} />
+        <StyledBreadCrumb to="/">Главная</StyledBreadCrumb>
+        <RotatedArrow color="#CCC" deg={90} />
         <StyledCurrentPage>{currentPage}</StyledCurrentPage>
       </Wrapper>
       <SpacerH20 />

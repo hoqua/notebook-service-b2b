@@ -5,14 +5,14 @@ import { darkColor } from './css'
 export const HeadTile = styled.h1`
   font-size: 1.5rem;
   font-weight: 500;
-  `
+`
 export const StyledText = styled.p`
   color: ${({ theme }) => theme.typography.light};
-  font-size: .8rem;
+  font-size: 0.8rem;
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  font-size: .9rem;
+  font-size: 0.9rem;
   ${darkColor};
 `
 
@@ -23,5 +23,5 @@ export const StyledTitle = styled.p`
 `
 
 export const SmallerText = styled.p`
-  font-size: .8rem;
+  font-size: 0.8rem;
 `

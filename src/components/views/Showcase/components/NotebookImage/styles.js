@@ -17,22 +17,24 @@ export const NotebookImageWrapper = styled.div(
 
     ${flexAlignJustify};
     ${grayBorder};
-    
-    ${(!noSlider && !isError) && css`
+
+    ${!noSlider &&
+    !isError &&
+    css`
       cursor: pointer;
       ${hoverDarkBorder};
-      
+
       img {
         height: 100%;
         transition: opacity 0.3s ease;
       }
       &:hover {
         img {
-          opacity: .3;
+          opacity: 0.3;
         }
       }
-      
-      &:hover{
+
+      &:hover {
         &:before {
           ${darkColor};
           content: '';
@@ -44,7 +46,8 @@ export const NotebookImageWrapper = styled.div(
           background-repeat: no-repeat;
         }
       }
-      &:after{ // hack for preloading hover icon
+      &:after {
+        // hack for preloading hover icon
         content: '';
         background-image: url(${Zoom});
         height: 0;

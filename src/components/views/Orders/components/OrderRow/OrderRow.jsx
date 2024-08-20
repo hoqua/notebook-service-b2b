@@ -19,63 +19,64 @@ export const OrderRow = ({ order }) => {
     <>
       <StyledCard>
         <StyledOrderRow>
-
-          <RowItem title='Номер заказа'>
+          <RowItem title="Номер заказа">
             <StyledOrderNumber>№ {order.order_id}</StyledOrderNumber>
           </RowItem>
 
-          <RowItem title='Статус заказа'>
+          <RowItem title="Статус заказа">
             <OrderStatus satus={order.status} />
           </RowItem>
 
-          <RowItem title='Дата заказа'>
+          <RowItem title="Дата заказа">
             <p>{order.order_date}</p>
           </RowItem>
 
-          <RowItem title='Кол-во'>
+          <RowItem title="Кол-во">
             <p>{order.items.length}</p>
           </RowItem>
 
-          <RowItem title='Цена' />
+          <RowItem title="Цена" />
 
-          <RowItem title='Сумма'>
+          <RowItem title="Сумма">
             <p>{formatPrice(order.order_sum)}</p>
           </RowItem>
         </StyledOrderRow>
 
         {isExpanded && <SpacerH10 />}
-        {isExpanded && order.items.map((item, index) => (
-          <StyledOrderRow key={item.serial_num}>
-            <div />
+        {isExpanded &&
+          order.items.map((item, index) => (
+            <StyledOrderRow key={item.serial_num}>
+              <div />
 
-            <RowItem title={!index && 'Артикул'}>
-              <p> {item.serial_num}</p>
-            </RowItem>
+              <RowItem title={!index && 'Артикул'}>
+                <p> {item.serial_num}</p>
+              </RowItem>
 
-            <RowItem title={!index && 'Наименование'}>
-              <p>{item.item_name}</p>
-            </RowItem>
+              <RowItem title={!index && 'Наименование'}>
+                <p>{item.item_name}</p>
+              </RowItem>
 
-            <RowItem>
-              <p>{item.num}</p>
-            </RowItem>
+              <RowItem>
+                <p>{item.num}</p>
+              </RowItem>
 
-            <RowItem>
-              <p>{formatPrice(item.item_price)}</p>
-            </RowItem>
+              <RowItem>
+                <p>{formatPrice(item.item_price)}</p>
+              </RowItem>
 
-            <RowItem>
-              <p>{formatPrice(item.item_sum)}</p>
-            </RowItem>
+              <RowItem>
+                <p>{formatPrice(item.item_sum)}</p>
+              </RowItem>
+            </StyledOrderRow>
+          ))}
 
-          </StyledOrderRow>
-        ))}
-
-        <ExpandButton isExpand={isExpanded} onClick={() => setIsExpanded(!isExpanded)} />
+        <ExpandButton
+          isExpand={isExpanded}
+          onClick={() => setIsExpanded(!isExpanded)}
+        />
       </StyledCard>
 
       <SpacerH10 />
     </>
-
   )
 }

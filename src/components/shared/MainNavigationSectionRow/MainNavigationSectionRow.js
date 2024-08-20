@@ -3,7 +3,12 @@ import styled from 'styled-components'
 import { SpacerH10, SpacerH20 } from '../styled/Spacers'
 import { NavLink } from 'react-router-dom'
 
-export const MainNavigationSectionRow = ({ title, text, navigateTo, imagePath }) => {
+export const MainNavigationSectionRow = ({
+  title,
+  text,
+  navigateTo,
+  imagePath
+}) => {
   return (
     <StyledWrapper>
       <StyledImageWrapper>
@@ -11,13 +16,16 @@ export const MainNavigationSectionRow = ({ title, text, navigateTo, imagePath })
 
         <SpacerH10 />
 
-        <img src={imagePath} alt='Notebook image' height='120px' width='140px' />
+        <img
+          src={imagePath}
+          alt="Notebook image"
+          height="120px"
+          width="140px"
+        />
       </StyledImageWrapper>
 
       <div>
-        <StyledText>
-          {text}
-        </StyledText>
+        <StyledText>{text}</StyledText>
 
         <SpacerH20 />
         <NavLink to={navigateTo}>Перейти в раздел</NavLink>

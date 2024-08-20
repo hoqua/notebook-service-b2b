@@ -1,6 +1,6 @@
 export const subtractPercent = (amount, percent) => {
   const onePercent = amount / 100
-  const result = amount - (percent * onePercent)
+  const result = amount - percent * onePercent
   return parseInt(result)
 }
 

@@ -6,7 +6,7 @@ const sessionContext = createContext()
 
 export const useSession = () => useContext(sessionContext)
 
-export function ProvideSession ({ children }) {
+export function ProvideSession({ children }) {
   const [user, setUser] = useLocalStorage('user')
   const [exchangeRate, setExchangeRate] = useLocalStorage('exchangeRate')
 

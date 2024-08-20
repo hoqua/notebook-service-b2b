@@ -13,21 +13,23 @@ export const LotsCart = ({ lotsCart, removeLot }) => {
     <StyledCard>
       <StyledTitle>Лоты</StyledTitle>
       <SpacerH10 />
-      {lotsCart.map(lot =>
+      {lotsCart.map((lot) => (
         <CartRow key={lot.lot_name}>
-
           <StyledLink to={LOTS_ROUTE}>{lot.lot_name}</StyledLink>
 
           <div />
 
-          <PriceText>Цена: <PriceWrapper>{lot.lot_sum}</PriceWrapper></PriceText>
+          <PriceText>
+            Цена: <PriceWrapper>{lot.lot_sum}</PriceWrapper>
+          </PriceText>
 
           <ActionsWrapper>
             <IconButton onClick={() => removeLot(lot)}>
               <Trash />
             </IconButton>
           </ActionsWrapper>
-        </CartRow>)}
+        </CartRow>
+      ))}
     </StyledCard>
   )
 }

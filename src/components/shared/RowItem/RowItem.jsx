@@ -3,20 +3,18 @@ import styled from 'styled-components'
 import { StyledText } from '../styled/Typography'
 import { SpacerH10 } from '../styled/Spacers'
 
-export const RowItem = ({
-  title,
-  children
-}) => {
+export const RowItem = ({ title, children }) => {
   return (
     <StyledRowItem>
-      {typeof title === 'string' // render styled paragraph if string provided
-        ? <StyledText>{title}</StyledText>
-        : title}
+      {typeof title === 'string' ? ( // render styled paragraph if string provided
+        <StyledText>{title}</StyledText>
+      ) : (
+        title
+      )}
 
       <SpacerH10 />
 
       {children}
-
     </StyledRowItem>
   )
 }

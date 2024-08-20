@@ -1,5 +1,11 @@
 import styled from 'styled-components'
-import { flexAlign, flexAlignJustify, fullPage, scrollFix, Z_INDEX } from '../styled/css'
+import {
+  flexAlign,
+  flexAlignJustify,
+  fullPage,
+  scrollFix,
+  Z_INDEX
+} from '../styled/css'
 
 export const ModalWrapper = styled.dialog`
   position: fixed;
@@ -10,7 +16,7 @@ export const ModalWrapper = styled.dialog`
   max-height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${Z_INDEX.modal};
-  
+
   ${fullPage}
   ${scrollFix}
   ${flexAlignJustify}
