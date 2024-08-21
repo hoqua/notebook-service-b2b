@@ -9,7 +9,7 @@ import {
 } from './css'
 
 export const StyledTopNavLink = styled(NavLink).attrs({
-  activeClassName: 'active'
+  activeclassname: 'active'
 })`
   ${fullPage}
   ${flexAlignJustify}
@@ -24,7 +24,7 @@ export const StyledTopNavLink = styled(NavLink).attrs({
 `
 
 export const StyledSideNavLink = styled(NavLink).attrs({
-  activeClassName: 'active'
+  activeclassname: 'active'
 })`
   ${flexAlign};
   ${mediumGap};

@@ -68,7 +68,12 @@ export const StyledLabeledSelect = ({
     <StyledLabeledInputWrapper>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
       <SpacerH10 />
-      <StyledSelect options={options} onChange={onChange} width={width} multi />
+      <StyledSelect
+        options={options}
+        onChange={onChange}
+        width={width}
+        multi={multi}
+      />
     </StyledLabeledInputWrapper>
   )
 }

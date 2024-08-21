@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { InnerHeaderContainer, StyledHeader } from './styles'
 import Info from './Info'
 import Navigation from './Navigation'
@@ -8,7 +8,7 @@ import { useAuth } from '../../../../service/AuthService'
 import { ReactComponent as Logo } from '../../../../assets/icons/logo.svg'
 
 export default function PrivateLayout({ children }) {
-  const history = useHistory()
+  const navigate = useNavigate()
   const authService = useAuth()
 
   const logOut = () => authService.logOut()
@@ -20,7 +20,7 @@ export default function PrivateLayout({ children }) {
           <Logo
             width="194"
             height="29"
-            onClick={() => history.push('/')}
+            onClick={() => navigate('/')}
             style={{ cursor: 'pointer' }}
           />
 

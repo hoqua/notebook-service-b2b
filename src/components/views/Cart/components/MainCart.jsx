@@ -24,11 +24,11 @@ import {
   NOTEBOOKS_CART_KEY,
   ORDERS_ROUTE
 } from '../../../../constants/constants'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const MainCart = () => {
   const { user, exchangeRate } = useSession()
-  const history = useHistory()
+  const navigate = useNavigate()
   const { showError, showSuccess } = useNotify()
   const {
     getNotebooksById,
@@ -121,7 +121,7 @@ export const MainCart = () => {
       setNotebookCart([])
       setLotsCart([])
       showSuccess('Заказ отправлен менеджеру. Спасибо!')
-      history.push(ORDERS_ROUTE)
+      navigate(ORDERS_ROUTE)
       return null
     } catch (e) {
       showError('Возникла ошибка заказа. Попробуйте позже!')

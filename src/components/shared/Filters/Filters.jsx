@@ -52,7 +52,17 @@ export const Filters = ({
     max_price: ''
   })
 
-  useEffect(() => get(), [])
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        await get()
+      } catch (error) {
+        console.log('Error fetching notebooks', error)
+      }
+    }
+
+    fetchFilters()
+  }, [])
 
   const { display, hdd, lookout, mark, proc, ram, poweron } =
     data?.filters || {}
@@ -62,7 +72,7 @@ export const Filters = ({
   const applyFilters = () => onFiltersSubmit(filters)
 
   return (
-    <StyledCard hide={hideFilters}>
+    <StyledCard hide={hideFilters ? hideFilters : undefined}>
       <FiltersWrapper>
         <StyledLabeledSelect
           label="Производитель"

@@ -24,7 +24,7 @@ import {
   StyledFromInputsWrapper
 } from '../../shared/styled/PublicForm'
 import { validate } from '../../../utils/validators'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { fullPage } from '../../shared/styled/css'
 
@@ -34,7 +34,7 @@ export default function Registration() {
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
   const { signUp, response, loading } = useSignUp()
-  const history = useHistory()
+  const navigate = useNavigate()
   const { showError, showSuccess } = useNotify()
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function Registration() {
 
     if (response.ok) {
       showSuccess('Вы успешно зарегистрировались!')
-      history.push('/')
+      navigate('/')
       return null
     } else {
       showError(`Ошибка регистрации. ${response?.data?.err_msg || ''}`)

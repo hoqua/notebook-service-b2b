@@ -45,7 +45,6 @@ export function useLocalStorage(localStorageKey, initialValue) {
       const storageItem = JSON.stringify(value)
       window.localStorage.setItem(localStorageKey, storageItem) // this will trigger between tabs event
 
-      // eslint-disable-next-line no-undef
       window.dispatchEvent(new Event(PER_TAB_STORAGE_EVENT_KEY)) // send update event per tab event
     } catch (error) {
       console.log('UseLocalStorage hook -> storage set value error:', error)
