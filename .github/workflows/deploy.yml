@@ -1,4 +1,6 @@
-on: push
+on:
+  push:
+  pull_request:
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -7,10 +9,10 @@ jobs:
     environment: notebook-service-b2b
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Use Node.js 20
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
