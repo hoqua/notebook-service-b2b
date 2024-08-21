@@ -1,5 +1,12 @@
-on: push
-name: 🚀 Deploy website on push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+name: 🚀 Deploy website on push && pull request
 jobs:
   web-deploy:
     name: 🎉 Deploy
@@ -16,7 +23,7 @@ jobs:
 
       - name: 🔨 Build Project
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       - name: List output files
