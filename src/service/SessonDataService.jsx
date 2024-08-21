@@ -13,11 +13,15 @@ export function ProvideSession({ children }) {
   const { get: getUser, response: userRes } = useFetch('get-user-info.php')
   const { get: getExRate, response: exRes } = useFetch('get-exrate.php')
 
-  useEffect(async () => {
-    await Promise.all([getExRate(), getUser()])
+  useEffect(() => {
+    const fetchData = async () => {
+      const [exRateData, userData] = await Promise.all([getExRate(), getUser()])
 
-    if (userRes.ok) setUser(userRes.data)
-    if (exRes.ok) setExchangeRate(exRes.data)
+      if (userRes.ok) setUser(userData)
+      if (exRes.ok) setExchangeRate(exRateData)
+    }
+
+    fetchData()
   }, [])
 
   return (

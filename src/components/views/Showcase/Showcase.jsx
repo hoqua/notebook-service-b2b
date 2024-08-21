@@ -33,7 +33,17 @@ export const Showcase = ({ isUnfinished = false }) => {
   const [serialNum, setSerialNum] = useState('')
   const [notebookCart, addToCart] = useLocalStorage(NOTEBOOKS_CART_KEY, [])
 
-  useEffect(() => get(), [])
+  useEffect(() => {
+    const fetchNotebooks = async () => {
+      try {
+        await get()
+      } catch (error) {
+        console.log('Error fetching notebooks', error)
+      }
+    }
+
+    fetchNotebooks()
+  }, [])
 
   const getWithFilters = (latestFilters) => {
     setMergedFilters(latestFilters)

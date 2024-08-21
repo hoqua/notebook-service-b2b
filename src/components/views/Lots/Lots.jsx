@@ -37,7 +37,17 @@ export const Lots = () => {
     showSuccess('Товар был добавлен в корзину!')
   }
 
-  useEffect(() => get(), [])
+  useEffect(() => {
+    const getLots = async () => {
+      try {
+        await get()
+      } catch (error) {
+        console.log('Failed to get lots', error)
+      }
+    }
+
+    getLots()
+  }, [])
 
   const lots = data?.lots || []
   const isLoadingOrNotFetchedYet = !data || loading

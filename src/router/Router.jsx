@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../components/views/Login/Login'
 import Main from '../components/views/Main'
 import { useAuth } from '../service/AuthService'
@@ -29,7 +29,12 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Suspense fallback={<SuspenseView />}>
-        <Switch>{auth.token ? privateRoutes() : publicRoutes()}</Switch>
+        <ProvideSession>
+          <Routes>
+            {auth.token ? privateRoutes() : publicRoutes()}
+            <Route path="*" element={<Navigate to={ROOT_ROUTE} />} />
+          </Routes>
+        </ProvideSession>
       </Suspense>
     </BrowserRouter>
   )
@@ -38,41 +43,24 @@ export default function Router() {
 const publicRoutes = () => {
   return (
     <>
-      <Route exact path={ROOT_ROUTE}>
-        <Login />
-      </Route>
-      <Route exact path={REGISTRATION_ROUTE}>
-        <Registration />
-      </Route>
-
-      <Redirect to={ROOT_ROUTE} />
+      <Route path={ROOT_ROUTE} element={<Login />} />
+      <Route path={REGISTRATION_ROUTE} element={<Registration />} />
     </>
   )
 }
 
 const privateRoutes = () => {
   return (
-    <ProvideSession>
-      <Route exact path={SHOWCASE_ROUTE}>
-        <Showcase />
-      </Route>
-      <Route exact path={SHOWCASE_UNFINISHED_ROUTE}>
-        <Showcase isUnfinished />
-      </Route>
-      <Route exact path={LOTS_ROUTE}>
-        <Lots />
-      </Route>
-
-      <Route exact path={SHOPPING_CART_ROUTE}>
-        <Cart />
-      </Route>
-      <Route exact path={ORDERS_ROUTE}>
-        <Orders />
-      </Route>
-
-      <Route exact path={ROOT_ROUTE}>
-        <Main />
-      </Route>
-    </ProvideSession>
+    <>
+      <Route path={SHOWCASE_ROUTE} element={<Showcase />} />
+      <Route
+        path={SHOWCASE_UNFINISHED_ROUTE}
+        element={<Showcase isUnfinished />}
+      />
+      <Route path={LOTS_ROUTE} element={<Lots />} />
+      <Route path={SHOPPING_CART_ROUTE} element={<Cart />} />
+      <Route path={ORDERS_ROUTE} element={<Orders />} />
+      <Route path={ROOT_ROUTE} element={<Main />} />
+    </>
   )
 }

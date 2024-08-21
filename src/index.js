@@ -1,9 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
 import App from './App'
 import { SENTRY_DSN } from './constants/constants'
+import { createRoot } from 'react-dom/client'
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -15,10 +15,6 @@ Sentry.init({
   tracesSampleRate: 1.0
 })
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  // eslint-disable-next-line no-undef
-  document.getElementById('root')
-)
+const root = createRoot(document.getElementById('root'))
+
+root.render(<App />)
