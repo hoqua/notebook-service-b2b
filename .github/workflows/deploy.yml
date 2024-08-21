@@ -1,12 +1,5 @@
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-name: 🚀 Deploy website on push && pull request
+on: push
+name: 🚀 Deploy website on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
