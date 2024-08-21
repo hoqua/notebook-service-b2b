@@ -17,6 +17,8 @@
     "use-http": "^1.0.28"
   },
   "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -32,7 +34,7 @@
     "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'"
   },
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "browserslist": {
     "production": [
