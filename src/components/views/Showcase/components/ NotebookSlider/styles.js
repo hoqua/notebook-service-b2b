@@ -6,7 +6,7 @@ export const NotebookSliderImg = styled.img`
   height: 800px;
   width: 800px;
   transition: opacity 0.3s ease;
-  opacity: ${({ animate }) => (animate ? 0.7 : 1)};
+  opacity: ${({ $animate }) => ($animate ? 0.7 : 1)};
 `
 
 export const StyledSliderButton = styled(RoundButton)`
@@ -17,13 +17,14 @@ export const StyledSliderButton = styled(RoundButton)`
   width: 35px;
   top: 50%;
 
-  ${({ positioning }) => positioning === 'left' && `left: ${CARD_PADDING};`};
-  ${({ positioning }) => positioning === 'right' && `right: ${CARD_PADDING};`};
+  ${({ $positioning }) => $positioning === 'left' && `left: ${CARD_PADDING};`};
+  ${({ $positioning }) =>
+    $positioning === 'right' && `right: ${CARD_PADDING};`};
 `
 
 export const SliderDot = styled(RoundButton)`
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.brand.gray : 'none'};
+  background-color: ${({ $isActive, theme }) =>
+    $isActive ? theme.brand.gray : 'none'};
 `
 export const SliderDotsWrapper = styled.div`
   position: absolute;

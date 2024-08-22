@@ -2,11 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { flexAlignJustify, fullPage } from '../styled/css'
 
-export const Loading = ({ zIndex }) => {
+export const Loading = ({ $zIndex }) => {
   return (
     <>
       <StyledWrapper>
-        <Spinner zIndex={zIndex}>
+        <Spinner $zIndex={$zIndex}>
           <div />
           <div />
           <div />
@@ -30,7 +30,7 @@ const Spinner = styled.div`
   position: relative;
   width: 80px;
   height: 80px;
-  z-index: ${({ zIndex }) => zIndex || 1};
+  z-index: ${({ $zIndex }) => $zIndex || 1};
 
   div {
     position: absolute;

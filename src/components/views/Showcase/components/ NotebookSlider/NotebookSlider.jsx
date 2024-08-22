@@ -45,12 +45,12 @@ export const NotebookSlider = ({ onClose, notebookSerialNum, title }) => {
 
   return (
     <Modal title={title} onClose={onClose}>
-      <SliderButton positioning="left" onClick={decrease} />
-      <SliderButton positioning="right" onClick={increase} />
+      <SliderButton $positioning="left" onClick={decrease} />
+      <SliderButton $positioning="right" onClick={increase} />
 
-      {loading && <Loading zIndex={Z_INDEX.modalLoading} />}
+      {loading && <Loading $zindex={Z_INDEX.modalLoading} />}
       <NotebookSliderImg
-        animate={loading}
+        $animate={loading}
         ref={image}
         src={`media/img/${notebookSerialNum}/${activeItem}.jpg`}
         alt="notebook full size img"

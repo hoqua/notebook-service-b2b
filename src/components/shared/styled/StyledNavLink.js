@@ -8,8 +8,10 @@ import {
   mediumGap
 } from './css'
 
-export const StyledTopNavLink = styled(NavLink).attrs({
-  activeclassname: 'active'
+export const StyledTopNavLink = styled(({ exact, ...props }) => (
+  <NavLink {...props} />
+)).attrs({
+  $activeClassName: 'active'
 })`
   ${fullPage}
   ${flexAlignJustify}
@@ -24,7 +26,7 @@ export const StyledTopNavLink = styled(NavLink).attrs({
 `
 
 export const StyledSideNavLink = styled(NavLink).attrs({
-  activeclassname: 'active'
+  $activeClassName: 'active'
 })`
   ${flexAlign};
   ${mediumGap};
