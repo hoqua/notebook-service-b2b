@@ -9,7 +9,6 @@ import {
 } from '../../shared/styled/Typography'
 import { SpacerH20, SpacerH25, SpacerH40 } from '../../shared/styled/Spacers'
 import { StyledInput } from '../../shared/styled/StyledInput'
-import ClientCaptcha from 'react-client-captcha'
 import StyledCheckbox from '../../shared/styled/StyledCheckbox'
 import { AppButton } from '../../shared/styled/NavigationButton'
 import {
@@ -27,6 +26,7 @@ import { validate } from '../../../utils/validators'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { fullPage } from '../../shared/styled/css'
+import ClientCaptcha from './components/client-captcha'
 
 export default function Registration() {
   const formRef = useRef(null)
