@@ -90,7 +90,7 @@ export default function Registration() {
                         firm: target.value
                       })
                     }
-                    error={formErrors.firm}
+                    $error={formErrors.firm}
                     required
                   />
 
@@ -104,7 +104,7 @@ export default function Registration() {
                         name: target.value
                       })
                     }
-                    error={formErrors.name}
+                    $error={formErrors.name}
                     required
                   />
 
@@ -118,7 +118,7 @@ export default function Registration() {
                         email: target.value
                       })
                     }
-                    error={formErrors.email}
+                    $error={formErrors.email}
                     required
                   />
 
@@ -132,7 +132,7 @@ export default function Registration() {
                         password: target.value
                       })
                     }
-                    error={formErrors.password}
+                    $error={formErrors.password}
                     required
                   />
 
@@ -146,7 +146,7 @@ export default function Registration() {
                         phone: target.value
                       })
                     }
-                    error={formErrors.phone}
+                    $error={formErrors.phone}
                     required
                   />
 
@@ -160,12 +160,13 @@ export default function Registration() {
                         telegram: target.value
                       })
                     }
-                    error={formErrors.telegram}
+                    $error={formErrors.telegram}
                     required
                   />
 
                   <ClientCaptcha
                     height={38}
+                    width={100}
                     captchaCode={(code) => {
                       setCapcha(code)
                       setFormData({ ...formData, capcha: false })
@@ -180,14 +181,14 @@ export default function Registration() {
                         capcha: target.value === capcha
                       })
                     }
-                    error={formErrors.capcha}
+                    $error={formErrors.capcha}
                     required
                   />
                 </StyledFromInputsWrapper>
                 <SpacerH20 />
 
                 <StyledCheckbox
-                  error={formErrors.agreed}
+                  $error={formErrors.agreed}
                   onChange={(isAgreed) =>
                     setFormData({
                       ...formData,

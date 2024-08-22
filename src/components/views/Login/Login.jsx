@@ -69,7 +69,7 @@ export default function Registration() {
                         email: target.value
                       })
                     }
-                    error={formErrors.email}
+                    $error={formErrors.email}
                     onKeyDown={(e) => e.key === 'Enter' && login()}
                   />
 
@@ -83,7 +83,7 @@ export default function Registration() {
                         password: target.value
                       })
                     }
-                    error={formErrors.password}
+                    $error={formErrors.password}
                     onKeyDown={(e) => e.key === 'Enter' && login()}
                   />
                 </StyledFromInputsWrapper>

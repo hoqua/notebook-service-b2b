@@ -15,7 +15,7 @@ import {
 export const StyledSelect = ({
   options = [],
   onChange,
-  multi = false,
+  $multi = false,
   width
 }) => {
   const theme = useTheme()
@@ -45,9 +45,9 @@ export const StyledSelect = ({
   }, [selectedValues])
 
   return (
-    <SelectWrapper multi={multi}>
+    <SelectWrapper $multi={$multi}>
       <MultiWrapper>
-        {multi &&
+        {$multi &&
           selectedValues.map((selected) => (
             <SelectedItem key={selected}>
               <Deselect onClick={() => removeSelected(selected)}>
@@ -61,19 +61,19 @@ export const StyledSelect = ({
       <Select
         ref={selectRef}
         name="select-component"
-        multi={multi}
+        $multi={$multi}
         width={width}
         onChange={({ target }) =>
-          multi ? onMultiChange(target.value) : onChange(target.value)
+          $multi ? onMultiChange(target.value) : onChange(target.value)
         }
       >
-        {multi && <option hidden />} {/* somehow fixes first selected item */}
+        {$multi && <option hidden />} {/* somehow fixes first selected item */}
         {options.map((option) => (
           <option
             key={option.label}
             value={option.value}
             disabled={selectedValues.includes(option.value)}
-            onChange={() => multi && onMultiChange(option.value)}
+            onChange={() => $multi && onMultiChange(option.value)}
           >
             {option.label}
           </option>
@@ -91,8 +91,8 @@ export const SelectWrapper = styled.div`
 
   ${({ width }) => width && `width: ${width}`}
 
-  ${({ multi }) =>
-    !multi &&
+  ${({ $multi }) =>
+    !$multi &&
     `
       &:after {
       content: '';
@@ -114,7 +114,7 @@ export const Select = styled.select`
   ${({ width }) => width && `width: ${width}`};
   position: relative;
   padding: ${PADDING};
-  color: ${({ theme, multi }) => (multi ? 'transparent' : theme.brand.dark)};
+  color: ${({ theme, $multi }) => ($multi ? 'transparent' : theme.brand.dark)};
   font-size: 0.8rem;
   font-family: inherit;
   appearance: none;

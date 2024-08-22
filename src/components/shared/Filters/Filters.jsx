@@ -72,7 +72,7 @@ export const Filters = ({
   const applyFilters = () => onFiltersSubmit(filters)
 
   return (
-    <StyledCard hide={hideFilters ? hideFilters : undefined}>
+    <StyledCard $hide={hideFilters}>
       <FiltersWrapper>
         <StyledLabeledSelect
           label="Производитель"

@@ -42,7 +42,7 @@ export const NotebookRow = ({ notebook, onClick }) => {
           )
         }
       >
-        <LookoutBadge classkey={notebook.lookout}>
+        <LookoutBadge $classKey={notebook.lookout}>
           {notebook.lookout}
         </LookoutBadge>
       </RowItem>

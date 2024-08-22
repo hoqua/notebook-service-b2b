@@ -33,7 +33,7 @@ export const LookoutBadge = styled.div`
   color: #fff;
   font-size: 0.9rem;
   padding: 4px 10px 4px 10px;
-  background-color: ${({ classkey }) => classColorMap[classkey]};
+  background-color: ${({ $classKey }) => classColorMap[$classKey]};
   display: inline-block;
 `
 

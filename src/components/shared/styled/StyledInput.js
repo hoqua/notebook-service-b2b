@@ -12,16 +12,16 @@ export const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-    ${({ error }) => !error && darkBorder}
+    ${({ $error }) => !$error && darkBorder}
   }
 
-  ${({ error }) => !error && hoverDarkBorder};
+  ${({ $error }) => !$error && hoverDarkBorder};
 
   &:focus-visible {
     outline: none;
   }
 
-  ${({ error, theme }) => error && `border-color: ${theme.status.error};`}
+  ${({ $error, theme }) => $error && `border-color: ${theme.status.error};`}
   ${({ width }) => width && `width: ${width}`}
   
   
@@ -72,7 +72,7 @@ export const StyledLabeledSelect = ({
         options={options}
         onChange={onChange}
         width={width}
-        multi={multi}
+        $multi={multi}
       />
     </StyledLabeledInputWrapper>
   )
