@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNotify } from '../../../hooks/useSnakbar'
 import PublicLayout from '../../shared/layouts/PublicLayout'
 import { WrapPageLight } from '../../shared/styled/WrapPageLight'
 import { PublicContentContainer } from '../../shared/styled/PublicContentContainer'
@@ -23,12 +22,12 @@ import {
 import { validate } from '../../../utils/validators'
 import { LoginContentWrapper } from './styles'
 import { useAuth } from '../../../service/AuthService'
+import { toast } from '../../shared/Toaster/use-toast'
 
 export default function Registration() {
   const [formData, setFormData] = useState({ ...defaultFormState })
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
   const { signIn, loading } = useAuth()
-  const { showError } = useNotify()
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
@@ -43,7 +42,10 @@ export default function Registration() {
       await signIn(formData.email, formData.password)
     } catch (e) {
       setFormError({ ...defaultFormErrorsState })
-      showError(e.message)
+      toast({
+        title: e.message,
+        variant: 'destructive'
+      })
     }
   }
 

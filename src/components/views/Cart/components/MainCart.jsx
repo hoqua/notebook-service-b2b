@@ -17,7 +17,6 @@ import { StyledTitle } from '../../../shared/styled/Typography'
 import { ActionWrapper, CartWrapper, PriceText, PriceWrapper } from '../styles'
 import { AppButton } from '../../../shared/styled/NavigationButton'
 import { useSession } from '../../../../service/SessonDataService'
-import { useNotify } from '../../../../hooks/useSnakbar'
 import { useLocalStorage } from '../../../../hooks/useLocalStorage'
 import {
   LOTS_CART_KEY,
@@ -25,11 +24,11 @@ import {
   ORDERS_ROUTE
 } from '../../../../constants/constants'
 import { useNavigate } from 'react-router-dom'
+import { toast } from '../../../shared/Toaster/use-toast'
 
 export const MainCart = () => {
   const { user, exchangeRate } = useSession()
   const navigate = useNavigate()
-  const { showError, showSuccess } = useNotify()
   const {
     getNotebooksById,
     fetchedNotebooks,
@@ -54,36 +53,55 @@ export const MainCart = () => {
   const isLotsCartEmpty = !lotsCart?.length
   const isNotebooksCartEmpty = !notebookCart?.length
 
-  useEffect(() => getNotebooks(), [])
-  useEffect(() => getLots(), [])
+  useEffect(() => {
+    const fetchNotebooks = async () => {
+      if (!isNotebooksCartEmpty) {
+        await getNotebooksById(getQuery(notebookCart))
+      }
+    }
+    fetchNotebooks()
+  }, [notebookCart])
 
   useEffect(() => {
-    const isWaitingForLots = fetchedNotebooks || lotsCart?.length > 0
-    const isWaitingForNotebooks = fetchedLots || notebookCart?.length > 0
-    if (isWaitingForLots || isWaitingForNotebooks) return
-
-    const isNotebooksAmountChanged =
-      notebookCart?.length > fetchedNotebooks?.length
-    const isLotsAmountChanged = lotsCart?.length > fetchedLots?.length
-    if (isLotsAmountChanged || isNotebooksAmountChanged) {
-      showError(
-        'Некоторые ноутбуки больше не доступны и были удалены из корзины.'
-      )
-    } else if (
-      currentSum !==
-      getLotsPriceSum(fetchedLots) + getNotebooksPriceSum(fetchedNotebooks)
-    ) {
-      showError('Цена товаров была изменена.')
+    const fetchLots = async () => {
+      if (!isLotsCartEmpty) {
+        await getLotsByName(getLotsQuery(lotsCart))
+      }
     }
+    fetchLots()
+  }, [lotsCart])
 
-    setNotebookCart(fetchedNotebooks)
-    setLotsCart(fetchedLots)
+  useEffect(() => {
+    const updateCart = () => {
+      const isWaitingForLots = fetchedNotebooks || lotsCart?.length > 0
+      const isWaitingForNotebooks = fetchedLots || notebookCart?.length > 0
+      if (isWaitingForLots || isWaitingForNotebooks) return
+
+      const isNotebooksAmountChanged =
+        notebookCart?.length > fetchedNotebooks?.length
+      const isLotsAmountChanged = lotsCart?.length > fetchedLots?.length
+      if (isLotsAmountChanged || isNotebooksAmountChanged) {
+        toast({
+          title:
+            'Некоторые ноутбуки больше не доступны и были удалены из корзины.',
+          variant: 'destructive'
+        })
+      } else if (
+        currentSum !==
+        getLotsPriceSum(fetchedLots) + getNotebooksPriceSum(fetchedNotebooks)
+      ) {
+        toast({
+          title: 'Цена товаров была изменена.',
+          variant: 'destructive'
+        })
+      }
+
+      setNotebookCart(fetchedNotebooks)
+      setLotsCart(fetchedLots)
+    }
+    updateCart()
   }, [fetchedNotebooks, fetchedLots])
 
-  const getNotebooks = async () =>
-    isNotebooksCartEmpty ? null : getNotebooksById(getQuery(notebookCart))
-  const getLots = async () =>
-    isLotsCartEmpty ? null : getLotsByName(getLotsQuery(lotsCart))
   const placeOrder = async () => {
     try {
       const { items: notebooks = [] } = (await getNotebooks()) || {}
@@ -91,17 +109,21 @@ export const MainCart = () => {
 
       if (!isLotsCartEmpty && lotsCart.length > lots.length) {
         setLotsCart(lots)
-        showError(
-          'Выбранные лоты были изменены. Проверьте их содержимое и нажмите заказать еще раз!'
-        )
+        toast({
+          title:
+            'Выбранные лоты были изменены. Проверьте их содержимое и нажмите заказать еще раз!',
+          variant: 'destructive'
+        })
         return
       }
 
       if (!isNotebooksCartEmpty && notebookCart.length > notebooks.length) {
         setNotebookCart(notebooks)
-        showError(
-          'Выбранные ноутбуки были изменены. Проверьте их и нажмите заказат еще раз!'
-        )
+        toast({
+          title:
+            'Выбранные ноутбуки были изменены. Проверьте их и нажмите заказат еще раз!',
+          variant: 'destructive'
+        })
         return
       }
 
@@ -109,9 +131,11 @@ export const MainCart = () => {
       if (currentSum !== fetchedSum) {
         setLotsCart(lots)
         setNotebookCart(notebooks)
-        showError(
-          'Сумма заказа была изменена. Проверьте ее и нажмите заказать еще раз!'
-        )
+        toast({
+          title:
+            'Сумма заказа была изменена. Проверьте ее и нажмите заказать еще раз!',
+          variant: 'destructive'
+        })
         return
       }
 
@@ -120,11 +144,19 @@ export const MainCart = () => {
 
       setNotebookCart([])
       setLotsCart([])
-      showSuccess('Заказ отправлен менеджеру. Спасибо!')
+      toast({
+        title: 'Заказ отправлен менеджеру. Спасибо!',
+        style: {
+          color: 'green'
+        }
+      })
       navigate(ORDERS_ROUTE)
       return null
     } catch (e) {
-      showError('Возникла ошибка заказа. Попробуйте позже!')
+      toast({
+        title: 'Возникла ошибка заказа. Попробуйте позже!',
+        variant: 'destructive'
+      })
     }
   }
   return (

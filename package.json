@@ -5,15 +5,20 @@
   "private": true,
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@radix-ui/react-toast": "^1.2.1",
     "@sentry/react": "^8.26.0",
-    "@sentry/tracing": "^7.114.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.436.0",
     "react": "^18.3.1",
     "react-custom-checkbox": "^3.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
-    "react-simple-snackbar": "^1.1.11",
     "styled-components": "^6.1.12",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss": "^3.4.10",
+    "tailwindcss-animate": "^1.0.7",
     "use-http": "^1.0.28"
   },
   "devDependencies": {
