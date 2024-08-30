@@ -17,12 +17,12 @@ export const NotebookImage = ({
   }
 
   return (
-    <NotebookImageWrapper $isError={+isError} $noSlider={+noSlider}>
+    <NotebookImageWrapper $isError={isError} $noSlider={noSlider}>
       <img
         onError={handleImageError}
         onClick={(e) => {
           e.stopPropagation()
-          onClick()
+          onClick && onClick()
         }}
         loading="lazy"
         src={`media/img/${notebook.serial_num}/icon.jpg`}

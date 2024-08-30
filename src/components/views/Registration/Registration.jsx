@@ -17,7 +17,6 @@ import {
   validationSchemaArr
 } from './service'
 import { useSignUp } from '../../../service/PublicUserService'
-import { useNotify } from '../../../hooks/useSnakbar'
 import {
   PublicFromActionsContainer,
   StyledFromInputsWrapper
@@ -27,6 +26,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { fullPage } from '../../shared/styled/css'
 import ClientCaptcha from './components/client-captcha'
+import { toast } from '../../shared/Toaster/use-toast'
 
 export default function Registration() {
   const formRef = useRef(null)
@@ -35,7 +35,6 @@ export default function Registration() {
   const [formErrors, setFormError] = useState({ ...defaultFormErrorsState })
   const { signUp, response, loading } = useSignUp()
   const navigate = useNavigate()
-  const { showError, showSuccess } = useNotify()
 
   useEffect(() => {
     setFormError({ ...defaultFormErrorsState })
@@ -55,11 +54,17 @@ export default function Registration() {
     await signUp(formData)
 
     if (response.ok) {
-      showSuccess('Вы успешно зарегистрировались!')
+      toast({
+        title: 'Вы успешно зарегистрировались',
+        style: { color: 'green' }
+      })
       navigate('/')
       return null
     } else {
-      showError(`Ошибка регистрации. ${response?.data?.err_msg || ''}`)
+      toast({
+        title: `Ошибка регистрации. ${response?.data?.err_msg || ''}`,
+        variant: 'destructive'
+      })
     }
   }
 

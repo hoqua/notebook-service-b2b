@@ -16,25 +16,30 @@ import { SpacerH10, SpacerH20 } from '../../shared/styled/Spacers'
 import { ShoppingCartButton } from '../../shared/ShoppingCartButton/ShoppingCartButton'
 import { StyledHeaderTitle } from '../../shared/layouts/PrivateLayout/styles'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
-import { useNotify } from '../../../hooks/useSnakbar'
 import { API_LOTS, LOTS_CART_KEY } from '../../../constants/constants'
 import { IfAble, USER_ACTION } from '../../../permissions/permissions'
+import { toast } from '../../shared/Toaster/use-toast'
 
 const PAGE_TITLE = 'Лоты'
 
 export const Lots = () => {
   const [lotsCart, addToLotsCart] = useLocalStorage(LOTS_CART_KEY, [])
-  const { showError, showSuccess } = useNotify()
   const { get, data, error, loading } = useFetch(API_LOTS)
 
   const addToShoppingCart = (lot) => {
     if (lotsCart.some((lotInCart) => lotInCart.lot_name === lot.lot_name)) {
-      showError('Такой товар уже есть в корзине!')
+      toast({
+        title: 'Такой товар уже есть в корзине!',
+        variant: 'destructive'
+      })
       return
     }
 
     addToLotsCart([...lotsCart, lot])
-    showSuccess('Товар был добавлен в корзину!')
+    toast({
+      title: 'Товар был добавлен в корзину!',
+      style: { color: 'green' }
+    })
   }
 
   useEffect(() => {

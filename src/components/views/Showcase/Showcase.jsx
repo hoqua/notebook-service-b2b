@@ -6,7 +6,6 @@ import {
 } from '../../shared/styled/WrapPrivatePage'
 import { BreadCrumbs } from '../../shared/BreadCrumbs/BreadCrumbs'
 import { useFetch } from 'use-http'
-import { useNotify } from '../../../hooks/useSnakbar'
 import { NotebookRow } from './components/NotebookRow'
 import { PageTitleSection } from '../../shared/styled/PageTitleSection'
 import { Filters } from '../../shared/Filters/Filters'
@@ -19,6 +18,7 @@ import {
   NOTEBOOKS_CART_KEY
 } from '../../../constants/constants'
 import { StyledRowsGrid } from './components/styles'
+import { toast } from '../../shared/Toaster/use-toast'
 
 export const Showcase = ({ isUnfinished = false }) => {
   const PAGE_TITLE = isUnfinished ? 'Не готовые ноутбуки' : 'Готовые'
@@ -26,7 +26,6 @@ export const Showcase = ({ isUnfinished = false }) => {
     ? 'Гарантия на "Не готовые" ноутбуки не предоставляется.'
     : 'Гарантия на все ноутбуки с Витрины - 1 месяц.'
   const API = isUnfinished ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
-  const { showError, showSuccess } = useNotify()
   const { get, data, error, loading } = useFetch(API)
   const [hideFilters, setHideFilters] = useState(false)
   const [mergedFilters, setMergedFilters] = useState({})
@@ -59,12 +58,18 @@ export const Showcase = ({ isUnfinished = false }) => {
 
   const addToShoppingCart = (notebook) => {
     if (notebookCart.some((n) => n.serial_num === notebook.serial_num)) {
-      showError('Такой товар уже есть в корзине!')
+      toast({
+        title: 'Такой товар уже есть в корзине!',
+        variant: 'destructive'
+      })
       return
     }
 
     addToCart([...notebookCart, notebook])
-    showSuccess('Товар был добавлен в корзину!')
+    toast({
+      title: 'Товар был добавлен в корзину!',
+      style: { color: 'green' }
+    })
   }
 
   const notebooks = data?.items || []

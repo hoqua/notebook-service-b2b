@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react'
 import App from './App'
 import { SENTRY_DSN } from './constants/constants'
 import { createRoot } from 'react-dom/client'
+import './index.css'
 
 Sentry.init({
   dsn: SENTRY_DSN,
