@@ -162,6 +162,7 @@ export const MainCart = () => {
         title: 'Возникла ошибка заказа. Попробуйте позже!',
         variant: 'destructive'
       })
+      Sentry.captureException(e)
     }
   }
   return (
