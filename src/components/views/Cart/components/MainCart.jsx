@@ -25,7 +25,7 @@ import {
 } from '../../../../constants/constants'
 import { useNavigate } from 'react-router-dom'
 import { toast } from '../../../shared/Toaster/use-toast'
-
+import * as Sentry from '@sentry/react'
 export const MainCart = () => {
   const { user, exchangeRate } = useSession()
   const navigate = useNavigate()
@@ -104,8 +104,13 @@ export const MainCart = () => {
 
   const placeOrder = async () => {
     try {
-      const { items: notebooks = [] } = (await getNotebooks()) || {}
-      const { lots = [] } = (await getLots()) || {}
+      const { items: notebooks = [] } = isNotebooksCartEmpty
+        ? null
+        : (await getNotebooksById(getQuery(notebookCart))) || {}
+      const { lots = [] } =
+        (isLotsCartEmpty
+          ? null
+          : await getLotsByName(getLotsByName(lotsCart))) || {}
 
       if (!isLotsCartEmpty && lotsCart.length > lots.length) {
         setLotsCart(lots)
@@ -157,6 +162,7 @@ export const MainCart = () => {
         title: 'Возникла ошибка заказа. Попробуйте позже!',
         variant: 'destructive'
       })
+      Sentry.captureException(e)
     }
   }
   return (
