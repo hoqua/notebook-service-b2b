@@ -104,8 +104,13 @@ export const MainCart = () => {
 
   const placeOrder = async () => {
     try {
-      const { items: notebooks = [] } = (await getNotebooks()) || {}
-      const { lots = [] } = (await getLots()) || {}
+      const { items: notebooks = [] } = isNotebooksCartEmpty
+        ? null
+        : (await getNotebooksById(getQuery(notebookCart))) || {}
+      const { lots = [] } =
+        (isLotsCartEmpty
+          ? null
+          : await getLotsByName(getLotsByName(lotsCart))) || {}
 
       if (!isLotsCartEmpty && lotsCart.length > lots.length) {
         setLotsCart(lots)
@@ -153,6 +158,7 @@ export const MainCart = () => {
       navigate(ORDERS_ROUTE)
       return null
     } catch (e) {
+      console.log(e)
       toast({
         title: 'Возникла ошибка заказа. Попробуйте позже!',
         variant: 'destructive'
