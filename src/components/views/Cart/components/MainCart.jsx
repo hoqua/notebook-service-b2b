@@ -25,7 +25,7 @@ import {
 } from '../../../../constants/constants'
 import { useNavigate } from 'react-router-dom'
 import { toast } from '../../../shared/Toaster/use-toast'
-
+import * as Sentry from '@sentry/react'
 export const MainCart = () => {
   const { user, exchangeRate } = useSession()
   const navigate = useNavigate()
@@ -158,7 +158,6 @@ export const MainCart = () => {
       navigate(ORDERS_ROUTE)
       return null
     } catch (e) {
-      console.log(e)
       toast({
         title: 'Возникла ошибка заказа. Попробуйте позже!',
         variant: 'destructive'
