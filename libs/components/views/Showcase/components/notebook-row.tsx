@@ -10,6 +10,12 @@ import { cn } from '../../../../utils/cn'
 import AddToCartSection from './add-to-cart-section'
 import { getDiscount } from '../utils/get-discount'
 import DisplayCondition from './dispaly-condition'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '../../../shared/ui/tooltip'
 
 const NotebookSlider = dynamic(() => import('./notebook-slider'))
 
@@ -98,15 +104,23 @@ export function NotebookRow({
       </RowItem>
 
       <RowItem title="Цена (опт.)">
-        <p className="">
-          <span>{notebook.item_price}</span> {currencyName}
-          {user?.active &&
-            `(${getDiscount(notebook.item_price, user.ppg_perc)})`}
-        </p>
+        {isUserHasPermission ? (
+          <p>
+            <span>{notebook.item_price}</span> {currencyName}
+            {user?.active &&
+              `(${getDiscount(notebook.item_price, user.ppg_perc)})`}
+          </p>
+        ) : (
+          <p className="blur-sm">Not active</p>
+        )}
       </RowItem>
 
       <RowItem title="Цена(UAH)">
-        <p>{priceInUAH}</p>
+        {isUserHasPermission ? (
+          <p>{priceInUAH}</p>
+        ) : (
+          <p className="blur-sm">Not active</p>
+        )}
       </RowItem>
 
       <button
@@ -146,22 +160,37 @@ export function RowItem({
 
 export function NotebookPowerOn({ powerOn }: { powerOn: string }) {
   const isPowerOn = powerOn === 'Да'
-  return isPowerOn ? (
-    <span
-      title="Ноутбук включается, показывает изображение"
-      className="pointer text-secondary-foreground text-xs flex items-center gap-2"
-    >
-      <Check className="w-3 h-3 pointer text-green-500" />
-      Рабочий
-    </span>
-  ) : (
-    <span
-      title="Ноутбук не включается или не показывает картинку"
-      className="pointer text-secondary-foreground text-xs flex items-center gap-2"
-    >
-      <X className="w-3 h-3 text-red-500" />
-      Не вкл-ся
-    </span>
+  return (
+    <TooltipProvider>
+      {' '}
+      <Tooltip>
+        {' '}
+        <TooltipTrigger>
+          {isPowerOn ? (
+            <span className="pointer text-secondary-foreground text-xs flex items-center gap-2">
+              <Check className="w-3 h-3 pointer text-green-500" />
+              Рабочий
+            </span>
+          ) : (
+            <span className="pointer text-secondary-foreground text-xs flex items-center gap-2">
+              <X className="w-3 h-3 text-red-500" />
+              Не вкл-ся
+            </span>
+          )}
+        </TooltipTrigger>
+        <TooltipContent>
+          {isPowerOn ? (
+            <p className="text-xs text-green-500">
+              Ноутбук включается, показывает изображение
+            </p>
+          ) : (
+            <p className="text-xs text-red-500">
+              Ноутбук не включается или не показывает картинку
+            </p>
+          )}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 

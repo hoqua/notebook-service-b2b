@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { ZoomIn } from 'lucide-react'
 import { cn } from '../../../../utils/cn'
+import { hexToDataUrl } from '../../../../utils/rgb-to-data-url'
 
 export function NotebookImage({
   serial_num,
@@ -26,21 +27,25 @@ export function NotebookImage({
   return (
     <div
       className={cn(
-        'w-20 h-20 p-1 relative flex flex-shrink-0 items-center justify-center rounded-lg border group transition-all duration-300',
+        'w-24 h-24 p-1 relative flex flex-shrink-0 items-center justify-center rounded-lg border group transition-all duration-300',
         className
       )}
     >
       <Image
         onError={handleImageError}
-        fill
+        width={1200}
+        loading="lazy"
+        height={1200}
         src={
           isError
             ? '/assets/icons/notebook-icon.svg'
             : `/media/img/${serial_num}/icon.jpg`
         }
         alt={`${mark_name} notebook image`}
+        placeholder="blur"
+        blurDataURL={hexToDataUrl('#F3F6FB')}
         className={cn(
-          'transition-all duration-300 rounded-lg',
+          'w-full transition-all duration-300 rounded-lg',
           !isError && isSlider && 'group-hover:bg-white group-hover:opacity-50'
         )}
       />

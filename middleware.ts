@@ -1,8 +1,19 @@
 import { withAuth } from 'next-auth/middleware'
-
+import { parse } from 'date-fns'
 export default withAuth({
   callbacks: {
-    authorized: ({ token }) => !!token
+    authorized: ({ token }) => {
+      if (token.jwt.auth_token) {
+        const expirationDate = parse(
+          token.jwt.token_exp_time,
+          'dd.MM.yyyy HH:mm:ss',
+          new Date()
+        )
+        return expirationDate.getTime() > Date.now()
+      }
+
+      return false
+    }
   },
   pages: {
     signIn: '/sign-in',

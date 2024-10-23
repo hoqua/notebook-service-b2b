@@ -5,6 +5,7 @@ import NotebookCard from './notebook-card'
 import { NotebookRow } from './notebook-row'
 import { LayoutGrid, LayoutList } from 'lucide-react'
 import { cn } from '../../../../utils/cn'
+import { useSearchParams } from 'next/navigation'
 
 export default function ShowcaseNotebooks({
   notebooks,
@@ -16,6 +17,20 @@ export default function ShowcaseNotebooks({
   currencyName: string
 }) {
   const [showCards, setShowCards] = useState(false)
+  const searchParams = useSearchParams()
+  const sortOption = searchParams.get('sort')
+
+  const sortedNotebooks = notebooks.sort((a, b) => {
+    switch (sortOption) {
+      case 'price_asc':
+        return a.item_price - b.item_price
+      case 'price_desc':
+        return b.item_price - a.item_price
+      default:
+        return a.item_price - b.item_price
+    }
+  })
+
   return (
     <>
       <div className="items-center justify-end gap-2 hidden lg:flex">
@@ -46,6 +61,7 @@ export default function ShowcaseNotebooks({
               <NotebookCard
                 key={`${notebook.item_id}_${index}`}
                 notebook={notebook}
+                rate={rate}
               />
             ))}
           </div>
@@ -68,6 +84,7 @@ export default function ShowcaseNotebooks({
           <NotebookCard
             key={`${notebook.item_id}_${index}`}
             notebook={notebook}
+            rate={rate}
           />
         ))}
       </div>

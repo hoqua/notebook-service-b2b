@@ -1,15 +1,17 @@
 'use client'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { FilterDto } from '../../../../utils-schema/filter.schema'
-import { openFiltersSectionContext } from './openfilters-provider'
 import { cn } from '../../../../utils/cn'
 import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu'
-import { DisplayFiltersTypes } from '../../../../constants/constants'
+import {
+  DisplayFiltersTypes,
+  displayOptions,
+  filterKeys
+} from '../../../../constants/constants'
 import { MultiSelect } from '../../../shared/ui/multi-select'
 import { buttonClass } from '../../../shared/styled/action-button'
 import { Checkbox } from '../../../shared/ui/checkbox'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { selectedFiltersContext } from './selected-filters-provider'
 
 type Checked = DropdownMenuCheckboxItemProps['checked']
 
@@ -17,56 +19,65 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { isOpen } = useContext(openFiltersSectionContext)
-  const { filters } = useContext(selectedFiltersContext)
+  const [values, setValues] = useState<Record<string, string[]>>(() => {
+    const initialValues: Record<string, string[]> = {}
+    filterKeys.forEach((key) => {
+      initialValues[key] = [...searchParams.getAll(key)]
+    })
+    return initialValues
+  })
+
   const [showNewItems, setShowNewItems] = useState<Checked>(
-    searchParams.get('new') === '1' ? true : false
+    searchParams.get('new') === 'true' ? true : false
   )
 
   function applyFilters() {
     const newSearchParams = new URLSearchParams(searchParams.toString())
-
-    for (const [key, selectedFilters] of Object.entries(filters)) {
-      const currentValues = newSearchParams.getAll(key)
-      const updatedValues = new Set()
-
-      for (let value of currentValues) {
-        if (selectedFilters.has(value)) {
-          updatedValues.add(value)
-        }
-      }
-
-      selectedFilters.forEach((value) => {
-        updatedValues.add(value)
-      })
+    for (const [key, selectedValues] of Object.entries(values)) {
       newSearchParams.delete(key)
-      updatedValues.forEach((value) =>
-        newSearchParams.append(key, value as string)
-      )
-    }
 
-    newSearchParams.set('new', showNewItems ? '1' : '0')
+      selectedValues.forEach((value) => {
+        newSearchParams.append(key, value)
+      })
+    }
     newSearchParams.set('page', '1')
+    newSearchParams.set('new', showNewItems ? '1' : '0')
     router.replace(pathname + '?' + newSearchParams.toString())
   }
 
-  console.log(filters)
+  console.log(values)
 
   return (
-    <div
-      className={cn(
-        'relative p-5 shadow-lg rounded-md bg-white h-fit',
-        !isOpen && 'hidden'
-      )}
-    >
+    <div className={cn('relative p-5 shadow-lg rounded-md bg-white h-fit')}>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
         {Object.keys(data.filters).map((key) => {
+          if (key === 'display') {
+            return (
+              <div>
+                <p className="text-secondary-foreground text-sm">
+                  {DisplayFiltersTypes[key]}
+                </p>
+                <MultiSelect<Record<string, string[]>>
+                  selectedKey={key}
+                  options={displayOptions}
+                  setValues={setValues}
+                  values={values}
+                />
+              </div>
+            )
+          }
+
           return (
             <div key={key}>
               <p className="text-secondary-foreground text-sm">
                 {DisplayFiltersTypes[key]}
               </p>
-              <MultiSelect selectedKey={key} options={data.filters[key]} />
+              <MultiSelect<Record<string, string[]>>
+                selectedKey={key}
+                options={data.filters[key]}
+                setValues={setValues}
+                values={values}
+              />
             </div>
           )
         })}

@@ -60,5 +60,38 @@ export const DisplayFiltersTypes = {
   hdd: 'Накопитель',
   display: 'Экран',
   lookout: 'Внешний вид',
-  poweron: 'Работоспособность'
+  poweron: 'Включается'
 }
+
+export const filterKeys = [
+  'mark',
+  'proc',
+  'ram',
+  'hdd',
+  'display',
+  'lookout',
+  'poweron'
+]
+
+export const displayOptions = [
+  {
+    label: 'от 10 до 12.5',
+    value: '10-12.5'
+  },
+  {
+    label: 'от 13 до 14',
+    value: '13-14'
+  },
+  {
+    label: '15.6',
+    value: '15.6'
+  },
+  {
+    label: '16',
+    value: '16'
+  },
+  {
+    label: 'от 17.3 до 20',
+    value: '17-20'
+  }
+]

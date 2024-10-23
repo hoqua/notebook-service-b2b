@@ -14,7 +14,13 @@ import dynamic from 'next/dynamic'
 
 const NotebookSlider = dynamic(() => import('./notebook-slider'))
 
-export default function NotebookCard({ notebook }: { notebook: Notebook }) {
+export default function NotebookCard({
+  notebook,
+  rate
+}: {
+  notebook: Notebook
+  rate: number
+}) {
   const [isExpand, setIsExpand] = useState(false)
   const session = useSession()
   const user = session.data?.user
@@ -23,6 +29,8 @@ export default function NotebookCard({ notebook }: { notebook: Notebook }) {
     toDo: [USER_ACTION.DO_ORDER],
     isUserActive: !!user?.active
   })
+
+  const priceInUAH = Math.floor(notebook.item_price * rate)
 
   return (
     <div className="bg-white rounded-lg shadow w-full relative flex flex-col justify-between">
@@ -104,15 +112,20 @@ export default function NotebookCard({ notebook }: { notebook: Notebook }) {
             />
           </button>
 
-          <div className="flex items-center justify-between gap-2">
-            <div>
-              <del className=" text-secondary-foreground text-sm">
-                {notebook.item_price} USD
-              </del>
-              <p className="text-lg text-primary">
-                {getDiscount(notebook.item_price, user?.ppg_perc)} USD
-              </p>
-            </div>
+          <div className="flex items-center justify-between pb-2 gap-2">
+            {isUserHasPermission ? (
+              <div>
+                <del className=" text-secondary-foreground text-sm">
+                  {notebook.item_price} USD
+                </del>
+                <p className="text-lg text-primary">
+                  {getDiscount(notebook.item_price, user?.ppg_perc)} USD
+                  <span>({priceInUAH}UAH)</span>
+                </p>
+              </div>
+            ) : (
+              <p className="blur-sm">Not active</p>
+            )}
 
             {isUserHasPermission && (
               <AddToCartSection className="p-2" data={notebook} />

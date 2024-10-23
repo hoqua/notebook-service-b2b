@@ -3,12 +3,12 @@ import React from 'react'
 import StyledHeader from '../styled-header'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
 import { Phone } from 'lucide-react'
 import { NOT_ACTIVE_PHONE } from '../../../../constants/constants'
 import Navigation from './Navigation'
 import UserName from './UserName'
 import MobileNavbar from './MobileNavbar'
+import { useSession } from 'next-auth/react'
 
 export default function PrivateLayout({
   currencyName,

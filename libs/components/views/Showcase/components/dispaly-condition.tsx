@@ -2,16 +2,31 @@ import React from 'react'
 import { DisplayConditions } from '../../../../constants/constants'
 import { CheckIcon, CircleHelpIcon, XIcon } from 'lucide-react'
 import { cn } from '../../../../utils/cn'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '../../../shared/ui/tooltip'
 
 export default function DisplayCondition({ condition }: { condition: string }) {
   const { icon: Icon, title, style } = iconConditionMap[condition]
   return (
-    <div className="flex items-center gap-2 text-xs" title="Экран">
-      <span title={title}>
-        <Icon className={cn('w-3 h-3', style)} />
-      </span>
-      <p className="text-secondary-foreground">Экран</p>
-    </div>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <div className="flex items-center gap-2 text-xs">
+            <span>
+              <Icon className={cn('w-3 h-3', style)} />
+            </span>
+            <p className="text-secondary-foreground">Экран</p>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className={style}>
+          <p>{title}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 

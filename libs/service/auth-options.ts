@@ -27,10 +27,7 @@ export const nextAuthOptions: NextAuthOptions = {
           console.log('Credentials -->', credentials)
           const { email, password } = credentials
           const response = await fetch(
-            API_ROOT + '/' + 'login.php' + `?u=${email}&p=${password}`,
-            {
-              cache: 'no-cache'
-            }
+            API_ROOT + '/' + 'login.php' + `?u=${email}&p=${password}`
           )
 
           if (!response.ok) {
@@ -51,11 +48,6 @@ export const nextAuthOptions: NextAuthOptions = {
       }
 
       if (token.jwt?.auth_token) {
-        const tokenExpiration = new Date(token.jwt.token_exp_time).getTime()
-        if (tokenExpiration < Date.now()) {
-          return null
-        }
-
         try {
           const fetchedUser = await getUserData(token.jwt.auth_token)
           console.log(token.jwt.token_exp_time)
@@ -81,8 +73,7 @@ async function getUserData(token: string): Promise<User> {
   const response = await fetch(API_ROOT + '/' + 'get-user-info.php', {
     headers: {
       Authorization: `${token}`
-    },
-    cache: 'no-cache'
+    }
   })
 
   const result = (await response.json()) as User
