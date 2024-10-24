@@ -1,4 +1,3 @@
-'use client'
 import React from 'react'
 import StyledHeader from '../styled-header'
 import Link from 'next/link'
@@ -8,17 +7,19 @@ import { NOT_ACTIVE_PHONE } from '../../../../constants/constants'
 import Navigation from './Navigation'
 import UserName from './UserName'
 import MobileNavbar from './MobileNavbar'
-import { useSession } from 'next-auth/react'
+import { User } from '../../../../utils-schema/auth.schema'
 
 export default function PrivateLayout({
   currencyName,
   rate,
   numberOrders,
+  user,
   children
 }: {
   currencyName: string
   rate: number
   numberOrders: number
+  user: User
   children: React.ReactNode
 }) {
   return (
@@ -36,9 +37,9 @@ export default function PrivateLayout({
           </Link>
 
           <div className="items-center justify-between gap-5 h-full w-full hidden min-[1000px]:flex">
-            <Info currencyName={currencyName} rate={rate} />
+            <Info currencyName={currencyName} rate={rate} user={user} />
             <Navigation numberOrders={numberOrders} />
-            <UserName />
+            <UserName username={user.client_name} />
           </div>
 
           <div className="min-[1000px]:hidden block">
@@ -46,6 +47,7 @@ export default function PrivateLayout({
               currency_name={currencyName}
               rate={rate}
               numberOrders={numberOrders}
+              user={user}
             />
           </div>
         </div>
@@ -57,14 +59,13 @@ export default function PrivateLayout({
 
 export function Info({
   currencyName,
-  rate
+  rate,
+  user
 }: {
   currencyName: string
   rate: number
+  user: User
 }) {
-  const session = useSession()
-  const isUserActive = !!session.data?.user.active
-
   return (
     <div className="flex gap-5 min-[1000px]:gap-8 min-[1000px]:flex-row flex-col">
       <div className="flex flex-col gap-1">
@@ -77,17 +78,15 @@ export function Info({
       <div className="flex flex-col gap-1">
         <p className="text-sm font-medium">Баланс</p>
         <p className="text-sm text-[#818895]">
-          {session.data?.user.balance || 0} {currencyName}
+          {user?.balance || 0} {currencyName}
         </p>
       </div>
 
       <div className="flex flex-col min-[1000px]:gap-1 gap-5">
-        {isUserActive ? (
+        {user?.active ? (
           <div className="flex flex-col min-[1000px]:flex-row min-[1000px]:items-center gap-1">
             <p className="text-sm text-[#818895]">Ваш менеджер:</p>
-            <p className="text-sm font-medium">
-              {session.data?.user.mngr_name}
-            </p>
+            <p className="text-sm font-medium">{user?.mngr_name}</p>
           </div>
         ) : (
           <p className="text-sm font-medium">
@@ -98,7 +97,7 @@ export function Info({
           <div className="bg-[#112878] w-5 h-5 rounded-full flex items-center justify-center">
             <Phone className="text-white w-3 h-3" fill="white" />
           </div>
-          {isUserActive ? session.data?.user.mngr_phone : NOT_ACTIVE_PHONE}
+          {user?.active ? user?.mngr_phone : NOT_ACTIVE_PHONE}
         </div>
       </div>
     </div>

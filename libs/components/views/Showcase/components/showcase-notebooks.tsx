@@ -10,17 +10,19 @@ import { useSearchParams } from 'next/navigation'
 export default function ShowcaseNotebooks({
   notebooks,
   rate,
-  currencyName
+  currencyName,
+  userActive
 }: {
   notebooks: Notebook[]
   rate: number
   currencyName: string
+  userActive?: number
 }) {
   const [showCards, setShowCards] = useState(false)
   const searchParams = useSearchParams()
   const sortOption = searchParams.get('sort')
 
-  const sortedNotebooks = notebooks.sort((a, b) => {
+  notebooks.sort((a, b) => {
     switch (sortOption) {
       case 'price_asc':
         return a.item_price - b.item_price
@@ -55,13 +57,14 @@ export default function ShowcaseNotebooks({
       </div>
 
       <div className="hidden lg:block">
-        {showCards ? (
+        {!showCards ? (
           <div className="notebook-card-grid">
             {notebooks.map((notebook, index) => (
               <NotebookCard
                 key={`${notebook.item_id}_${index}`}
                 notebook={notebook}
                 rate={rate}
+                userActive={userActive}
               />
             ))}
           </div>
@@ -73,6 +76,7 @@ export default function ShowcaseNotebooks({
                 notebook={notebook}
                 rate={rate}
                 currencyName={currencyName}
+                userActive={userActive}
               />
             ))}
           </div>
@@ -85,6 +89,7 @@ export default function ShowcaseNotebooks({
             key={`${notebook.item_id}_${index}`}
             notebook={notebook}
             rate={rate}
+            userActive={userActive}
           />
         ))}
       </div>

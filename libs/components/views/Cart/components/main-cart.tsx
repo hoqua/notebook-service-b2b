@@ -3,25 +3,25 @@ import { useCart, useLotsCart } from '../../../../hooks/use-cart'
 import { NotebooksCart } from './notebooks-cart'
 import { LotsCart } from './lots-cart'
 import { getSumCounts } from '../service'
-import { useSession } from 'next-auth/react'
 import { placeOrder } from '../action'
 import { toast } from '../../../shared/ui/use-toast'
 import { Loader2 } from 'lucide-react'
 export function MainCart({
   rate,
-  currencyName
+  currencyName,
+  userDiscountPercent
 }: {
   rate: number
   currencyName: string
+  userDiscountPercent?: number
 }) {
-  const session = useSession()
   const [cart, setCart] = useCart()
   const [lotsCart, setLotsCart] = useLotsCart()
   const [isPending, startTransition] = useTransition()
   const { currentSum, discountTotal, sumDiff } = getSumCounts(
     cart,
     lotsCart,
-    session.data?.user?.ppg_perc
+    userDiscountPercent || 0
   )
   const currentSumInUAH = Math.floor(currentSum * rate)
   const sumDiffInUAH = Math.floor(sumDiff * rate)
@@ -55,7 +55,11 @@ export function MainCart({
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       <div className="lg:col-span-2 flex flex-col gap-5">
         {!isNotebooksCartEmpty && (
-          <NotebooksCart currencyName={currencyName} rate={rate} />
+          <NotebooksCart
+            currencyName={currencyName}
+            rate={rate}
+            userDiscountPercent={userDiscountPercent}
+          />
         )}
 
         {!isLotsCartEmpty && (
@@ -78,7 +82,7 @@ export function MainCart({
             <p className="flex items-center justify-between">
               Скидка:{' '}
               <span className="font-medium">
-                {discountTotal} ({session.data?.user?.ppg_perc}%)
+                {discountTotal} ({userDiscountPercent || 0}%)
               </span>
             </p>
           ) : null}

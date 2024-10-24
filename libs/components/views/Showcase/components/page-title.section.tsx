@@ -119,6 +119,8 @@ export default function PageTitleSection({
 
           {filters && (
             <button
+              id="show-filters"
+              aria-label="show filters"
               onClick={() => setIsFiltersOpen((prev) => !prev)}
               className="bg-white border border-transparent text-sm gap-2 w-full sm:w-auto h-12 px-2 rounded-lg hover:border-primary text-primary transition-all duration-300"
             >
@@ -147,7 +149,11 @@ function SortSelect() {
 
   return (
     <Select defaultValue="default" onValueChange={handleSortPriceChange}>
-      <SelectTrigger className="w-full bg-white h-12 text-primary hover:border-primary transition-all duration-300">
+      <SelectTrigger
+        id="show-sort-trigger"
+        aria-label="show sort options"
+        className="w-full bg-white h-12 text-primary hover:border-primary transition-all duration-300"
+      >
         <SelectValue placeholder="Сортировка" />
       </SelectTrigger>
       <SelectContent>

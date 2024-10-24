@@ -1,16 +1,13 @@
+'use client'
 import React from 'react'
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 
-export default function UserName() {
-  const session = useSession()
-
+export default function UserName({ username }: { username: string }) {
   return (
     <>
       <div className="flex">
         <div className="min-[1000px]:text-right">
-          <p className="text-sm font-medium">
-            {session.data?.user.client_name}
-          </p>
+          <p className="text-sm font-medium">{username}</p>
           <a
             className="text-sm text-[#112878]"
             href="#"

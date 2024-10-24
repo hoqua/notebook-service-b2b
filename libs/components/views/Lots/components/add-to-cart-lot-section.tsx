@@ -5,22 +5,22 @@ import { ShoppingCart } from 'lucide-react'
 import { useLotsCart } from '../../../../hooks/use-cart'
 import { LotCart } from '../../../../utils-schema/lots.schema'
 import { toast } from '../../../shared/ui/use-toast'
-import { useSession } from 'next-auth/react'
 import { ifAble, USER_ACTION } from '../../../../permissions/permissions'
 
 export default function AddToCartLotSection({
   lot_name,
-  lot_sum
+  lot_sum,
+  userActive
 }: {
   lot_name: string
   lot_sum: number
+  userActive?: number
 }) {
   const [_, setLotsCart] = useLotsCart()
-  const session = useSession()
 
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
-    isUserActive: !!session.data?.user?.active
+    isUserActive: !!userActive
   })
 
   if (!isUserHasPermission) {

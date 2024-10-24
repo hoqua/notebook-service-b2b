@@ -27,7 +27,10 @@ export const nextAuthOptions: NextAuthOptions = {
           console.log('Credentials -->', credentials)
           const { email, password } = credentials
           const response = await fetch(
-            API_ROOT + '/' + 'login.php' + `?u=${email}&p=${password}`
+            API_ROOT + '/' + 'login.php' + `?u=${email}&p=${password}`,
+            {
+              cache: 'no-store'
+            }
           )
 
           if (!response.ok) {
@@ -50,7 +53,6 @@ export const nextAuthOptions: NextAuthOptions = {
       if (token.jwt?.auth_token) {
         try {
           const fetchedUser = await getUserData(token.jwt.auth_token)
-          console.log(token.jwt.token_exp_time)
           return { ...token, user: fetchedUser }
         } catch (error) {
           console.log(error)

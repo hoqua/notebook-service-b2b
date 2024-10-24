@@ -50,6 +50,8 @@ export default function AddToCartSection({
 
   return (
     <button
+      id="add-to-cart"
+      aria-label="add product to cart"
       onClick={handleAddToCart}
       className={cn(
         'rounded-lg bg-white place-self-center transition-colors duration-300 p-3 border hover:bg-gray-200',

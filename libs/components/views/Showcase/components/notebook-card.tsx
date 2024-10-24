@@ -16,10 +16,12 @@ const NotebookSlider = dynamic(() => import('./notebook-slider'))
 
 export default function NotebookCard({
   notebook,
-  rate
+  rate,
+  userActive
 }: {
   notebook: Notebook
   rate: number
+  userActive?: number
 }) {
   const [isExpand, setIsExpand] = useState(false)
   const session = useSession()
@@ -27,7 +29,7 @@ export default function NotebookCard({
 
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
-    isUserActive: !!user?.active
+    isUserActive: !!userActive
   })
 
   const priceInUAH = Math.floor(notebook.item_price * rate)
@@ -50,7 +52,7 @@ export default function NotebookCard({
           {notebook.serial_num}
         </p>
         <div className="px-3 flex flex-col gap-2 ">
-          <h3 className="text-lg font-bold">{notebook.item_name}</h3>
+          <h2 className="text-lg font-bold">{notebook.item_name}</h2>
           <p className="text-secondary-foreground">
             {renderSpecs(notebook.proc)} {renderSpecs(notebook.ram)}{' '}
             {renderSpecs(notebook.hdd)}{' '}

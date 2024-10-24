@@ -2,17 +2,17 @@ import React from 'react'
 import { NotebookImage } from '../../Showcase/components/notebook-image'
 import RemoveFromCartSections from './remove-from-cart-section'
 import { useCart } from '../../../../hooks/use-cart'
-import { useSession } from 'next-auth/react'
 import { getDiscount } from '../../Showcase/utils/get-discount'
 
 export function NotebooksCart({
   rate,
-  currencyName
+  currencyName,
+  userDiscountPercent
 }: {
   rate: number
   currencyName: string
+  userDiscountPercent?: number
 }) {
-  const session = useSession()
   const [notebookCart, setCart] = useCart()
 
   function handleRemoveFromCart(serial_num: string) {
@@ -63,7 +63,7 @@ export function NotebooksCart({
                     {cart.item_price} {currencyName}
                   </del>
                   <span>
-                    {getDiscount(cart.item_price, session.data?.user?.ppg_perc)}{' '}
+                    {getDiscount(cart.item_price, userDiscountPercent || 0)}{' '}
                     {currencyName}
                   </span>
                 </p>

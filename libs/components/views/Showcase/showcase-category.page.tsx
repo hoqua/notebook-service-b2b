@@ -3,19 +3,41 @@ import PaginationLinks from './components/pagination-links'
 
 import { ExchangeRateDto } from '../../../utils-schema/exrate.schema'
 import ShowcaseNotebooks from './components/showcase-notebooks'
-import { Notebook } from '../../../utils-schema/notebook.schema'
 import EmptyResult from '../../shared/errorComponents/empty-result'
+import { getFilteredAndPaginatedNotebooksData } from './utils/filter-notebooks'
+import {
+  API_GET_EXRATE,
+  API_NOTEBOOKS,
+  API_NOTEBOOKS_UNFINISHED
+} from '../../../constants/constants'
+import { fetchWrapper } from '../../../service/fetch-wrapper'
+import { getServerSession } from 'next-auth'
+import { nextAuthOptions } from '../../../service/auth-options'
 
-export default function ShowcaseCategoryPage({
-  exchangeRate,
-  notebooksData
+export default async function ShowcaseCategoryPage({
+  category,
+  page,
+  searchParams
 }: {
-  exchangeRate: ExchangeRateDto
-  notebooksData: {
-    notebooks: Notebook[]
-    totalPages: number
-  }
+  category: string
+  page: number
+  searchParams?: { [key: string]: string | string[] | undefined }
 }) {
+  const NOTEBOOKS_API =
+    category === 'unfinished' ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
+  const [userSession, notebooksData, exchangeRate] = await Promise.all([
+    getServerSession(nextAuthOptions),
+    getFilteredAndPaginatedNotebooksData(
+      page,
+      NOTEBOOKS_API,
+      category,
+      searchParams
+    ),
+    fetchWrapper<unknown, ExchangeRateDto>({
+      url: API_GET_EXRATE
+    })
+  ])
+
   return (
     <>
       {notebooksData.notebooks.length === 0 ? (
@@ -23,10 +45,12 @@ export default function ShowcaseCategoryPage({
       ) : (
         <div className={'flex flex-col gap-5 w-full'}>
           <ShowcaseNotebooks
+            userActive={userSession.user.active}
             notebooks={notebooksData.notebooks}
-            rate={exchangeRate.rate}
-            currencyName={exchangeRate.currency_name}
+            rate={exchangeRate.result.rate}
+            currencyName={exchangeRate.result.currency_name}
           />
+
           <PaginationLinks totalPages={notebooksData.totalPages} />
         </div>
       )}

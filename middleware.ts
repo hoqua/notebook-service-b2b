@@ -3,7 +3,7 @@ import { parse } from 'date-fns'
 export default withAuth({
   callbacks: {
     authorized: ({ token }) => {
-      if (token.jwt.auth_token) {
+      if (token?.jwt?.auth_token) {
         const expirationDate = parse(
           token.jwt.token_exp_time,
           'dd.MM.yyyy HH:mm:ss',

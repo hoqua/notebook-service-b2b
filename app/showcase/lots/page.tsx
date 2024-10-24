@@ -6,9 +6,15 @@ import { API_LOTS } from '../../../libs/constants/constants'
 import EmptyResult from '../../../libs/components/shared/errorComponents/empty-result'
 import LotRow from '../../../libs/components/views/Lots/components/lot-row'
 import AddToCartLotSection from '../../../libs/components/views/Lots/components/add-to-cart-lot-section'
+import { getServerSession } from 'next-auth'
+import { nextAuthOptions } from '../../../libs/service/auth-options'
 
 export default async function Lots() {
-  const lotsResponse = await fetchWrapper<unknown, LotsDto>({ url: API_LOTS })
+  const [userSession, lotsResponse] = await Promise.all([
+    getServerSession(nextAuthOptions),
+    fetchWrapper<unknown, LotsDto>({ url: API_LOTS })
+  ])
+
   const { lots } = lotsResponse.result
 
   return (
@@ -31,6 +37,7 @@ export default async function Lots() {
                 <span className="font-medium">{lot.lot_sum}</span>
               </div>
               <AddToCartLotSection
+                userActive={userSession.user.active}
                 lot_name={lot.lot_name}
                 lot_sum={lot.lot_sum}
               />

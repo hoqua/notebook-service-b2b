@@ -22,11 +22,13 @@ const NotebookSlider = dynamic(() => import('./notebook-slider'))
 export function NotebookRow({
   notebook,
   rate,
-  currencyName
+  currencyName,
+  userActive
 }: {
   notebook: Notebook
   rate: number
   currencyName: string
+  userActive?: number
 }) {
   const [isExpand, setIsExpand] = useState(false)
   const session = useSession()
@@ -35,7 +37,7 @@ export function NotebookRow({
 
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
-    isUserActive: !!user?.active
+    isUserActive: !!userActive
   })
 
   return (
