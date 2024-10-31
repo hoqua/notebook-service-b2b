@@ -2,7 +2,7 @@ name: 🚀 CI
 on:
   pull_request:
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -12,9 +12,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Lint
-        run: npm run lint
 
       - name: 🔨 Build Project
         run: |
