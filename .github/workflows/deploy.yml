@@ -1,10 +1,9 @@
-on: push
-name: 🚀 Deploy website on push
+name: 🚀 CI
+on:
+  pull_request:
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  prepare:
     runs-on: ubuntu-latest
-    environment: notebook-service-b2b
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
@@ -14,20 +13,10 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Lint
+        run: npm run lint
+
       - name: 🔨 Build Project
         run: |
           npm install
           npm run build
-
-      - name: List output files
-        run: find .next/ -print
-
-      - name: 📂 Sync files
-        uses: wlixcc/SFTP-Deploy-Action@v1.0
-        with:
-          username: 'develop'
-          server: 'b2b.notebook-service.com.ua'
-          ssh_private_key: ${{ secrets.FTP_KEY }}
-          local_path: './.next/*'
-          remote_path: 'current/html/'
-          args: '-o ConnectTimeout=5'

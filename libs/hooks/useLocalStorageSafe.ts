@@ -81,8 +81,6 @@ export class ExternalStore<T> {
       return
     }
 
-    console.log('constructor called')
-
     if (
       typeof options?.validateInit !== 'function' ||
       ExternalStore.validated

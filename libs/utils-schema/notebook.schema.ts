@@ -8,6 +8,7 @@ export const NotebookSchema = z.object({
   lookout: z.string(),
   display: z.string(),
   proc: z.string(),
+  proc_site: z.string(),
   video: z.string(),
   integ_video: z.string(),
   hdd: z.string(),
@@ -19,7 +20,8 @@ export const NotebookSchema = z.object({
   item_price: z.number(),
   is_new: z.number(),
   ainvoicedtl_id: z.number(),
-  num: z.number()
+  num: z.number(),
+  store_time: z.string()
 })
 
 export const GetNotebookSchema = z.object({

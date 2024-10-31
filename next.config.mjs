@@ -11,7 +11,6 @@ const nextConfig = {
         source: '/media/:path*',
         destination: 'https://b2b.notebook-service.com.ua/media/:path*'
       },
-
       {
         source: '/api/:path*',
         destination: '/api/:path*'

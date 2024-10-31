@@ -34,6 +34,7 @@ export const API_DO_ORDER_LOTS = 'do-order-lot.php'
 export const API_FILTERS = 'get-filters.php'
 export const API_FILTERS_UNFINISHED = 'get-filters-unfinished.php'
 export const GET_ITEMS_MAIN_XLSX = 'get-items-main-xlsx.php'
+export const GET_ITEMS_UNFINISHED_XLSX = 'get-items-unfinished-xslx.php'
 
 // app routes
 export const ROOT_ROUTE = '/'
@@ -56,6 +57,7 @@ export const DisplayConditions = {
 export const DisplayFiltersTypes = {
   mark: 'Производитель',
   proc: 'CPU',
+  proc_site: 'CPU сайт',
   ram: 'RAM',
   hdd: 'Накопитель',
   display: 'Экран',
@@ -65,6 +67,7 @@ export const DisplayFiltersTypes = {
 
 export const filterKeys = [
   'mark',
+  'proc_site',
   'proc',
   'ram',
   'hdd',

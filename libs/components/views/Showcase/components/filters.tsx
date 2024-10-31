@@ -28,7 +28,7 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
   })
 
   const [showNewItems, setShowNewItems] = useState<Checked>(
-    searchParams.get('new') === 'true' ? true : false
+    searchParams.get('new') ? true : false
   )
 
   function applyFilters() {
@@ -40,8 +40,13 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
         newSearchParams.append(key, value)
       })
     }
+    if (showNewItems) {
+      newSearchParams.set('new', '1')
+    } else {
+      newSearchParams.delete('new')
+    }
+
     newSearchParams.set('page', '1')
-    newSearchParams.set('new', showNewItems ? '1' : '0')
     router.replace(pathname + '?' + newSearchParams.toString())
   }
 

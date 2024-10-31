@@ -5,7 +5,7 @@ import type {
 } from '../../../../utils-schema/notebook.schema'
 import NodeCache from 'node-cache'
 
-const PAGE_DATA_LENGTH = 11
+const PAGE_DATA_LENGTH = 12
 
 const filterToNotebookFieldMap: Record<string, keyof Notebook> = {
   mark: 'mark_name',
@@ -17,7 +17,8 @@ const filterToNotebookFieldMap: Record<string, keyof Notebook> = {
   poweron: 'poweron',
   new: 'is_new',
   serialNumber: 'serial_num',
-  notebookName: 'item_name'
+  notebookName: 'item_name',
+  proc_site: 'proc_site'
 }
 
 const cache = new NodeCache({ stdTTL: 1, checkperiod: 2 })

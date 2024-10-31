@@ -12,7 +12,8 @@ export const FiltersSchema = z.object({
   hdd: z.array(FilterSchema),
   display: z.array(FilterSchema),
   lookout: z.array(FilterSchema),
-  poweron: z.array(FilterSchema).optional()
+  poweron: z.array(FilterSchema).optional(),
+  proc_site: z.array(FilterSchema)
 })
 
 export const GetFiltersSchema = z.object({

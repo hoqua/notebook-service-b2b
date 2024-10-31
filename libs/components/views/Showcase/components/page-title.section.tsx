@@ -1,5 +1,5 @@
 'use client'
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState, useTransition } from 'react'
 import { Input } from '../../../shared/ui/input'
 import { cn } from '../../../../utils/cn'
 import {
@@ -29,6 +29,14 @@ const SORT_OPTIONS = [
   {
     value: 'price_desc',
     label: 'Цена по убыванию'
+  },
+  {
+    value: 'store_time_desc',
+    label: 'От новых к старым'
+  },
+  {
+    value: 'store_time_asc',
+    label: 'От старых к новым'
   }
 ]
 
@@ -140,6 +148,7 @@ function SortSelect() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const searchedSortOption = searchParams.get('sort')
 
   function handleSortPriceChange(value: string) {
     const newSearchParams = new URLSearchParams(searchParams.toString())
@@ -148,7 +157,10 @@ function SortSelect() {
   }
 
   return (
-    <Select defaultValue="default" onValueChange={handleSortPriceChange}>
+    <Select
+      defaultValue={searchedSortOption || 'default'}
+      onValueChange={handleSortPriceChange}
+    >
       <SelectTrigger
         id="show-sort-trigger"
         aria-label="show sort options"

@@ -1,14 +1,11 @@
 import { withAuth } from 'next-auth/middleware'
-import { parse } from 'date-fns'
+import { stringToDate } from './libs/utils/format-date'
 export default withAuth({
   callbacks: {
     authorized: ({ token }) => {
       if (token?.jwt?.auth_token) {
-        const expirationDate = parse(
-          token.jwt.token_exp_time,
-          'dd.MM.yyyy HH:mm:ss',
-          new Date()
-        )
+        console.log(token.jwt.auth_token)
+        const expirationDate = stringToDate(token.jwt.token_exp_time)
         return expirationDate.getTime() > Date.now()
       }
 

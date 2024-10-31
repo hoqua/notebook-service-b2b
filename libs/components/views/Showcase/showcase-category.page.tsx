@@ -45,6 +45,7 @@ export default async function ShowcaseCategoryPage({
       ) : (
         <div className={'flex flex-col gap-5 w-full'}>
           <ShowcaseNotebooks
+            category={category}
             userActive={userSession.user.active}
             notebooks={notebooksData.notebooks}
             rate={exchangeRate.result.rate}
