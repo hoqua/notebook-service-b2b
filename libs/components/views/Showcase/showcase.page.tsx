@@ -5,7 +5,7 @@ import {
   SHOWCASE_ROUTE,
   SHOWCASE_UNFINISHED_ROUTE
 } from '../../../constants/constants'
-import { Boxes, Laptop, MonitorCog, ScreenShareOff } from 'lucide-react'
+import { Boxes, Laptop, MonitorCog } from 'lucide-react'
 import Image from 'next/image'
 
 interface SideNavLinkProps {

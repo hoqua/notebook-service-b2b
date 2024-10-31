@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Pagination,
   PaginationContent,
@@ -10,11 +10,7 @@ import {
   PaginationPrevious
 } from '../../../shared/ui/pagination'
 import { cn } from '../../../../utils/cn'
-import {
-  ReadonlyURLSearchParams,
-  usePathname,
-  useSearchParams
-} from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 const PAGES_PER_BLOCK = 3
 

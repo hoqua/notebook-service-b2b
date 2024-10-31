@@ -46,7 +46,7 @@ export async function registerUser(values: RegisterDtoFormSchema) {
       success: true,
       message: 'Регистрация прошла успешна'
     }
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Ошибка при регистрации'

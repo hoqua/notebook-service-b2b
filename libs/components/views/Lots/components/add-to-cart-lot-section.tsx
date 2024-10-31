@@ -16,7 +16,7 @@ export default function AddToCartLotSection({
   lot_sum: number
   userActive?: number
 }) {
-  const [_, setLotsCart] = useLotsCart()
+  const [, setLotsCart] = useLotsCart()
 
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],

@@ -12,8 +12,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Prebuild
+        run: |
+          npm ci
+          npm run lint
 
       - name: 🔨 Build Project
         run: |
-          npm install
+          npm ci
           npm run build

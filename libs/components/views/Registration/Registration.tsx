@@ -2,7 +2,7 @@
 import React, { useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { RegisterDtoFormSchema } from '../../../utils-schema/auth.schema'
@@ -18,8 +18,6 @@ import { toast } from '../../shared/ui/use-toast'
 export default function SignUp() {
   const [isLoading, startTransition] = useTransition()
   const [captcha, setCapcha] = useState('')
-  const searchParams = useSearchParams()
-  const error = searchParams.get('error') || ''
   const {
     register,
     handleSubmit,
@@ -54,7 +52,6 @@ export default function SignUp() {
     })
   }
 
-  console.log(errors)
   return (
     <>
       <StyledHeader>

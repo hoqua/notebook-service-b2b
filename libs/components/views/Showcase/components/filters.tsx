@@ -58,7 +58,7 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
         {Object.keys(data.filters).map((key) => {
           if (key === 'display') {
             return (
-              <div>
+              <div key={key}>
                 <p className="text-secondary-foreground text-sm">
                   {DisplayFiltersTypes[key]}
                 </p>

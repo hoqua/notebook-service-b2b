@@ -42,7 +42,7 @@ export function MainCart({
           setCart([])
           setLotsCart([])
         }
-      } catch (error) {
+      } catch {
         toast({
           title: 'Unknown error occured, please try again later.',
           variant: 'destructive'

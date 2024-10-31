@@ -8,7 +8,6 @@ import {
   CommandList
 } from '../../shared/ui/command'
 import { Command as CommandPrimitive } from 'cmdk'
-import { Filter } from '../../../utils-schema/filter.schema'
 
 type OptionType = {
   label: string

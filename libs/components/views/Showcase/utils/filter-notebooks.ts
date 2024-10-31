@@ -68,7 +68,7 @@ async function getAllNotebooksData(
     }
 
     return null
-  } catch (error) {
+  } catch {
     return null
   }
 }

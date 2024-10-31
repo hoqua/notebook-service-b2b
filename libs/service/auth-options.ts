@@ -38,7 +38,7 @@ export const nextAuthOptions: NextAuthOptions = {
           }
 
           return await response.json()
-        } catch (error) {
+        } catch {
           return null
         }
       }

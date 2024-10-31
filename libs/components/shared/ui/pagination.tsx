@@ -1,11 +1,5 @@
 import * as React from 'react'
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  MoreHorizontal
-} from 'lucide-react'
+import { ArrowLeft, ArrowRight, MoreHorizontal } from 'lucide-react'
 
 import Link from 'next/link'
 import { cn } from '../../../utils/cn'

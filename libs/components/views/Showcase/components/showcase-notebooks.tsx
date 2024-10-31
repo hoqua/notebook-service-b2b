@@ -3,7 +3,7 @@ import React, { useState, useTransition } from 'react'
 import { Notebook } from '../../../../utils-schema/notebook.schema'
 import NotebookCard from './notebook-card'
 import { NotebookRow } from './notebook-row'
-import { LayoutGrid, LayoutList, Sheet } from 'lucide-react'
+import { LayoutGrid, LayoutList } from 'lucide-react'
 import { cn } from '../../../../utils/cn'
 import { useSearchParams } from 'next/navigation'
 import { stringToDate } from '../../../../utils/format-date'
@@ -41,7 +41,7 @@ export default function ShowcaseNotebooks({
         document.body.appendChild(link)
         link.click()
         document.body.removeChild(link)
-      } catch (error) {
+      } catch {
         toast({
           title: 'Ошибка экспорта в Excel',
           variant: 'destructive'
@@ -55,6 +55,7 @@ export default function ShowcaseNotebooks({
     <>
       <div className="items-center justify-end gap-2 flex">
         <button
+          disabled={isPending}
           className="rounded-lg flex items-center gap-2 p-2 bg-white border border-transparent text-primary text-sm hover:border-primary transition-colors duration-300"
           onClick={handleExportExcel}
         >

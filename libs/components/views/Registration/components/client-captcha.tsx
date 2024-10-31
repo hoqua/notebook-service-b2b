@@ -1,11 +1,13 @@
 import React, {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
   MouseEvent
 } from 'react'
 import { generateCanvas, generateCode } from '../utils'
+import Image from 'next/image'
 
 interface ClientCaptchaProps {
   backgroundColor?: string
@@ -58,7 +60,7 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
   ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
-    const generateCaptcha = () => {
+    const generateCaptcha = useCallback(() => {
       const code = generateCode(chars, charsCount)
       if (canvasRef.current) {
         generateCanvas(canvasRef.current.getContext('2d')!, code, {
@@ -74,7 +76,19 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
       }
       captchaCode(code)
       return code
-    }
+    }, [
+      chars,
+      charsCount,
+      backgroundColor,
+      font,
+      fontSize,
+      fontFamily,
+      fontColor,
+      fontStyle,
+      height,
+      width,
+      captchaCode
+    ])
 
     const resetCaptcha = (e: MouseEvent<HTMLDivElement>) => {
       e.preventDefault()
@@ -84,7 +98,7 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
 
     useEffect(() => {
       generateCaptcha()
-    }, [])
+    }, [generateCaptcha])
 
     useImperativeHandle(ref, () => ({
       refresh: generateCaptcha
@@ -105,7 +119,7 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
             data-testid="refreshButton"
             className={`ml-4 cursor-pointer ${refreshButtonClassName}`}
           >
-            <img
+            <Image
               src={refreshButtonIcon}
               alt="Re-new captcha"
               className={refreshButtonIconClassName}
@@ -118,5 +132,7 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
     )
   }
 )
+
+ClientCaptcha.displayName = 'ClientCaptcha'
 
 export default ClientCaptcha

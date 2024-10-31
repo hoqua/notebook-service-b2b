@@ -36,23 +36,30 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.2.2",
+    "@eslint/js": "^9.13.0",
+    "@types/eslint__eslintrc": "^2.1.2",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "22.7.7",
     "@types/react": "18.3.5",
     "ajv": "^8.17.1",
     "ajv-keywords": "^5.1.0",
-    "eslint": "^9.9.0",
+    "eslint": "^9.13.0",
+    "eslint-config-next": "15.0.2",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "globals": "^15.9.0",
     "prettier": "^3.3.3",
-    "typescript": "5.6.2"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.12.2"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "engines": {
     "node": "20.x"

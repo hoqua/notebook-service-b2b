@@ -1,5 +1,5 @@
 'use client'
-import React, { ChangeEvent, useCallback, useState, useTransition } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import { Input } from '../../../shared/ui/input'
 import { cn } from '../../../../utils/cn'
 import {
@@ -58,9 +58,9 @@ export default function PageTitleSection({
   const [serialNumber, setSerialNumber] = useState(searchedSerialNumber || '')
   const [name, setName] = useState(searchedNotebookName || '')
 
-  // Debounce functions using useCallback
-  const debouncedSerialNumberChange = useCallback(
-    debounce({ delay: 300 }, (value: string) => {
+  const debouncedSerialNumberChange = debounce(
+    { delay: 300 },
+    (value: string, searchParams, router, pathname) => {
       const newSearchParams = new URLSearchParams(searchParams.toString())
       if (value) {
         newSearchParams.set('serialNumber', value)
@@ -68,12 +68,12 @@ export default function PageTitleSection({
         newSearchParams.delete('serialNumber')
       }
       router.push(pathname + '?' + newSearchParams.toString())
-    }),
-    [searchParams, router, pathname]
+    }
   )
 
-  const debouncedNameChange = useCallback(
-    debounce({ delay: 300 }, (value: string) => {
+  const debouncedNameChange = debounce(
+    { delay: 300 },
+    (value: string, searchParams, router, pathname) => {
       const newSearchParams = new URLSearchParams(searchParams.toString())
       if (value) {
         newSearchParams.set('notebookName', value)
@@ -81,20 +81,31 @@ export default function PageTitleSection({
         newSearchParams.delete('notebookName')
       }
       router.push(pathname + '?' + newSearchParams.toString())
-    }),
-    [searchParams, router, pathname]
+    }
+  )
+
+  const handleDebouncedSerialNumberChange = useCallback(
+    (value: string) =>
+      debouncedSerialNumberChange(value, searchParams, router, pathname),
+    [searchParams, router, pathname, debouncedSerialNumberChange]
+  )
+
+  const handleDebouncedNameChange = useCallback(
+    (value: string) =>
+      debouncedNameChange(value, searchParams, router, pathname),
+    [searchParams, router, pathname, debouncedNameChange]
   )
 
   function handleSerialNumberChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value
     setSerialNumber(value)
-    debouncedSerialNumberChange(value)
+    handleDebouncedSerialNumberChange(value)
   }
 
   function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value
     setName(value)
-    debouncedNameChange(value)
+    handleDebouncedNameChange(value)
   }
 
   return (
