@@ -12,12 +12,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Prebuild
-        run: |
-          npm ci
-          npm run lint
+
+      - name: 🔨 Install dependencies
+        run: yarn install
+
+      - name: ✨ Lint Project
+        run: yarn lint
 
       - name: 🔨 Build Project
-        run: |
-          npm ci
-          npm run build
+        run: yarn build
