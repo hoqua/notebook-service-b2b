@@ -16,13 +16,15 @@ export default function ShowcaseNotebooks({
   rate,
   currencyName,
   userActive,
-  category
+  category,
+  userDiscount
 }: {
   notebooks: Notebook[]
   rate: number
   currencyName: string
   userActive?: number
   category: string
+  userDiscount: number
 }) {
   const [showCards, setShowCards] = useState(false)
   const searchParams = useSearchParams()
@@ -99,6 +101,7 @@ export default function ShowcaseNotebooks({
                 notebook={notebook}
                 rate={rate}
                 userActive={userActive}
+                userDiscount={userDiscount}
               />
             ))}
           </div>
@@ -111,6 +114,7 @@ export default function ShowcaseNotebooks({
                 rate={rate}
                 currencyName={currencyName}
                 userActive={userActive}
+                userDiscount={userDiscount}
               />
             ))}
           </div>
@@ -124,6 +128,7 @@ export default function ShowcaseNotebooks({
             notebook={notebook}
             rate={rate}
             userActive={userActive}
+            userDiscount={userDiscount}
           />
         ))}
       </div>

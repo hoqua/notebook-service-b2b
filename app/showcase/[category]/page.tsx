@@ -8,7 +8,7 @@ import {
 } from '../../../libs/constants/constants'
 import { fetchWrapper } from '../../../libs/service/fetch-wrapper'
 import { FilterDto } from '../../../libs/utils-schema/filter.schema'
-import { Loader2 } from 'lucide-react'
+import { Loading } from '../../../libs/components/shared/styled/loading'
 
 export default async function Page({
   params,
@@ -35,7 +35,7 @@ export default async function Page({
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-10 text-primary h-10 animate-spin" />
+            <Loading />
           </div>
         }
       >

@@ -1,15 +1,15 @@
-import type { User, LoginResponse } from './libs/utils-schema/auth.schema'
+import type { LoginResponse } from './libs/utils-schema/auth.schema'
 
 declare module 'next-auth' {
-  interface Session {
-    user: User
+  export interface Session {
     jwt: LoginResponse
+    error?: 'AccessTokenExpired'
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    user: User
     jwt: LoginResponse
+    error?: 'AccessTokenExpired'
   }
 }

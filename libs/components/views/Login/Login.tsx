@@ -1,10 +1,9 @@
 'use client'
-import React, { useEffect, useTransition } from 'react'
+import React, { useTransition } from 'react'
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { LoginDto } from '../../../utils-schema/auth.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSearchParams } from 'next/navigation'
 import StyledHeader from '../../shared/layouts/styled-header'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,6 +11,8 @@ import { PublicContentContainer } from '../../shared/styled/PublicContentContain
 import { Input } from '../../shared/ui/input'
 import { cn } from '../../../utils/cn'
 import { toast } from '../../shared/ui/use-toast'
+import { useRouter } from 'next/navigation'
+import { ToastAction } from '../../shared/ui/toast'
 
 export const defaultFormState = {
   email: '',
@@ -19,9 +20,8 @@ export const defaultFormState = {
 }
 
 export default function SignIn() {
+  const router = useRouter()
   const [isLoading, startTransition] = useTransition()
-  const searchParams = useSearchParams()
-  const error = searchParams.get('error') || ''
   const {
     register,
     handleSubmit,
@@ -33,28 +33,29 @@ export default function SignIn() {
 
   function onsubmit(data: LoginDto) {
     startTransition(async () => {
-      try {
-        await signIn('credentials', {
-          ...data,
-          callbackUrl: '/showcase'
-        })
-      } catch (e) {
+      const response = await signIn('credentials', {
+        ...data,
+        redirect: false
+      })
+      console.log(response.error)
+
+      if (!response?.ok || response?.error) {
         toast({
-          title: e.message,
-          variant: 'destructive'
+          title:
+            'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
+          variant: 'destructive',
+          action: <ToastAction altText="OK">OK</ToastAction>
         })
+      } else {
+        toast({
+          title: 'Вы успешно авторизовались',
+          variant: 'default'
+        })
+        router.push('/showcase')
       }
     })
   }
 
-  useEffect(() => {
-    if (error) {
-      toast({
-        title: error,
-        variant: 'destructive'
-      })
-    }
-  }, [error])
   return (
     <>
       <StyledHeader>

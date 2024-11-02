@@ -10,9 +10,7 @@ import {
   API_NOTEBOOKS,
   API_NOTEBOOKS_UNFINISHED
 } from '../../../constants/constants'
-import { fetchWrapper } from '../../../service/fetch-wrapper'
-import { getServerSession } from 'next-auth'
-import { nextAuthOptions } from '../../../service/auth-options'
+import { fetchWrapper, getUserOrThrow } from '../../../service/fetch-wrapper'
 
 export default async function ShowcaseCategoryPage({
   category,
@@ -26,7 +24,7 @@ export default async function ShowcaseCategoryPage({
   const NOTEBOOKS_API =
     category === 'unfinished' ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
   const [userSession, notebooksData, exchangeRate] = await Promise.all([
-    getServerSession(nextAuthOptions),
+    getUserOrThrow(),
     getFilteredAndPaginatedNotebooksData(
       page,
       NOTEBOOKS_API,
@@ -46,7 +44,8 @@ export default async function ShowcaseCategoryPage({
         <div className={'flex flex-col gap-5 w-full'}>
           <ShowcaseNotebooks
             category={category}
-            userActive={userSession.user.active}
+            userActive={userSession.active}
+            userDiscount={userSession.ppg_perc}
             notebooks={notebooksData.notebooks}
             rate={exchangeRate.result.rate}
             currencyName={exchangeRate.result.currency_name}

@@ -21,6 +21,7 @@ export const API_ROOT =
     ? 'http://localhost:3000/service'
     : `${process.env['URL']}/service`
 export const API_LOGIN = 'login.php'
+export const GET_USER = 'get-user-info.php'
 export const API_LOTS = 'get-items-lot.php'
 export const API_NOTEBOOKS = 'get-items-main.php'
 export const API_NOTEBOOKS_UNFINISHED = 'get-items-unfinished.php'
@@ -35,6 +36,7 @@ export const API_FILTERS = 'get-filters.php'
 export const API_FILTERS_UNFINISHED = 'get-filters-unfinished.php'
 export const GET_ITEMS_MAIN_XLSX = 'get-items-main-xlsx.php'
 export const GET_ITEMS_UNFINISHED_XLSX = 'get-items-unfinished-xslx.php'
+export const GET_ITEMS_LOT_XLSX = 'get-items-lot-xlsx.php'
 
 // app routes
 export const ROOT_ROUTE = '/'

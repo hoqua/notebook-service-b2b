@@ -3,10 +3,7 @@ import React from 'react'
 import { OrderRow } from './components/OrderRow/order-row'
 import { API_MANAGER, API_ORDERS } from '../../../constants/constants'
 import { ifAble, USER_ACTION } from '../../../permissions/permissions'
-import {
-  fetchWrapper,
-  getAuthSessionOrThrow
-} from '../../../service/fetch-wrapper'
+import { fetchWrapper, getUserOrThrow } from '../../../service/fetch-wrapper'
 import { OrderDto } from '../../../utils-schema/order.schema'
 import { ManagerDto } from '../../../utils-schema/manager.schema'
 import { Breadcrumbs } from '../../shared/ui/breadcrumbs'
@@ -16,15 +13,15 @@ import { ManagerCard } from './components/manager-card'
 const PAGE_TITLE = 'Мои заказы'
 
 export async function OrdersPage() {
-  const [session, ordersResponse, managerInfo] = await Promise.all([
-    getAuthSessionOrThrow(),
+  const [user, ordersResponse, managerInfo] = await Promise.all([
+    getUserOrThrow(),
     fetchWrapper<unknown, OrderDto>({ url: API_ORDERS }),
     fetchWrapper<unknown, ManagerDto>({ url: API_MANAGER })
   ])
 
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
-    isUserActive: !!session.user?.active
+    isUserActive: !!user?.active
   })
 
   return (

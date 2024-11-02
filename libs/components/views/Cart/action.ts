@@ -1,9 +1,6 @@
 'use server'
 import { API_DO_ORDER, API_DO_ORDER_LOTS } from '../../../constants/constants'
-import {
-  fetchWrapper,
-  getAuthSessionOrThrow
-} from '../../../service/fetch-wrapper'
+import { fetchWrapper, getUserOrThrow } from '../../../service/fetch-wrapper'
 import { LotCart } from '../../../utils-schema/lots.schema'
 import { CartNotebook } from '../../../utils-schema/notebook.schema'
 import { DoOrderResponse } from '../../../utils-schema/order.schema'
@@ -15,11 +12,11 @@ export async function placeOrder(
   notebooksCart: CartNotebook[]
 ) {
   try {
-    const session = await getAuthSessionOrThrow()
+    const user = await getUserOrThrow()
 
     const isUserHavePermission = ifAble({
       toDo: [USER_ACTION.DO_ORDER],
-      isUserActive: !!session.user.active
+      isUserActive: !!user.active
     })
 
     if (!isUserHavePermission) {

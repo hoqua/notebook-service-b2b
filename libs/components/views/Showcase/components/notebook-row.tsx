@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Notebook } from '../../../../utils-schema/notebook.schema'
 import { Check, ChevronDown, Minus, X } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { ifAble, USER_ACTION } from '../../../../permissions/permissions'
 import dynamic from 'next/dynamic'
 import NotebookRowDetails from './notebook-row-details'
@@ -23,16 +22,16 @@ export function NotebookRow({
   notebook,
   rate,
   currencyName,
-  userActive
+  userActive,
+  userDiscount
 }: {
   notebook: Notebook
   rate: number
   currencyName: string
   userActive?: number
+  userDiscount: number
 }) {
   const [isExpand, setIsExpand] = useState(false)
-  const session = useSession()
-  const user = session.data?.user
   const priceInUAH = Math.floor(notebook.item_price * rate)
 
   const isUserHasPermission = ifAble({
@@ -109,8 +108,7 @@ export function NotebookRow({
         {isUserHasPermission ? (
           <p>
             <span>{notebook.item_price}</span> {currencyName}
-            {user?.active &&
-              `(${getDiscount(notebook.item_price, user.ppg_perc)})`}
+            {`(${getDiscount(notebook.item_price, userDiscount)})`}
           </p>
         ) : (
           <p className="blur-sm">Not active</p>

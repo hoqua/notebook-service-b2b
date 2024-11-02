@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import { Notebook } from '../../../../utils-schema/notebook.schema'
-import { useSession } from 'next-auth/react'
 import { classColorMap, NotebookPowerOn, RowItem } from './notebook-row'
 import { ifAble, USER_ACTION } from '../../../../permissions/permissions'
 import { ChevronDown, Minus } from 'lucide-react'
@@ -17,15 +16,15 @@ const NotebookSlider = dynamic(() => import('./notebook-slider'))
 export default function NotebookCard({
   notebook,
   rate,
-  userActive
+  userActive,
+  userDiscount
 }: {
   notebook: Notebook
   rate: number
   userActive?: number
+  userDiscount: number
 }) {
   const [isExpand, setIsExpand] = useState(false)
-  const session = useSession()
-  const user = session.data?.user
 
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
@@ -121,7 +120,7 @@ export default function NotebookCard({
                   {notebook.item_price} USD
                 </del>
                 <p className="text-lg text-primary">
-                  {getDiscount(notebook.item_price, user?.ppg_perc)} USD
+                  {getDiscount(notebook.item_price, userDiscount)} USD
                   <span>({priceInUAH}UAH)</span>
                 </p>
               </div>

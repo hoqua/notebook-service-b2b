@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth'
-import { API_ROOT } from '../constants/constants'
+import { API_ROOT, GET_USER } from '../constants/constants'
 import { nextAuthOptions } from './auth-options'
+import { User } from '../utils-schema/auth.schema'
 
 export type FetchOptions<D> = {
   url: string
@@ -11,14 +12,23 @@ export type FetchOptions<D> = {
 
 export async function getAuthSessionOrThrow() {
   const session = await getServerSession(nextAuthOptions)
-  if (!session?.jwt || !session.user) {
+  if (!session?.jwt) {
     throw new Error('User not authenticated')
   }
 
   return {
-    user: session.user,
     jwt: session.jwt
   }
+}
+
+export async function getUserOrThrow() {
+  const response = await fetchWrapper<unknown, User>({ url: GET_USER })
+
+  if (!response.success || !response.result) {
+    throw new Error('Failed to get user data')
+  }
+
+  return response.result
 }
 
 export async function fetchWrapper<D, T>(

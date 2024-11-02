@@ -1,13 +1,14 @@
-import { getServerSession } from 'next-auth'
 import Cart from '../../../libs/components/views/Cart/cart.page'
 import { API_GET_EXRATE } from '../../../libs/constants/constants'
-import { fetchWrapper } from '../../../libs/service/fetch-wrapper'
+import {
+  fetchWrapper,
+  getUserOrThrow
+} from '../../../libs/service/fetch-wrapper'
 import { ExchangeRateDto } from '../../../libs/utils-schema/exrate.schema'
-import { nextAuthOptions } from '../../../libs/service/auth-options'
 
 export default async function Page() {
-  const [userSession, exchangeRate] = await Promise.all([
-    getServerSession(nextAuthOptions),
+  const [user, exchangeRate] = await Promise.all([
+    getUserOrThrow(),
     fetchWrapper<unknown, ExchangeRateDto>({
       url: API_GET_EXRATE
     })
@@ -17,8 +18,8 @@ export default async function Page() {
     <Cart
       rate={exchangeRate.result.rate}
       currencyName={exchangeRate.result.currency_name}
-      userActive={userSession.user.active}
-      userDiscountPercent={userSession.user.ppg_perc}
+      userActive={user.active}
+      userDiscountPercent={user.ppg_perc}
     />
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ChevronLeftCircle, ChevronRightCircle, Loader2 } from 'lucide-react'
+import { ChevronLeftCircle, ChevronRightCircle } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '../../../../utils/cn'
 import { NotebookImage } from './notebook-image'
@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '../../../shared/ui/dialog'
+import { Loading } from '../../../shared/styled/loading'
 
 const IMG_IDS = [1, 2, 3, 4]
 const LAST_IMG_INDEX = IMG_IDS.length - 1
@@ -79,7 +80,7 @@ export default function NotebookSlider({
         <div className="flex items-center justify-center gap-5 w-full h-full relative ">
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-              <Loader2 className="w-10 h-10 animate-spin" />
+              <Loading />
             </div>
           )}
 

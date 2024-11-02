@@ -1,17 +1,19 @@
 import React from 'react'
 import { Breadcrumbs } from '../../../libs/components/shared/ui/breadcrumbs'
-import { fetchWrapper } from '../../../libs/service/fetch-wrapper'
+import {
+  fetchWrapper,
+  getUserOrThrow
+} from '../../../libs/service/fetch-wrapper'
 import { LotsDto } from '../../../libs/utils-schema/lots.schema'
 import { API_LOTS } from '../../../libs/constants/constants'
 import EmptyResult from '../../../libs/components/shared/errorComponents/empty-result'
 import LotRow from '../../../libs/components/views/Lots/components/lot-row'
 import AddToCartLotSection from '../../../libs/components/views/Lots/components/add-to-cart-lot-section'
-import { getServerSession } from 'next-auth'
-import { nextAuthOptions } from '../../../libs/service/auth-options'
+import GetLotExcel from '../../../libs/components/views/Lots/components/get-lot-xlsx'
 
 export default async function Lots() {
-  const [userSession, lotsResponse] = await Promise.all([
-    getServerSession(nextAuthOptions),
+  const [user, lotsResponse] = await Promise.all([
+    getUserOrThrow(),
     fetchWrapper<unknown, LotsDto>({ url: API_LOTS })
   ])
 
@@ -20,7 +22,10 @@ export default async function Lots() {
   return (
     <div className="max-w-[1170px] px-2 w-full mx-auto flex flex-col gap-5 py-5">
       <Breadcrumbs />
-      <h1 className="text-2xl font-medium">Лоты</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-medium">Лоты</h1>
+        <GetLotExcel />
+      </div>
       {lots.length === 0 ? (
         <EmptyResult />
       ) : (
@@ -37,7 +42,7 @@ export default async function Lots() {
                 <span className="font-medium">{lot.lot_sum}</span>
               </div>
               <AddToCartLotSection
-                userActive={userSession.user.active}
+                userActive={user.active}
                 lot_name={lot.lot_name}
                 lot_sum={lot.lot_sum}
               />
