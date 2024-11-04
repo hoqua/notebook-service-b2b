@@ -24,7 +24,7 @@ export default function CartPage({
     toDo: [USER_ACTION.DO_ORDER],
     isUserActive: !!userActive
   })
-
+  console.log(cart)
   const areCartsEmpty = cart.length === 0
   const areLotsCartEmpty = lotsCart.length === 0
   return (
