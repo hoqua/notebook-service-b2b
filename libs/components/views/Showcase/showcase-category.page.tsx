@@ -6,11 +6,15 @@ import ShowcaseNotebooks from './components/showcase-notebooks'
 import EmptyResult from '../../shared/errorComponents/empty-result'
 import { getFilteredAndPaginatedNotebooksData } from './utils/filter-notebooks'
 import {
+  API_FILTERS,
+  API_FILTERS_UNFINISHED,
   API_GET_EXRATE,
   API_NOTEBOOKS,
   API_NOTEBOOKS_UNFINISHED
 } from '../../../constants/constants'
 import { fetchWrapper, getUserOrThrow } from '../../../service/fetch-wrapper'
+import { FilterDto } from '../../../utils-schema/filter.schema'
+import PageTitleSection from './components/page-title.section'
 
 export default async function ShowcaseCategoryPage({
   category,
@@ -23,21 +27,27 @@ export default async function ShowcaseCategoryPage({
 }) {
   const NOTEBOOKS_API =
     category === 'unfinished' ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
-  const [userSession, notebooksData, exchangeRate] = await Promise.all([
-    getUserOrThrow(),
-    getFilteredAndPaginatedNotebooksData(
-      page,
-      NOTEBOOKS_API,
-      category,
-      searchParams
-    ),
-    fetchWrapper<unknown, ExchangeRateDto>({
-      url: API_GET_EXRATE
-    })
-  ])
+  const FILTERS_API =
+    category === 'unfinished' ? API_FILTERS_UNFINISHED : API_FILTERS
+  const [notebooksData, filters, userSession, exchangeRate] = await Promise.all(
+    [
+      getFilteredAndPaginatedNotebooksData(
+        page,
+        NOTEBOOKS_API,
+        category,
+        searchParams
+      ),
+      fetchWrapper<unknown, FilterDto>({ url: FILTERS_API }),
+      getUserOrThrow(),
+      fetchWrapper<unknown, ExchangeRateDto>({
+        url: API_GET_EXRATE
+      })
+    ]
+  )
 
   return (
     <>
+      <PageTitleSection category={category} filters={filters.result} />
       {notebooksData.notebooks.length === 0 ? (
         <EmptyResult />
       ) : (

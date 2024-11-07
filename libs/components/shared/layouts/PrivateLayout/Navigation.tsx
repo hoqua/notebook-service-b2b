@@ -21,6 +21,7 @@ export default function Navigation({ numberOrders }: { numberOrders: number }) {
   return (
     <div className="min-[1000px]:h-full flex">
       <Link
+        prefetch={true}
         className={`border-[#EAEEF1] transition-colors duration-300 h-full px-4 flex items-center justify-center border-r first-of-type:border-l hover:bg-[#EAEEF1]`}
         href={ORDERS_ROUTE}
       >
@@ -31,6 +32,7 @@ export default function Navigation({ numberOrders }: { numberOrders: number }) {
       </Link>
 
       <Link
+        prefetch={true}
         className={`border-[#EAEEF1]  transition-colors duration-300 px-4 border-r first-of-type:border-l flex items-center justify-center hover:bg-[#EAEEF1]`}
         href={SHOPPING_CART_ROUTE}
       >

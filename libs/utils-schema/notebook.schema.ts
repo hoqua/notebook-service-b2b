@@ -21,6 +21,7 @@ export const NotebookSchema = z.object({
   is_new: z.number(),
   ainvoicedtl_id: z.number(),
   num: z.number(),
+  has_icon: z.number(),
   store_time: z.string()
 })
 
@@ -35,7 +36,8 @@ export const CartNotebookSchema = z.object({
   serial_num: z.string(),
   mark_name: z.string(),
   item_name: z.string(),
-  item_price: z.number()
+  item_price: z.number(),
+  has_icon: z.number()
 })
 
 export type Notebook = z.infer<typeof NotebookSchema>

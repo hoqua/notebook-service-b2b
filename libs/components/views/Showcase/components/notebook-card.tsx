@@ -9,9 +9,7 @@ import { getDiscount } from '../utils/get-discount'
 import DisplayCondition from './dispaly-condition'
 import NotebookRowDetails from './notebook-row-details'
 import { cn } from '../../../../utils/cn'
-import dynamic from 'next/dynamic'
-
-const NotebookSlider = dynamic(() => import('./notebook-slider'))
+import NotebookSlider from './slider/notebook-slider'
 
 export default function NotebookCard({
   notebook,
@@ -45,6 +43,7 @@ export default function NotebookCard({
         serial_num={notebook.serial_num}
         mark_name={notebook.mark_name}
         item_name={notebook.item_name}
+        has_icon={notebook.has_icon === 1 ? true : false}
       />
       <div>
         <p className="text-secondary-foreground text-sm px-3">

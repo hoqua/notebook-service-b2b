@@ -16,7 +16,8 @@ const ubuntu = Ubuntu({
   weight: ['400', '500', '700'],
   display: 'swap',
   style: 'normal',
-  subsets: ['latin']
+  subsets: ['latin'],
+  preload: true
 })
 
 export default function RootLayout({

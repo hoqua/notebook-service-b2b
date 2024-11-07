@@ -52,7 +52,6 @@ export default function ShowcaseNotebooks({
     })
   }
 
-  console.log('Notebooks array:', sortedNotebooks)
   return (
     <>
       <div className="items-center justify-end gap-2 flex">

@@ -37,7 +37,8 @@ export default function AddToCartSection({
         mark_name: data.mark_name,
         item_price: data.item_price,
         item_name: data.item_name,
-        serial_num: data.serial_num
+        serial_num: data.serial_num,
+        has_icon: data.has_icon
       } satisfies CartNotebook
 
       newCart.push(newProduct)

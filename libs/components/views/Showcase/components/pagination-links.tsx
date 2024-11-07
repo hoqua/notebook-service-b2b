@@ -26,7 +26,7 @@ export default function PaginationLinks({
   const currentBlockStart =
     Math.floor((currentPage - 1) / PAGES_PER_BLOCK) * PAGES_PER_BLOCK + 1
   const currentBlockEnd = Math.min(
-    currentBlockStart + PAGES_PER_BLOCK - 1,
+    currentBlockStart + PAGES_PER_BLOCK,
     totalPages
   )
 

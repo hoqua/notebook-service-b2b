@@ -41,12 +41,10 @@ const SORT_OPTIONS = [
 ]
 
 export default function PageTitleSection({
-  title,
-  subtitle,
+  category,
   filters
 }: {
-  title: string
-  subtitle?: string
+  category: string
   filters?: FilterDto
 }) {
   const router = useRouter()
@@ -112,8 +110,12 @@ export default function PageTitleSection({
     <>
       <div className="flex items-center flex-col gap-5 justify-start lg:justify-between lg:flex-row">
         <div className="flex flex-col gap-2 w-full">
-          <h1 className="text-2xl font-medium">{title}</h1>
-          <p className="text-secondary-foreground text-sm">{subtitle}</p>
+          <h1 className="text-2xl font-medium">
+            {renderTextByCategory[category].title}
+          </h1>
+          <p className="text-secondary-foreground text-sm">
+            {renderTextByCategory[category].subtitle}
+          </p>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-5 w-full flex-col sm:flex-row">
@@ -191,4 +193,18 @@ function SortSelect() {
       </SelectContent>
     </Select>
   )
+}
+
+const renderTextByCategory: Record<
+  string,
+  Record<'title' | 'subtitle', string>
+> = {
+  finished: {
+    title: 'Готовые',
+    subtitle: 'Гарантия на все ноутбуки с Витрины - 1 месяц.'
+  },
+  unfinished: {
+    title: 'Не готовые ноутбуки',
+    subtitle: "Гарантия на 'Не готовые' ноутбуки не предоставляется."
+  }
 }

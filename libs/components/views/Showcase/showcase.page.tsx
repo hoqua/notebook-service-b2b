@@ -114,6 +114,7 @@ export function SideNavLink({
 }: SideNavLinkProps): JSX.Element {
   return (
     <Link
+      prefetch={true}
       href={to}
       className={`flex items-center gap-4 
         p-5

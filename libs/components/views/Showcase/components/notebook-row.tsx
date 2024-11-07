@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Notebook } from '../../../../utils-schema/notebook.schema'
 import { Check, ChevronDown, Minus, X } from 'lucide-react'
 import { ifAble, USER_ACTION } from '../../../../permissions/permissions'
-import dynamic from 'next/dynamic'
 import NotebookRowDetails from './notebook-row-details'
 import { cn } from '../../../../utils/cn'
 import AddToCartSection from './add-to-cart-section'
@@ -15,8 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '../../../shared/ui/tooltip'
-
-const NotebookSlider = dynamic(() => import('./notebook-slider'))
+import NotebookSlider from './slider/notebook-slider'
 
 export function NotebookRow({
   notebook,
@@ -57,6 +55,7 @@ export function NotebookRow({
         mark_name={notebook.mark_name}
         serial_num={notebook.serial_num}
         item_name={notebook.item_name}
+        has_icon={notebook.has_icon === 1 ? true : false}
       />
 
       <RowItem

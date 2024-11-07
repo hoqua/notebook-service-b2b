@@ -44,6 +44,7 @@ export function NotebooksCart({
                 isSlider={false}
                 mark_name={cart.mark_name}
                 serial_num={cart.serial_num}
+                has_icon={cart.has_icon === 1 ? true : false}
               />
 
               <div>
