@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useTransition } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, FieldErrors, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
@@ -14,6 +14,7 @@ import { Checkbox } from '../../shared/ui/checkbox'
 import { registerUser } from './action'
 import { cn } from '../../../utils/cn'
 import { toast } from '../../shared/ui/use-toast'
+import { Loader2 } from 'lucide-react'
 
 export default function SignUp() {
   const [isLoading, startTransition] = useTransition()
@@ -48,7 +49,9 @@ export default function SignUp() {
         variant: response.success ? 'default' : 'destructive'
       })
 
-      redirect('/sign-in')
+      if (response.success === true) {
+        redirect('/sign-in')
+      }
     })
   }
 
@@ -86,7 +89,7 @@ export default function SignUp() {
                             type="text"
                             className={cn(
                               'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-primary hover:border-primary',
-                              errors.data?.cname && 'border-red-500'
+                              errors.data?.cname ? 'border-red-500' : ''
                             )}
                             placeholder="Введите название фирмы"
                             {...register('data.cname', { required: true })}
@@ -100,7 +103,7 @@ export default function SignUp() {
                             {...register('data.fio', { required: true })}
                             className={cn(
                               'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-primary hover:border-primary',
-                              errors.data?.fio && 'border-red-500'
+                              errors.data?.fio ? 'border-red-500' : ''
                             )}
                           />
                         </div>
@@ -115,7 +118,7 @@ export default function SignUp() {
                             {...register('data.email', { required: true })}
                             className={cn(
                               'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-primary hover:border-primary',
-                              errors.data?.email && 'border-red-500'
+                              errors.data?.email ? 'border-red-500' : ''
                             )}
                           />
                         </div>
@@ -128,7 +131,7 @@ export default function SignUp() {
                             {...register('data.password', { required: true })}
                             className={cn(
                               'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-primary hover:border-primary',
-                              errors.data?.password && 'border-red-500'
+                              errors.data?.password ? 'border-red-500' : ''
                             )}
                           />
                         </div>
@@ -142,7 +145,7 @@ export default function SignUp() {
                             {...register('data.phone', { required: true })}
                             className={cn(
                               'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-primary hover:border-primary',
-                              errors.data?.phone && 'border-red-500'
+                              errors.data?.phone ? 'border-red-500' : ''
                             )}
                           />
                         </div>
@@ -153,7 +156,7 @@ export default function SignUp() {
                             {...register('data.telegram', { required: true })}
                             className={cn(
                               'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-primary hover:border-primary',
-                              errors.data?.telegram && 'border-red-500'
+                              errors.data?.telegram ? 'border-red-500' : ''
                             )}
                           />
                         </div>
@@ -178,6 +181,8 @@ export default function SignUp() {
                         )}
                       />
 
+                      {errors && <ErrorsMap errors={errors} />}
+
                       <div className="w-full items-center gap-2 flex justify-center">
                         <Controller
                           control={control}
@@ -193,6 +198,7 @@ export default function SignUp() {
                             )
                           }}
                         />
+
                         <p className="text-[#818895] text-sm">
                           Я согласен с условиями{' '}
                           <Link className="text-base text-[#112878]" href="/">
@@ -206,7 +212,11 @@ export default function SignUp() {
                         className="text-center text-white rounded-lg transition-all py-2 px-5 bg-[#112878]  duration-500"
                         disabled={isLoading}
                       >
-                        Зарегистрироваться
+                        {isLoading ? (
+                          <Loader2 className="animate-spin" />
+                        ) : (
+                          'Зарегистрироваться'
+                        )}
                       </button>
                     </div>
                   </form>
@@ -226,5 +236,18 @@ export default function SignUp() {
         </PublicContentContainer>
       </div>
     </>
+  )
+}
+
+function ErrorsMap({ errors }: { errors: FieldErrors<RegisterDtoFormSchema> }) {
+  return (
+    <ul className="flex flex-col gap-2">
+      {errors.data?.password && (
+        <li className="text-red-500 text-sm">{errors.data.password.message}</li>
+      )}
+      {errors.data?.phone && (
+        <p className="text-red-500 text-sm">{errors.data.phone.message}</p>
+      )}
+    </ul>
   )
 }

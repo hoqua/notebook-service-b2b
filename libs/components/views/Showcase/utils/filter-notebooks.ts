@@ -3,65 +3,36 @@ import type {
   Notebook,
   NotebookDto
 } from '../../../../utils-schema/notebook.schema'
-import NodeCache from 'node-cache'
 
 const PAGE_DATA_LENGTH = 12
-
-const filterToNotebookFieldMap: Record<string, keyof Notebook> = {
-  mark: 'mark_name',
-  proc: 'proc',
-  ram: 'ram',
-  hdd: 'hdd',
-  display: 'display',
-  lookout: 'lookout',
-  poweron: 'poweron',
-  new: 'is_new',
-  serialNumber: 'serial_num',
-  notebookName: 'item_name',
-  proc_site: 'proc_site'
-}
-
-const cache = new NodeCache({ stdTTL: 1, checkperiod: 2 })
 
 export async function getFilteredAndPaginatedNotebooksData(
   page: number,
   endpoint: string,
-  category: string,
   objectSearchParams: { [key: string]: string | string[] | undefined }
 ): Promise<{ notebooks: Notebook[]; totalPages: number }> {
-  const cacheKey = `notebooks_${category}_${page}`
+  const searchParams = objectToSearchParams(objectSearchParams)
+  const notebooksToProcess = await getNotebooksData(endpoint, searchParams)
 
-  const cachedNotebooks = cache.get<Notebook[]>(cacheKey)
-  const cachedTotalItems = cache.get<number>(category)
-  if (cachedNotebooks) {
-    const totalPages = Math.ceil((cachedTotalItems || 0) / PAGE_DATA_LENGTH)
-
-    return {
-      notebooks: cachedNotebooks,
-      totalPages
-    }
-  }
-
-  const notebooksToProcess = await getAllNotebooksData(endpoint)
   if (!notebooksToProcess || notebooksToProcess.length === 0) {
     return { notebooks: [], totalPages: 0 }
   }
 
-  const searchParams = objectToSearchParams(objectSearchParams)
-  const filteredNotebooks = filterNotebooks(notebooksToProcess, searchParams)
-  const totalItems = filteredNotebooks.length
-  const totalPages = Math.ceil(totalItems / PAGE_DATA_LENGTH)
-
-  const paginatedNotebooks = paginateNotebooks(filteredNotebooks, page)
-  return { notebooks: paginatedNotebooks, totalPages }
+  const filteredAndPaginated = paginateAndFilterNotebooks(
+    notebooksToProcess,
+    page,
+    objectSearchParams
+  )
+  return filteredAndPaginated
 }
 
-async function getAllNotebooksData(
-  endpoint: string
+async function getNotebooksData(
+  endpoint: string,
+  searchParams: URLSearchParams
 ): Promise<Notebook[] | null> {
   try {
     const response = await fetchWrapper<unknown, NotebookDto>({
-      url: endpoint
+      url: `${endpoint}?${searchParams.toString()}`
     })
     if (response.result && response.result.items.length > 0) {
       return response.result.items
@@ -73,43 +44,59 @@ async function getAllNotebooksData(
   }
 }
 
-function filterNotebooks(
+function paginateAndFilterNotebooks(
   notebooks: Notebook[],
-  searchParams: URLSearchParams
-): Notebook[] {
-  return notebooks.filter((notebook: Notebook) =>
+  page: number,
+  searchParams: { [key: string]: string | string[] | undefined }
+) {
+  const filteredNotebooks = notebooks.filter((notebook) =>
     doesNotebookMatchFilters(notebook, searchParams)
   )
+  const totalItems = filteredNotebooks.length
+  const totalPages = Math.ceil(totalItems / PAGE_DATA_LENGTH)
+
+  const paginatedNotebooks = filteredNotebooks.slice(
+    (page - 1) * PAGE_DATA_LENGTH,
+    page * PAGE_DATA_LENGTH
+  )
+
+  return {
+    notebooks: paginatedNotebooks,
+    totalPages
+  }
 }
 
 function doesNotebookMatchFilters(
   notebook: Notebook,
-  searchParams: URLSearchParams
-) {
-  for (const paramKey of searchParams.keys()) {
-    const notebookField = filterToNotebookFieldMap[paramKey]
-
-    if (!notebookField) continue
-
-    const paramValues = searchParams.getAll(paramKey)
-
-    const notebookValue = String(notebook[notebookField]).toLowerCase()
-
-    if (
-      !paramValues.some((paramValue) => {
-        if (paramKey === 'display') {
-          const displaySize = extractDisplaySize(notebookValue)
-          return displayMatches(displaySize, paramValue)
-        } else {
-          return notebookValue.includes(paramValue.toLowerCase())
-        }
-      })
-    ) {
-      return false
+  params: { [key: string]: string | string[] | undefined }
+): boolean {
+  const checks = [
+    { key: 'serialNumber', value: notebook.serial_num },
+    { key: 'notebookName', value: notebook.item_name },
+    {
+      key: 'display',
+      value: () => {
+        const displaySize = extractDisplaySize(notebook.display)
+        return (
+          displaySize &&
+          (Array.isArray(params.display)
+            ? params.display
+            : [params.display]
+          ).some((filter) => displayMatches(displaySize, filter as string))
+        )
+      },
+      isDynamic: true
     }
-  }
+  ]
 
-  return true
+  return checks.every(({ key, value, isDynamic }) => {
+    const param = params[key]
+    if (!param) return true
+    if (isDynamic) return value()
+    return (value as string)
+      .toLowerCase()
+      .includes((param as string).toLowerCase())
+  })
 }
 
 function extractDisplaySize(display: string): number | null {
@@ -125,14 +112,7 @@ function displayMatches(displaySize: number, filterValue: string): boolean {
   return displaySize === parseFloat(filterValue)
 }
 
-function paginateNotebooks(
-  filteredNotebooks: Notebook[],
-  page: number
-): Notebook[] {
-  const startIndex = (page - 1) * PAGE_DATA_LENGTH
-  const endIndex = startIndex + PAGE_DATA_LENGTH
-  return filteredNotebooks.slice(startIndex, endIndex)
-}
+const paramsToExclude = new Set(['display', 'serialNumber', 'notebookName'])
 
 function objectToSearchParams(obj: {
   [key: string]: string | string[] | undefined
@@ -140,10 +120,13 @@ function objectToSearchParams(obj: {
   const params = new URLSearchParams()
 
   for (const [key, value] of Object.entries(obj)) {
+    if (paramsToExclude.has(key)) {
+      continue
+    }
     if (Array.isArray(value)) {
-      value.forEach((v) => params.append(key, v))
+      params.append(key, value.join(','))
     } else {
-      params.set(key, value)
+      params.set(key, value || '')
     }
   }
   return params

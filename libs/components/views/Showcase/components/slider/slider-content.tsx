@@ -62,7 +62,7 @@ export default function SliderContent({
           <Image
             className={cn(
               'transition-opacity duration-300',
-              loading && 'opacity-70'
+              loading ? 'opacity-70' : ''
             )}
             ref={image}
             src={!has_icon ? '/assets/icons/notebook-icon.svg' : src}

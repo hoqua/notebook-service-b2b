@@ -34,6 +34,14 @@ export async function registerUser(values: RegisterDtoFormSchema) {
       body: formData
     })
 
+    if (!response.ok) {
+      console.log(await response.text())
+      return {
+        success: false,
+        message: 'Ошибка при отправке запроса'
+      }
+    }
+
     const result = (await response.json()) as RegisterResponse
     if (result.error !== 0) {
       return {

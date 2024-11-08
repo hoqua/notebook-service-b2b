@@ -57,6 +57,10 @@ export async function fetchWrapper<D, T>(
       headers: newHeaders
     })
 
+    if (!response.ok) {
+      throw new Error(`failed_to_fetch`)
+    }
+
     const result = await response.json()
 
     if (result.error !== 0) {
@@ -69,7 +73,7 @@ export async function fetchWrapper<D, T>(
 
     return {
       success: true,
-      message: null,
+      message: '',
       result
     }
   } catch (error) {

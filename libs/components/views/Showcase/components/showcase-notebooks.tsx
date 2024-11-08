@@ -29,7 +29,7 @@ export default function ShowcaseNotebooks({
   const [showCards, setShowCards] = useState(false)
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
-  const sortOption = searchParams.get('sort')
+  const sortOption = searchParams.get('sort') || ''
 
   const sortedNotebooks = sortNotebooks(sortOption, notebooks)
 
@@ -149,6 +149,8 @@ function sortNotebooks(sortBy: string, notebooks: Notebook[]) {
         return aStoreTime - bStoreTime
       case 'store_time_desc':
         return bStoreTime - aStoreTime
+      default:
+        return 0
     }
   })
 

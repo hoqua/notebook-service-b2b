@@ -23,7 +23,7 @@ export default async function ShowcaseCategoryPage({
 }: {
   category: string
   page: number
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const NOTEBOOKS_API =
     category === 'unfinished' ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
@@ -31,12 +31,7 @@ export default async function ShowcaseCategoryPage({
     category === 'unfinished' ? API_FILTERS_UNFINISHED : API_FILTERS
   const [notebooksData, filters, userSession, exchangeRate] = await Promise.all(
     [
-      getFilteredAndPaginatedNotebooksData(
-        page,
-        NOTEBOOKS_API,
-        category,
-        searchParams
-      ),
+      getFilteredAndPaginatedNotebooksData(page, NOTEBOOKS_API, searchParams),
       fetchWrapper<unknown, FilterDto>({ url: FILTERS_API }),
       getUserOrThrow(),
       fetchWrapper<unknown, ExchangeRateDto>({
@@ -47,7 +42,7 @@ export default async function ShowcaseCategoryPage({
 
   return (
     <>
-      <PageTitleSection category={category} filters={filters.result} />
+      <PageTitleSection category={category} filters={filters.result!} />
       {notebooksData.notebooks.length === 0 ? (
         <EmptyResult />
       ) : (
@@ -57,8 +52,8 @@ export default async function ShowcaseCategoryPage({
             userActive={userSession.active}
             userDiscount={userSession.ppg_perc}
             notebooks={notebooksData.notebooks}
-            rate={exchangeRate.result.rate}
-            currencyName={exchangeRate.result.currency_name}
+            rate={exchangeRate?.result?.rate || 0}
+            currencyName={exchangeRate?.result?.currency_name || 'USD'}
           />
 
           <PaginationLinks totalPages={notebooksData.totalPages} />

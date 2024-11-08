@@ -107,7 +107,7 @@ export default function NotebookCard({
             <ChevronDown
               className={cn(
                 'text-primary w-8 h-8 transition-all duration-300',
-                isExpand && 'rotate-180'
+                isExpand ? 'rotate-180' : ''
               )}
             />
           </button>
@@ -124,7 +124,12 @@ export default function NotebookCard({
                 </p>
               </div>
             ) : (
-              <p className="blur-sm">Not active</p>
+              <p
+                className="blur-sm"
+                title="Менеджер должен подтвердить ваши данные"
+              >
+                Not active
+              </p>
             )}
 
             {isUserHasPermission && (

@@ -33,12 +33,17 @@ export type LoginDto = z.infer<typeof LoginDto>
 export type LoginResponse = z.infer<typeof LoginResponseSchema>
 
 export const RegisterDto = z.object({
-  cname: z.string(),
+  cname: z.string().min(1),
   email: z.string().email(),
-  password: z.string(),
-  fio: z.string(),
-  phone: z.string(),
-  telegram: z.string()
+  password: z.string().min(8, 'Пароль должен иметь 8 символов'),
+  fio: z.string().min(1),
+  phone: z
+    .string()
+    .regex(
+      new RegExp('^\\+?[1-9]\\d{1,14}$'),
+      'Ведите правильнный формат телефона (+380949175358)'
+    ),
+  telegram: z.string().min(1)
 })
 
 export const RegisterDtoFormSchema = z.object({

@@ -9,6 +9,7 @@ import { ManagerDto } from '../../../utils-schema/manager.schema'
 import { Breadcrumbs } from '../../shared/ui/breadcrumbs'
 import { ErrorNotActiveUser } from '../../shared/errorComponents/error-non-active-user'
 import { ManagerCard } from './components/manager-card'
+import EmptyResult from '../../shared/errorComponents/empty-result'
 
 const PAGE_TITLE = 'Мои заказы'
 
@@ -30,11 +31,17 @@ export async function OrdersPage() {
       <h1 className="text-2xl font-medium">{PAGE_TITLE}</h1>
       {isUserHasPermission ? (
         <div className="flex flex-col-reverse w-full md:grid md:grid-cols-4 md:items-start gap-5">
-          <ManagerCard managerInfo={managerInfo.result} />
+          {managerInfo.result && (
+            <ManagerCard managerInfo={managerInfo.result} />
+          )}
           <div className="md:col-span-3 w-full flex flex-col gap-2">
-            {ordersResponse.result.orders.map((order) => (
-              <OrderRow key={order.order_id} order={order} />
-            ))}
+            {ordersResponse.result ? (
+              ordersResponse.result.orders.map((order) => (
+                <OrderRow key={order.order_id} order={order} />
+              ))
+            ) : (
+              <EmptyResult />
+            )}
           </div>
         </div>
       ) : (

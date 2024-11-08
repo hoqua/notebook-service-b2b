@@ -16,8 +16,8 @@ export default async function Page() {
 
   return (
     <Cart
-      rate={exchangeRate.result.rate}
-      currencyName={exchangeRate.result.currency_name}
+      rate={exchangeRate?.result?.rate || 0}
+      currencyName={exchangeRate?.result?.currency_name || 'USD'}
       userActive={user.active}
       userDiscountPercent={user.ppg_perc}
     />

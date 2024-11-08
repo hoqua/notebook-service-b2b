@@ -14,14 +14,14 @@ type OptionType = {
   value: string
 }
 
-type MultiSelectProps<T> = {
+type MultiSelectProps<T extends Record<string, string[]>> = {
   values: T
   options: OptionType[]
   selectedKey: string
   setValues: React.Dispatch<React.SetStateAction<T>>
 }
 
-export function MultiSelect<T>({
+export function MultiSelect<T extends Record<string, string[]>>({
   values,
   options,
   selectedKey,

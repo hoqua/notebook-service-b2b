@@ -5,15 +5,28 @@ export const FilterSchema = z.object({
   label: z.string()
 })
 
+export const FiltersEnum = z.enum([
+  'mark',
+  'proc',
+  'ram',
+  'hdd',
+  'display',
+  'lookout',
+  'poweron',
+  'proc_site'
+])
+
+const FilterArraySchema = z.array(FilterSchema)
+
 export const FiltersSchema = z.object({
-  mark: z.array(FilterSchema),
-  proc: z.array(FilterSchema),
-  ram: z.array(FilterSchema),
-  hdd: z.array(FilterSchema),
-  display: z.array(FilterSchema),
-  lookout: z.array(FilterSchema),
-  poweron: z.array(FilterSchema).optional(),
-  proc_site: z.array(FilterSchema)
+  mark: FilterArraySchema,
+  proc: FilterArraySchema,
+  ram: FilterArraySchema,
+  hdd: FilterArraySchema,
+  display: FilterArraySchema,
+  lookout: FilterArraySchema,
+  poweron: FilterArraySchema.optional(),
+  proc_site: FilterArraySchema
 })
 
 export const GetFiltersSchema = z.object({
@@ -23,5 +36,5 @@ export const GetFiltersSchema = z.object({
 })
 
 export type FilterDto = z.infer<typeof GetFiltersSchema>
-
+export type FiltersEnum = z.infer<typeof FiltersEnum>
 export type Filter = z.infer<typeof FilterSchema>

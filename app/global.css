@@ -87,6 +87,12 @@
     width: 100%;
   }
 
+  .notebook-row-grid-not-active {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 2fr 1fr 0.5fr 0.9fr 1fr 1fr;
+    width: 100%;
+  }
+
   .notebook-card-grid {
     @apply w-full grid gap-5 items-start;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

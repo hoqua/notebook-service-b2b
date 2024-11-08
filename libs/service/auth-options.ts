@@ -23,7 +23,14 @@ export const nextAuthOptions: NextAuthOptions = {
           return null
         }
 
-        const { email, password } = LoginDto.safeParse(credentials).data
+        const creds = LoginDto.safeParse(credentials).data
+
+        if (!creds) {
+          return null
+        }
+
+        const { email, password } = creds
+
         const response = await fetch(
           `${API_ROOT}/login.php?u=${email}&p=${password}`,
           {
@@ -32,6 +39,7 @@ export const nextAuthOptions: NextAuthOptions = {
         )
 
         if (!response.ok) {
+          console.log(await response.text())
           return null
         }
 

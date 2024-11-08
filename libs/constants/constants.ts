@@ -1,3 +1,5 @@
+import { FiltersEnum } from '../utils-schema/filter.schema'
+
 // app essentials
 export const NOT_ACTIVE_PHONE = '094-917-5358'
 
@@ -35,6 +37,7 @@ export const API_DO_ORDER_LOTS = 'do-order-lot.php'
 export const API_FILTERS = 'get-filters.php'
 export const API_FILTERS_UNFINISHED = 'get-filters-unfinished.php'
 export const GET_ITEMS_MAIN_XLSX = 'get-items-main-xlsx.php'
+export const GET_ITEMS_FULL_XLSX = 'get-items-full-xlsx.php'
 export const GET_ITEMS_UNFINISHED_XLSX = 'get-items-unfinished-xslx.php'
 export const GET_ITEMS_LOT_XLSX = 'get-items-lot-xlsx.php'
 
@@ -49,14 +52,14 @@ export const SHOPPING_CART_ROUTE = '/showcase/cart'
 export const ORDERS_ROUTE = '/showcase/orders'
 
 // enum constants
-export const DisplayConditions = {
+export const DisplayConditions: Record<string, string> = {
   Good: 'Хорошая',
   Defective: 'С дефектом',
   Questionable: 'Под вопросом',
   Bad: 'Плохая'
 }
 
-export const DisplayFiltersTypes = {
+export const DisplayFiltersTypes: Record<FiltersEnum, string> = {
   mark: 'Производитель',
   proc: 'CPU',
   proc_site: 'CPU сайт',

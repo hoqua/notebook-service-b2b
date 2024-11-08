@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 
 export function Breadcrumbs() {
   const pathname = usePathname()
-  const currentPage = pathname.split('/showcase/').pop()
+  const currentPage = pathname.split('/showcase/').pop() || ''
 
   return (
     <div className="flex items-center flex-wrap gap-2">

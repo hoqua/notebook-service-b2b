@@ -22,9 +22,9 @@ export default async function Layout({
 
   return (
     <PrivateLayout
-      numberOrders={orders.result.orders.length || 0}
-      currencyName={exchangeRate.result.currency_name}
-      rate={exchangeRate.result.rate}
+      numberOrders={orders.result?.orders.length || 0}
+      currencyName={exchangeRate?.result?.currency_name || 'USD'}
+      rate={exchangeRate.result?.rate || 0}
       user={userSession}
     >
       {children}

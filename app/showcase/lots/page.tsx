@@ -16,8 +16,7 @@ export default async function Lots() {
     getUserOrThrow(),
     fetchWrapper<unknown, LotsDto>({ url: API_LOTS })
   ])
-
-  const { lots } = lotsResponse.result
+  const lots = lotsResponse.result?.lots || []
 
   return (
     <div className="max-w-[1170px] px-2 w-full mx-auto flex flex-col gap-5 py-5">

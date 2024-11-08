@@ -6,9 +6,9 @@ import { Loading } from '../../../libs/components/shared/styled/loading'
 export default async function Page({
   searchParams
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const page = Number(searchParams.page) || 1
+  const page = Number(searchParams?.page) || 1
 
   return (
     <div className="max-w-[1170px] px-2 w-full mx-auto flex flex-col gap-5 py-5">

@@ -1,5 +1,6 @@
+'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useTransition } from 'react'
 import {
   LOTS_ROUTE,
   SHOWCASE_ROUTE,
@@ -7,6 +8,8 @@ import {
 } from '../../../constants/constants'
 import { Boxes, Laptop, MonitorCog } from 'lucide-react'
 import Image from 'next/image'
+import { getAllShowcaseInExcel } from './action'
+import { toast } from '../../shared/ui/use-toast'
 
 interface SideNavLinkProps {
   to: string
@@ -21,7 +24,10 @@ export default function Showcase() {
       <h1 className="text-2xl font-medium">Главная</h1>
       <div className="flex flex-col md:flex-row items-start gap-8">
         <div className="relative w-full md:w-1/3 shadow-lg rounded-md bg-white h-fit flex flex-col">
-          <p className="text-base font-medium p-5">Каталог</p>
+          <div className="flex items-center justify-between p-5">
+            <p className="text-base font-medium">Каталог</p>
+            <ExportAllShowcaseInExcel />
+          </div>
           <div className="w-full h-[1px] bg-gray-300"></div>
           <div>
             <SideNavLink to={SHOWCASE_ROUTE} isActive={false}>
@@ -126,5 +132,45 @@ export function SideNavLink({
     >
       {children}
     </Link>
+  )
+}
+
+function ExportAllShowcaseInExcel() {
+  const [isPending, startTransition] = useTransition()
+
+  function handleExportExcel() {
+    startTransition(async () => {
+      try {
+        const xlsx = await getAllShowcaseInExcel()
+        const link = document.createElement('a')
+        link.href = xlsx
+        link.download = `showcase.xlsx`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      } catch {
+        toast({
+          title: 'Ошибка экспорта в Excel',
+          variant: 'destructive'
+        })
+      }
+    })
+  }
+
+  return (
+    <button
+      disabled={isPending}
+      className="rounded-lg flex items-center gap-2 p-2 bg-white border border-primary text-primary text-sm hover:bg-gray-100 transition-colors duration-300"
+      onClick={handleExportExcel}
+    >
+      <Image
+        src="/assets/icons/excel.svg"
+        className="fill:bg-white"
+        width={18}
+        height={18}
+        alt="excel"
+      />
+      <span>Выгрузка Excel</span>
+    </button>
   )
 }

@@ -38,7 +38,14 @@ export function NotebookRow({
   })
 
   return (
-    <div className="w-full relative p-5 shadow-lg rounded-lg bg-white h-fit notebook-row-grid  gap-3">
+    <div
+      className={cn(
+        'w-full relative p-5 shadow-lg rounded-lg bg-white h-fit gap-3',
+        isUserHasPermission
+          ? 'notebook-row-grid'
+          : 'notebook-row-grid-not-active'
+      )}
+    >
       {notebook.is_new === 1 && (
         <div className="text-white text-xs bg-[#ffac30] absolute left-3 top-3 px-1">
           Новинка
@@ -110,7 +117,12 @@ export function NotebookRow({
             {`(${getDiscount(notebook.item_price, userDiscount)})`}
           </p>
         ) : (
-          <p className="blur-sm">Not active</p>
+          <p
+            className="blur-sm"
+            title="Менеджер должен подтвердить ваши данные"
+          >
+            Not active
+          </p>
         )}
       </RowItem>
 
@@ -118,7 +130,12 @@ export function NotebookRow({
         {isUserHasPermission ? (
           <p>{priceInUAH}</p>
         ) : (
-          <p className="blur-sm">Not active</p>
+          <p
+            className="blur-sm"
+            title="Менеджер должен подтвердить ваши данные"
+          >
+            Not active
+          </p>
         )}
       </RowItem>
 
@@ -145,7 +162,7 @@ export function RowItem({
   className?: string
 }) {
   return (
-    <div className={cn('h-full w-full flex flex-col gap-3', className)}>
+    <div className={cn('h-full w-full flex flex-col gap-3', className || '')}>
       {typeof title === 'string' ? ( // render styled paragraph if string provided
         <p className="text-secondary-foreground text-xs">{title}</p>
       ) : (
@@ -193,7 +210,7 @@ export function NotebookPowerOn({ powerOn }: { powerOn: string }) {
   )
 }
 
-export const classColorMap = {
+export const classColorMap: Record<string, string> = {
   'Класс A': '#5FD071',
   'Класс B': '#BCDB57',
   'Класс C': '#AFAE72'

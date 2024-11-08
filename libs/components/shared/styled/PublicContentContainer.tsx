@@ -1,7 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 
-export const PublicContentContainer = ({ children }) => {
+export const PublicContentContainer = ({
+  children
+}: {
+  children: React.ReactNode
+}) => {
   return (
     <div className="bg-white max-w-[1170px] mx-auto rounded-lg">
       <div className="flex gap-10 flex-col lg:flex-row">

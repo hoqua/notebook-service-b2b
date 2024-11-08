@@ -14,7 +14,7 @@ export default function RemoveFromCartSections({
       onClick={onClick}
       className={cn(
         'rounded-lg bg-white justify-self-end transition-colors duration-300 p-3 border hover:bg-gray-200',
-        className
+        className || ''
       )}
     >
       <Trash2 className="text-primary w-5 h-5" />

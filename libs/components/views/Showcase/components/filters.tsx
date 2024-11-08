@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { FilterDto } from '../../../../utils-schema/filter.schema'
+import { FilterDto, FiltersEnum } from '../../../../utils-schema/filter.schema'
 import { cn } from '../../../../utils/cn'
 import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu'
 import {
@@ -56,11 +56,13 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
     <div className={cn('relative p-5 shadow-lg rounded-md bg-white h-fit')}>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
         {Object.keys(data.filters).map((key) => {
-          if (key === 'display') {
+          const filterKey = key as FiltersEnum
+
+          if (filterKey === 'display') {
             return (
-              <div key={key}>
+              <div key={filterKey}>
                 <p className="text-secondary-foreground text-sm">
-                  {DisplayFiltersTypes[key]}
+                  {DisplayFiltersTypes[filterKey]}
                 </p>
                 <MultiSelect<Record<string, string[]>>
                   selectedKey={key}
@@ -73,13 +75,13 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
           }
 
           return (
-            <div key={key}>
+            <div key={filterKey}>
               <p className="text-secondary-foreground text-sm">
-                {DisplayFiltersTypes[key]}
+                {DisplayFiltersTypes[filterKey]}
               </p>
               <MultiSelect<Record<string, string[]>>
-                selectedKey={key}
-                options={data.filters[key]}
+                selectedKey={filterKey}
+                options={data.filters[filterKey] || []}
                 setValues={setValues}
                 values={values}
               />

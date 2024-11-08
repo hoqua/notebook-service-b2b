@@ -50,7 +50,7 @@ export default function PaginationLinks({
                   isActive={currentPage === pageIndex}
                   className={cn(
                     'px-3 py-2 rounded-lg border border-primary hover:bg-primary hover:text-white transition-colors duration-300 ',
-                    currentPage === pageIndex && 'bg-primary text-white'
+                    currentPage === pageIndex ? 'bg-primary text-white' : ''
                   )}
                   href={`?${changePageSearchParam(searchParams.toString(), pageIndex)}`}
                 >

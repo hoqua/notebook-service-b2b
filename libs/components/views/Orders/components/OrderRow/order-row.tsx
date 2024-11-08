@@ -27,7 +27,7 @@ export function OrderRow({ order }: { order: Order }) {
     <div
       className={cn(
         'bg-white p-3 rounded-lg shadow relative',
-        isExpanded && 'flex flex-col gap-3 w-full'
+        isExpanded ? 'flex flex-col gap-3 w-full' : ''
       )}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-5">
@@ -62,7 +62,7 @@ export function OrderRow({ order }: { order: Order }) {
         <ChevronDown
           className={cn(
             'text-primary w-5 h-5 transition-all duration-300',
-            isExpanded && 'rotate-180'
+            isExpanded ? 'rotate-180' : ''
           )}
           onClick={() => setIsExpanded((prev) => !prev)}
         />

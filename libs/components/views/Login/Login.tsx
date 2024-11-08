@@ -13,6 +13,7 @@ import { cn } from '../../../utils/cn'
 import { toast } from '../../shared/ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { ToastAction } from '../../shared/ui/toast'
+import { Loader2 } from 'lucide-react'
 
 export const defaultFormState = {
   email: '',
@@ -37,9 +38,8 @@ export default function SignIn() {
         ...data,
         redirect: false
       })
-      console.log(response.error)
 
-      if (!response?.ok || response?.error) {
+      if (!response?.ok || response.error) {
         toast({
           title:
             'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
@@ -90,7 +90,7 @@ export default function SignIn() {
                         {...register('email', { required: true })}
                         className={cn(
                           'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-[#112878] hover:border-[#112878]',
-                          errors.email && 'border-red-500'
+                          errors.email ? 'border-red-500' : ''
                         )}
                       />
                     </div>
@@ -103,7 +103,7 @@ export default function SignIn() {
                         {...register('password', { required: true })}
                         className={cn(
                           'h-9 border-[#EAEEF1] focus-visible:outline-none focus:border-[#112878] hover:border-[#112878]',
-                          errors.password && 'border-red-500'
+                          errors.password ? 'border-red-500' : ''
                         )}
                       />
                     </div>
@@ -113,7 +113,11 @@ export default function SignIn() {
                       className="text-center text-white rounded-lg transition-all py-2 px-5 bg-[#112878]  duration-500"
                       disabled={isLoading}
                     >
-                      Войти
+                      {isLoading ? (
+                        <Loader2 className="animate-spin" />
+                      ) : (
+                        'Войти'
+                      )}
                     </button>
                   </div>
                 </form>

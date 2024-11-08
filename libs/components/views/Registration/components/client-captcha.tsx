@@ -49,7 +49,7 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
       fontSize = 22,
       fontStyle = 'normal',
       height = 40,
-      refreshButton = false,
+      refreshButton = true,
       refreshButtonClassName = '',
       refreshButtonIcon = 'https://cdn.jsdelivr.net/npm/react-client-captcha/dist/retry.svg',
       refreshButtonIconClassName = '',
@@ -74,6 +74,7 @@ const ClientCaptcha = forwardRef<ClientCaptchaHandle, ClientCaptchaProps>(
           width
         })
       }
+      captchaCode('')
       captchaCode(code)
       return code
     }, [

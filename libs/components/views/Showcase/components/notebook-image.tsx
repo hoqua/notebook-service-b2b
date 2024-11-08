@@ -23,7 +23,7 @@ export function NotebookImage({
     <div
       className={cn(
         'w-24 h-24 p-1 relative flex flex-shrink-0 items-center justify-center rounded-lg border group transition-all duration-300',
-        className
+        className || ''
       )}
     >
       <div className="relative aspect-square w-full h-full">
@@ -36,13 +36,14 @@ export function NotebookImage({
           }
           alt={`${mark_name} notebook image`}
           placeholder="blur"
+          sizes="1200"
           blurDataURL={hexToDataUrl('#F3F6FB')}
           loading={lazy ? 'lazy' : 'eager'}
           className={cn(
             'w-full transition-all duration-300 rounded-lg',
-            has_icon &&
-              isSlider &&
-              'group-hover:bg-white group-hover:opacity-50'
+            has_icon && isSlider
+              ? 'group-hover:bg-white group-hover:opacity-50'
+              : ''
           )}
         />
       </div>
@@ -51,7 +52,7 @@ export function NotebookImage({
         <ZoomIn
           className={cn(
             'absolute text-primary top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 hidden transition-all duration-300',
-            has_icon && 'group-hover:block'
+            has_icon ? 'group-hover:block' : ''
           )}
         />
       )}
