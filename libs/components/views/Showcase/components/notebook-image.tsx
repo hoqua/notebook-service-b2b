@@ -32,7 +32,7 @@ export function NotebookImage({
           src={
             !has_icon
               ? '/assets/icons/notebook-icon.svg'
-              : `/media/img/${serial_num}/icon.jpg`
+              : `${process.env['NEXT_PUBLIC_MEDIA_URL']}/img/${serial_num}/icon.jpg`
           }
           alt={`${mark_name} notebook image`}
           placeholder="blur"

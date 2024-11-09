@@ -18,10 +18,7 @@ export const SENTRY_DSN =
     : 'https://9109d47a099f408da3b9429fc9c9dcc5@o1062531.ingest.sentry.io/6052948'
 
 // api
-export const API_ROOT =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/service'
-    : `${process.env['URL']}/service`
+export const API_ROOT = `${process.env['API_URL']}`
 export const API_LOGIN = 'login.php'
 export const GET_USER = 'get-user-info.php'
 export const API_LOTS = 'get-items-lot.php'

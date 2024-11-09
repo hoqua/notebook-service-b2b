@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { stringToDate } from '../utils/format-date'
 
 export const nextAuthOptions: NextAuthOptions = {
-  debug: true,
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/sign-in'
