@@ -72,7 +72,7 @@ export function MainCart({
 
         <div className="flex flex-col gap-2">
           <p className="flex items-center justify-between">
-            Товаров - {cart?.length || 0}, на сумму:{' '}
+            Товаров - {cart.length + lotsCart.length}, на сумму:{' '}
             <span className="font-medium">
               {currentSum} ({currentSumInUAH} UAH)
             </span>
