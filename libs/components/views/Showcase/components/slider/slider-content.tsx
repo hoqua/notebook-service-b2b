@@ -25,7 +25,7 @@ export default function SliderContent({
   const [activeItemIndex, setActiveItemIndex] = useState(0)
   const image = useRef<HTMLImageElement>(null)
   const activeItem = IMG_IDS[activeItemIndex]
-  const src = `/media/img/${serial_num}/${activeItem}.jpg`
+  const src = `${process.env['NEXT_PUBLIC_MEDIA_URL']}/img/${serial_num}/${activeItem}.jpg`
 
   useEffect(() => {
     if (!image.current?.complete) setLoading(true)
