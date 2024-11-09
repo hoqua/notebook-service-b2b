@@ -23,8 +23,8 @@ export function MainCart({
     lotsCart,
     userDiscountPercent || 0
   )
-  const currentSumInUAH = Math.floor(currentSum || 0 * rate)
-  const sumDiffInUAH = Math.floor(sumDiff || 0 * rate)
+  const currentSumInUAH = Math.floor((currentSum || 0) * rate)
+  const sumDiffInUAH = Math.floor((sumDiff || 0) * rate)
   const isLotsCartEmpty = !lotsCart?.length
   const isNotebooksCartEmpty = !cart?.length
 
