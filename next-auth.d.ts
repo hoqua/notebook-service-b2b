@@ -5,13 +5,12 @@ declare module 'next-auth' {
 
   export interface Session {
     jwt: LoginResponse
-    error?: 'AccessTokenExpired'
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
     jwt: LoginResponse
-    error?: 'AccessTokenExpired'
+    expired?: boolean
   }
 }

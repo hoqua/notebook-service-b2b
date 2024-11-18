@@ -1,4 +1,4 @@
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart, X } from 'lucide-react'
 import React from 'react'
 import { cn } from '../../../../utils/cn'
 import {
@@ -15,7 +15,7 @@ export default function AddToCartSection({
   className?: string
   data: Notebook
 }) {
-  const [, setCart] = useCart()
+  const [cart, setCart] = useCart()
 
   function handleAddToCart() {
     setCart((prevState) => {
@@ -49,7 +49,29 @@ export default function AddToCartSection({
     })
   }
 
-  return (
+  function handleUnselect() {
+    setCart((prevState) => {
+      const newCart = prevState.filter((c) => c.serial_num !== data.serial_num)
+      toast({
+        title: 'Товар удален из корзины'
+      })
+      return newCart
+    })
+  }
+
+  const itemInCart = cart.find((c) => c.serial_num === data.serial_num)
+
+  return itemInCart ? (
+    <button
+      onClick={handleUnselect}
+      className={cn(
+        'rounded-lg bg-white text-primary place-self-center transition-colors duration-300 p-3 border hover:bg-gray-200',
+        className || ''
+      )}
+    >
+      <X />
+    </button>
+  ) : (
     <button
       id="add-to-cart"
       aria-label="add product to cart"
@@ -59,7 +81,9 @@ export default function AddToCartSection({
         className || ''
       )}
     >
-      <ShoppingCart className="text-primary" />
+      <div className="relative">
+        <ShoppingCart className="text-primary" />
+      </div>
     </button>
   )
 }

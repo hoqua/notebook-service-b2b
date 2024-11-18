@@ -1,14 +1,12 @@
 import React from 'react'
 import PaginationLinks from './components/pagination-links'
 
-import { ExchangeRateDto } from '../../../utils-schema/exrate.schema'
 import ShowcaseNotebooks from './components/showcase-notebooks'
 import EmptyResult from '../../shared/errorComponents/empty-result'
 import { getFilteredAndPaginatedNotebooksData } from './utils/filter-notebooks'
 import {
   API_FILTERS,
   API_FILTERS_UNFINISHED,
-  API_GET_EXRATE,
   API_NOTEBOOKS,
   API_NOTEBOOKS_UNFINISHED
 } from '../../../constants/constants'
@@ -29,16 +27,11 @@ export default async function ShowcaseCategoryPage({
     category === 'unfinished' ? API_NOTEBOOKS_UNFINISHED : API_NOTEBOOKS
   const FILTERS_API =
     category === 'unfinished' ? API_FILTERS_UNFINISHED : API_FILTERS
-  const [notebooksData, filters, userSession, exchangeRate] = await Promise.all(
-    [
-      getFilteredAndPaginatedNotebooksData(page, NOTEBOOKS_API, searchParams),
-      fetchWrapper<unknown, FilterDto>({ url: FILTERS_API }),
-      getUserOrThrow(),
-      fetchWrapper<unknown, ExchangeRateDto>({
-        url: API_GET_EXRATE
-      })
-    ]
-  )
+  const [notebooksData, filters, userSession] = await Promise.all([
+    getFilteredAndPaginatedNotebooksData(page, NOTEBOOKS_API, searchParams),
+    fetchWrapper<unknown, FilterDto>({ url: FILTERS_API }),
+    getUserOrThrow()
+  ])
 
   return (
     <>
@@ -52,8 +45,6 @@ export default async function ShowcaseCategoryPage({
             userActive={userSession.active}
             userDiscount={userSession.ppg_perc}
             notebooks={notebooksData.notebooks}
-            rate={exchangeRate?.result?.rate || 0}
-            currencyName={exchangeRate?.result?.currency_name || 'USD'}
           />
 
           <PaginationLinks totalPages={notebooksData.totalPages} />

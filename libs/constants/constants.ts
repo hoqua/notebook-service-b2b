@@ -56,10 +56,16 @@ export const DisplayConditions: Record<string, string> = {
   Bad: 'Плохая'
 }
 
+export const LookoutConditions: Record<string, string> = {
+  classA: 'Класс A',
+  classB: 'Класс B',
+  classC: 'Класс C'
+}
+
 export const DisplayFiltersTypes: Record<FiltersEnum, string> = {
   mark: 'Производитель',
   proc: 'CPU',
-  proc_site: 'CPU сайт',
+  proc_site: 'CPU',
   ram: 'RAM',
   hdd: 'Накопитель',
   display: 'Экран',
@@ -88,12 +94,8 @@ export const displayOptions = [
     value: '13-14'
   },
   {
-    label: '15.6',
-    value: '15.6'
-  },
-  {
-    label: '16',
-    value: '16'
+    label: 'от 15 до 16',
+    value: '15-16'
   },
   {
     label: 'от 17.3 до 20',

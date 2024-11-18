@@ -83,7 +83,7 @@
 
   .notebook-row-grid {
     display: grid;
-    grid-template-columns: 0.05fr 2fr 1fr 1fr 1fr 2fr 1fr 0.5fr 0.9fr 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr 0.9fr 1fr 1fr 2fr 1fr 0.5fr 0.9fr 1.03fr 0.05fr;
     width: 100%;
   }
 
@@ -94,7 +94,7 @@
   }
 
   .notebook-card-grid {
-    @apply w-full grid gap-5 items-start;
+    @apply w-full grid gap-5 items-center;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 

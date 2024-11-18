@@ -58,18 +58,16 @@ export const nextAuthOptions: NextAuthOptions = {
         return { ...token, jwt: user as LoginResponse }
       }
 
-      if (Date.now() < stringToDate(token.jwt.token_exp_time).getTime()) {
-        return token
+      const tokenExpiry = stringToDate(token.jwt.token_exp_time).getTime()
+
+      if (Date.now() >= tokenExpiry) {
+        return { ...token, expired: true }
       }
 
-      return {
-        ...token,
-        error: 'AccessTokenExpired'
-      }
+      return { ...token, expired: false }
     },
     async session({ session, token }) {
       session.jwt = token.jwt
-      session.error = token.error
       return session
     }
   }

@@ -5,23 +5,28 @@ import NotebookCard from './notebook-card'
 import { NotebookRow } from './notebook-row'
 import { LayoutGrid, LayoutList } from 'lucide-react'
 import { cn } from '../../../../utils/cn'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { stringToDate } from '../../../../utils/format-date'
 import { getExcelByCategory } from '../action'
 import { toast } from '../../../shared/ui/use-toast'
 import Image from 'next/image'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '../../../shared/ui/select'
 
 export default function ShowcaseNotebooks({
   notebooks,
-  rate,
-  currencyName,
   userActive,
   category,
   userDiscount
 }: {
   notebooks: Notebook[]
-  rate: number
-  currencyName: string
   userActive?: number
   category: string
   userDiscount: number
@@ -70,6 +75,7 @@ export default function ShowcaseNotebooks({
           <span>Выгрузка Excel</span>
         </button>
         <div className="items-center gap-2 hidden lg:flex">
+          <SelectItemsSize />
           <button
             onClick={() => setShowCards(true)}
             className={cn(
@@ -98,20 +104,17 @@ export default function ShowcaseNotebooks({
               <NotebookCard
                 key={`${notebook.item_id}_${index}`}
                 notebook={notebook}
-                rate={rate}
                 userActive={userActive}
                 userDiscount={userDiscount}
               />
             ))}
           </div>
         ) : (
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
             {sortedNotebooks.map((notebook, index) => (
               <NotebookRow
                 key={`${notebook.item_id}_${index}`}
                 notebook={notebook}
-                rate={rate}
-                currencyName={currencyName}
                 userActive={userActive}
                 userDiscount={userDiscount}
               />
@@ -125,7 +128,6 @@ export default function ShowcaseNotebooks({
           <NotebookCard
             key={`${notebook.item_id}_${index}`}
             notebook={notebook}
-            rate={rate}
             userActive={userActive}
             userDiscount={userDiscount}
           />
@@ -155,4 +157,33 @@ function sortNotebooks(sortBy: string, notebooks: Notebook[]) {
   })
 
   return sortedNotebooks
+}
+
+function SelectItemsSize() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const itemsPerPage = searchParams.get('itemsPerPage') || '20'
+
+  function handleSelectItemsChange(value: string) {
+    const newSearchParams = new URLSearchParams(searchParams.toString())
+    newSearchParams.set('itemsPerPage', value)
+    router.push(pathname + '?' + newSearchParams.toString())
+  }
+
+  return (
+    <Select defaultValue={itemsPerPage} onValueChange={handleSelectItemsChange}>
+      <SelectTrigger className="bg-white hover:border-primary transition-colors duration-300">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Карточек на странице</SelectLabel>
+          <SelectItem value="20">20</SelectItem>
+          <SelectItem value="40">40</SelectItem>
+          <SelectItem value="60">60</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  )
 }

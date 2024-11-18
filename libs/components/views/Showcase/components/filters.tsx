@@ -58,6 +58,10 @@ export default function Filters({ filters: data }: { filters: FilterDto }) {
         {Object.keys(data.filters).map((key) => {
           const filterKey = key as FiltersEnum
 
+          if (filterKey === 'proc') {
+            return
+          }
+
           if (filterKey === 'display') {
             return (
               <div key={filterKey}>

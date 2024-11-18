@@ -27,7 +27,7 @@ export default function NotebookSlider({
   return (
     <Dialog open={isOpen} onOpenChange={onShowSlider}>
       <DialogTrigger asChild>
-        <button disabled={!has_icon}>
+        <button disabled={!has_icon} className="w-full">
           <NotebookImage
             isSlider={true}
             className={imageClassName}

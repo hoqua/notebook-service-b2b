@@ -39,18 +39,21 @@ export default function SignIn() {
         redirect: false
       })
 
-      if (!response?.ok || response.error) {
+      if (!response || !response?.ok) {
         toast({
           title:
             'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
           variant: 'destructive',
           action: <ToastAction altText="OK">OK</ToastAction>
         })
-      } else {
-        toast({
-          title: 'Вы успешно авторизовались',
-          variant: 'default'
-        })
+      }
+
+      toast({
+        title: 'Вы успешно авторизовались',
+        variant: 'default'
+      })
+
+      if (response?.ok) {
         router.push('/showcase')
       }
     })

@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import { Sheet, SheetContent, SheetTrigger } from '../../ui/sheet'
 import { Menu } from 'lucide-react'
 import { Info } from './PrivateLayout'
@@ -18,22 +19,25 @@ export default function MobileNavbar({
   numberOrders: number
   user: User
 }) {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <Sheet>
-      <SheetTrigger id="mobile-menu" aria-label="mobile menu trigger">
-        <Menu />
-      </SheetTrigger>
-      <SheetContent
-        aria-describedby={undefined}
-        className="flex flex-col gap-5 justify-between"
-      >
-        <DialogTitle hidden />
-        <Info currencyName={currency_name} rate={rate} user={user} />
-        <div className="flex flex-col gap-5">
-          <Navigation numberOrders={numberOrders} />
-          <UserName username={user.client_name} />
-        </div>
-      </SheetContent>
-    </Sheet>
+    <div className="flex items-center gap-2 h-full">
+      <Navigation numberOrders={numberOrders} />
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetTrigger id="mobile-menu" aria-label="mobile menu trigger">
+          <Menu />
+        </SheetTrigger>
+        <SheetContent
+          aria-describedby={undefined}
+          className="flex flex-col gap-5 justify-between"
+        >
+          <DialogTitle hidden />
+          <Info currencyName={currency_name} rate={rate} user={user} />
+          <div className="flex flex-col gap-5">
+            <UserName username={user.client_name} />
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
   )
 }

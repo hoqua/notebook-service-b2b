@@ -26,7 +26,7 @@ export default function PrivateLayout({
     <>
       <StyledHeader>
         <div className="max-w-[1170px] px-2 w-full h-full gap-10 items-center justify-between flex">
-          <Link href="/">
+          <Link href="/showcase">
             <Image
               priority={true}
               src="/assets/icons/logo.svg"
@@ -42,7 +42,7 @@ export default function PrivateLayout({
             <UserName username={user.client_name} />
           </div>
 
-          <div className="min-[1000px]:hidden block">
+          <div className="min-[1000px]:hidden block h-full">
             <MobileNavbar
               currency_name={currencyName}
               rate={rate}
@@ -52,7 +52,7 @@ export default function PrivateLayout({
           </div>
         </div>
       </StyledHeader>
-      <div className="pt-20">{children}</div>
+      <div className="pt-16">{children}</div>
     </>
   )
 }

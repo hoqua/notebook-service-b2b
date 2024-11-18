@@ -1,37 +1,25 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { Notebook } from '../../../../utils-schema/notebook.schema'
-import { Check, ChevronDown, Minus, X } from 'lucide-react'
+import { Minus } from 'lucide-react'
 import { ifAble, USER_ACTION } from '../../../../permissions/permissions'
-import NotebookRowDetails from './notebook-row-details'
 import { cn } from '../../../../utils/cn'
 import AddToCartSection from './add-to-cart-section'
 import { getDiscount } from '../utils/get-discount'
 import DisplayCondition from './dispaly-condition'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '../../../shared/ui/tooltip'
 import NotebookSlider from './slider/notebook-slider'
+import { NotebookPowerOn } from './notebook-poweron'
+import NotebookLookout from './notebook-lookout'
 
 export function NotebookRow({
   notebook,
-  rate,
-  currencyName,
   userActive,
   userDiscount
 }: {
   notebook: Notebook
-  rate: number
-  currencyName: string
   userActive?: number
   userDiscount: number
 }) {
-  const [isExpand, setIsExpand] = useState(false)
-  const priceInUAH = Math.floor(notebook.item_price * rate)
-
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
     isUserActive: !!userActive
@@ -40,23 +28,17 @@ export function NotebookRow({
   return (
     <div
       className={cn(
-        'w-full relative p-5 shadow-lg rounded-lg bg-white h-fit gap-3',
+        'w-full relative p-2 shadow-lg rounded-lg bg-white h-fit gap-2',
         isUserHasPermission
           ? 'notebook-row-grid'
           : 'notebook-row-grid-not-active'
       )}
     >
       {notebook.is_new === 1 && (
-        <div className="text-white text-xs bg-[#ffac30] absolute left-3 top-3 px-1">
+        <div className="text-white text-xs bg-[#ffac30] absolute left-3 z-20 top-3 px-1">
           Новинка
         </div>
       )}
-
-      {isUserHasPermission && <AddToCartSection data={notebook} />}
-      <RowItem title={notebook.mark_name}>
-        <p>{notebook.item_name}</p>
-        <p className="text-primary text-sm">{notebook.serial_num}</p>
-      </RowItem>
 
       <NotebookSlider
         mark_name={notebook.mark_name}
@@ -64,6 +46,11 @@ export function NotebookRow({
         item_name={notebook.item_name}
         has_icon={notebook.has_icon === 1 ? true : false}
       />
+
+      <RowItem title={notebook.mark_name}>
+        <p>{notebook.item_name}</p>
+        <p className="text-primary text-sm">{notebook.serial_num}</p>
+      </RowItem>
 
       <RowItem
         title={
@@ -74,12 +61,7 @@ export function NotebookRow({
           )
         }
       >
-        <div
-          style={{ backgroundColor: classColorMap[notebook.lookout] }}
-          className={'text-white text-sm text-center rounded-sm px-1 py-2'}
-        >
-          {notebook.lookout || <Minus />}
-        </div>
+        <NotebookLookout lookout={notebook.lookout} />
       </RowItem>
 
       <RowItem
@@ -92,6 +74,10 @@ export function NotebookRow({
         }
       >
         <p>{notebook.display || <Minus />}</p>
+      </RowItem>
+
+      <RowItem title="Батарея">
+        <p>{notebook.battery}</p>
       </RowItem>
 
       <RowItem title="CPU">
@@ -110,12 +96,16 @@ export function NotebookRow({
         <p>{notebook.hdd || <Minus />}</p>
       </RowItem>
 
-      <RowItem title="Цена (опт.)">
+      <RowItem title="Цена">
         {isUserHasPermission ? (
-          <p>
-            <span>{notebook.item_price}</span> {currencyName}
-            {`(${getDiscount(notebook.item_price, userDiscount)})`}
-          </p>
+          <div className="flex items-center gap-1">
+            <p className="text-[#ce4035] font-medium text-lg shrink-0">
+              {getDiscount(notebook.item_price, userDiscount)} USD
+            </p>
+            <del className="text-secondary-foreground font-medium">
+              {notebook.item_price}
+            </del>
+          </div>
         ) : (
           <p
             className="blur-sm"
@@ -126,27 +116,15 @@ export function NotebookRow({
         )}
       </RowItem>
 
-      <RowItem title="Цена(UAH)">
-        {isUserHasPermission ? (
-          <p>{priceInUAH}</p>
-        ) : (
-          <p
-            className="blur-sm"
-            title="Менеджер должен подтвердить ваши данные"
-          >
-            Not active
-          </p>
-        )}
-      </RowItem>
-
-      <button
-        onClick={() => setIsExpand((prev) => !prev)}
-        className="absolute bottom-1 right-1 border rounded-lg hover:bg-gray-200"
-      >
-        <ChevronDown className="text-primary w-5 h-5" />
-      </button>
-      {isExpand && (
-        <NotebookRowDetails battery={notebook.battery} note={notebook.note} />
+      {isUserHasPermission && <AddToCartSection data={notebook} />}
+      {notebook.note && (
+        <>
+          <div />
+          <div />
+          <RowItem className="col-span-5" title="Прим:">
+            <p>{notebook.note}</p>
+          </RowItem>
+        </>
       )}
     </div>
   )
@@ -172,46 +150,4 @@ export function RowItem({
       {children}
     </div>
   )
-}
-
-export function NotebookPowerOn({ powerOn }: { powerOn: string }) {
-  const isPowerOn = powerOn === 'Да'
-  return (
-    <TooltipProvider>
-      {' '}
-      <Tooltip>
-        {' '}
-        <TooltipTrigger>
-          {isPowerOn ? (
-            <span className="pointer text-secondary-foreground text-xs flex items-center gap-2">
-              <Check className="w-3 h-3 pointer text-green-500" />
-              Рабочий
-            </span>
-          ) : (
-            <span className="pointer text-secondary-foreground text-xs flex items-center gap-2">
-              <X className="w-3 h-3 text-red-500" />
-              Не вкл-ся
-            </span>
-          )}
-        </TooltipTrigger>
-        <TooltipContent>
-          {isPowerOn ? (
-            <p className="text-xs text-green-500">
-              Ноутбук включается, показывает изображение
-            </p>
-          ) : (
-            <p className="text-xs text-red-500">
-              Ноутбук не включается или не показывает картинку
-            </p>
-          )}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  )
-}
-
-export const classColorMap: Record<string, string> = {
-  'Класс A': '#5FD071',
-  'Класс B': '#BCDB57',
-  'Класс C': '#AFAE72'
 }

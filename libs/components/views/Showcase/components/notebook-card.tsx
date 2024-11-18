@@ -1,60 +1,64 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { Notebook } from '../../../../utils-schema/notebook.schema'
-import { classColorMap, NotebookPowerOn, RowItem } from './notebook-row'
+import { RowItem } from './notebook-row'
 import { ifAble, USER_ACTION } from '../../../../permissions/permissions'
-import { ChevronDown, Minus } from 'lucide-react'
+import { CircleHelp, Minus } from 'lucide-react'
 import AddToCartSection from './add-to-cart-section'
 import { getDiscount } from '../utils/get-discount'
 import DisplayCondition from './dispaly-condition'
-import NotebookRowDetails from './notebook-row-details'
-import { cn } from '../../../../utils/cn'
 import NotebookSlider from './slider/notebook-slider'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '../../../shared/ui/popover'
+import NotebookLookout from './notebook-lookout'
+import { NotebookPowerOn } from './notebook-poweron'
 
 export default function NotebookCard({
   notebook,
-  rate,
   userActive,
   userDiscount
 }: {
   notebook: Notebook
-  rate: number
   userActive?: number
   userDiscount: number
 }) {
-  const [isExpand, setIsExpand] = useState(false)
-
   const isUserHasPermission = ifAble({
     toDo: [USER_ACTION.DO_ORDER],
     isUserActive: !!userActive
   })
 
-  const priceInUAH = Math.floor(notebook.item_price * rate)
-
   return (
-    <div className="bg-white rounded-lg shadow w-full relative flex flex-col justify-between">
+    <div className="bg-white rounded-lg shadow w-full h-full relative flex flex-col justify-between">
       {notebook.is_new === 1 && (
         <div className="absolute top-0 z-20 w-full left-1/2 -translate-x-1/2 text-white bg-[#ffac30] text-center px-1 py-2">
           Новинка
         </div>
       )}
       <NotebookSlider
-        imageClassName="w-full h-full aspect-square border-none "
+        imageClassName="w-full h-full aspect-square border-none p-0"
         serial_num={notebook.serial_num}
         mark_name={notebook.mark_name}
         item_name={notebook.item_name}
         has_icon={notebook.has_icon === 1 ? true : false}
       />
       <div>
-        <p className="text-secondary-foreground text-sm px-3">
-          {notebook.serial_num}
-        </p>
+        <div className="flex items-center gap-2 justify-between px-3">
+          <p className="text-secondary-foreground text-sm">
+            {notebook.serial_num}
+          </p>
+
+          {notebook.note && <NotebookNote note={notebook.note} />}
+        </div>
         <div className="px-3 flex flex-col gap-2 ">
           <h2 className="text-lg font-bold">{notebook.item_name}</h2>
           <p className="text-secondary-foreground">
             {renderSpecs(notebook.proc)} {renderSpecs(notebook.ram)}{' '}
             {renderSpecs(notebook.hdd)}{' '}
             {renderSpecs(notebook.video || notebook.integ_video)}
+            {notebook.battery && renderSpecs(notebook.battery)}
           </p>
 
           <div className="flex items-center gap-2">
@@ -68,14 +72,7 @@ export default function NotebookCard({
                 )
               }
             >
-              <div
-                style={{ backgroundColor: classColorMap[notebook.lookout] }}
-                className={
-                  'text-white text-sm text-center rounded-sm px-1 py-2'
-                }
-              >
-                {notebook.lookout || <Minus />}
-              </div>
+              <NotebookLookout lookout={notebook.lookout} />
             </RowItem>
 
             <RowItem
@@ -93,35 +90,16 @@ export default function NotebookCard({
               </p>
             </RowItem>
           </div>
-          {isExpand && (
-            <NotebookRowDetails
-              battery={notebook.battery}
-              note={notebook.note}
-            />
-          )}
-          <button
-            title="Показать подробности"
-            onClick={() => setIsExpand((prev) => !prev)}
-            className="w-full text-center flex items-center justify-center border rounded-lg hover:bg-gray-200"
-          >
-            <ChevronDown
-              className={cn(
-                'text-primary w-8 h-8 transition-all duration-300',
-                isExpand ? 'rotate-180' : ''
-              )}
-            />
-          </button>
 
           <div className="flex items-center justify-between pb-2 gap-2">
             {isUserHasPermission ? (
-              <div>
-                <del className=" text-secondary-foreground text-sm">
+              <div className="flex items-center gap-2">
+                <p className="text-xl text-[#ce4035] font-medium">
+                  {getDiscount(notebook.item_price, userDiscount)} USD
+                </p>
+                <del className=" text-secondary-foreground text-lg">
                   {notebook.item_price} USD
                 </del>
-                <p className="text-lg text-primary">
-                  {getDiscount(notebook.item_price, userDiscount)} USD
-                  <span>({priceInUAH}UAH)</span>
-                </p>
               </div>
             ) : (
               <p
@@ -148,4 +126,17 @@ function renderSpecs(value: string) {
   } else {
     return value + '/'
   }
+}
+
+function NotebookNote({ note }: { note: string }) {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <CircleHelp className="w-5 h-5 text-orange-500" />
+      </PopoverTrigger>
+      <PopoverContent>
+        <p>{note}</p>
+      </PopoverContent>
+    </Popover>
+  )
 }

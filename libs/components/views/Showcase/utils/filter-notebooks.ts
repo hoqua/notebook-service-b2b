@@ -4,8 +4,6 @@ import type {
   NotebookDto
 } from '../../../../utils-schema/notebook.schema'
 
-const PAGE_DATA_LENGTH = 12
-
 export async function getFilteredAndPaginatedNotebooksData(
   page: number,
   endpoint: string,
@@ -52,12 +50,13 @@ function paginateAndFilterNotebooks(
   const filteredNotebooks = notebooks.filter((notebook) =>
     doesNotebookMatchFilters(notebook, searchParams)
   )
+  const itemsPerPage = Number(searchParams.itemsPerPage) || 20
   const totalItems = filteredNotebooks.length
-  const totalPages = Math.ceil(totalItems / PAGE_DATA_LENGTH)
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
 
   const paginatedNotebooks = filteredNotebooks.slice(
-    (page - 1) * PAGE_DATA_LENGTH,
-    page * PAGE_DATA_LENGTH
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
   )
 
   return {
