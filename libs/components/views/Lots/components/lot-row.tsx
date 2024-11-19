@@ -35,7 +35,9 @@ export default function LotRow({ lots }: { lots: Lot[] }) {
           >
             <TableCell>{index + 1}</TableCell>
             <TableCell>{lot.item_name}</TableCell>
-            <TableCell>{lot.poweron}</TableCell>
+            <TableCell>
+              {lot.poweron === 'Да' ? 'Рабочий' : 'Не вкл-ся'}
+            </TableCell>
             <TableCell>{lot.display}</TableCell>
             <TableCell>{lot.proc || <Minus />}</TableCell>
             <TableCell>{lot.video || lot.integ_video || <Minus />}</TableCell>
