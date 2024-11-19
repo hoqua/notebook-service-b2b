@@ -1,29 +1,30 @@
-import reactPlugin from 'eslint-plugin-react'
-import globals from 'globals'
-import prettier from 'eslint-plugin-prettier'
-import prettierConfig from 'eslint-config-prettier'
-export default [
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import js from '@eslint/js'
+import ts from 'typescript-eslint'
+import prettierConfig from 'eslint-plugin-prettier/recommended'
+import { FlatCompat } from '@eslint/eslintrc'
+import { fixupConfigRules } from '@eslint/compat'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all
+})
+
+const patchedConfig = fixupConfigRules([
+  ...compat.extends('next/core-web-vitals')
+])
+
+const config = [
+  ...patchedConfig,
+  ...ts.configs.recommended,
   prettierConfig,
   {
-    ...reactPlugin.configs.flat.recommended,
-    languageOptions: {
-      parserOptions: {
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true
-        }
-      },
-      globals: {
-        ...globals.browser
-      }
-    },
-    plugins: {
-      prettier,
-      react: reactPlugin
-    },
     rules: {
-      'react/prop-types': 0,
-      'space-before-function-paren': 'off',
       'prettier/prettier': [
         'error',
         {
@@ -39,5 +40,8 @@ export default [
         }
       ]
     }
-  }
+  },
+  { ignores: ['.next/*'] }
 ]
+
+export default config
