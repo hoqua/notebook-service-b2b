@@ -33,7 +33,7 @@ export default function NotebookCard({
   return (
     <div className="bg-white rounded-lg shadow w-full h-full relative flex flex-col justify-between">
       {notebook.is_new === 1 && (
-        <div className="absolute top-0 z-20 w-full left-1/2 -translate-x-1/2 text-white bg-[#ffac30] text-center px-1 py-2">
+        <div className="absolute rounded-t-lg top-0 z-20 w-full left-1/2 -translate-x-1/2 text-white bg-[#ffac30] text-center px-1 py-2">
           Новинка
         </div>
       )}
