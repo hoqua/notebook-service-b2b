@@ -20,4 +20,8 @@ jobs:
         run: yarn lint
 
       - name: 🔨 Build Project
+        env:
+          MEDIA_HOSTNAME: 'api.notebook-service.com.ua'
+          API_URL: 'https://api.notebook-service.com.ua/api'
+          NEXT_PUBLIC_MEDIA_URL: 'https://api.notebook-service.com.ua/media'
         run: yarn build
