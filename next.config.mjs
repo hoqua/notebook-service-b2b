@@ -10,7 +10,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env['MEDIA_HOSTNAME']
+        hostname: 'api.notebook-service.com.ua'
       }
     ]
   },
