@@ -10,7 +10,19 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'b2b.notebook-service.com.ua'
+        hostname: process.env['MEDIA_HOSTNAME']
+      }
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/service/:path*',
+        destination: process.env['API_URL'] + '/:path*'
+      },
+      {
+        source: '/media/:path*',
+        destination: process.env['NEXT_PUBLIC_MEDIA_URL'] + '/:path*'
       }
     ]
   }
