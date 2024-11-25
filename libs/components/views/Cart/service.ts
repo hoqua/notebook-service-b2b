@@ -10,19 +10,18 @@ export const getLotsPriceSum = (lots: LotCart[]) => {
 }
 
 export const getQuery = (notebooks: CartNotebook[]) => {
+  const serialNumbers = notebooks
+    .map((notebook) => notebook.serial_num)
+    .join(',')
   const searchParams = new URLSearchParams()
-  for (const notebook of notebooks) {
-    searchParams.append('serial_num', notebook.serial_num)
-  }
+  searchParams.append('serial_num', serialNumbers)
   return '?' + searchParams.toString()
 }
 
 export const getLotsQuery = (lots: LotCart[]) => {
+  const lotNames = lots.map((lot) => lot.lot_name).join(',')
   const searchParams = new URLSearchParams()
-  for (const lot of lots) {
-    searchParams.append('lot_name', lot.lot_name)
-  }
-
+  searchParams.append('lot_name', lotNames)
   return '?' + searchParams.toString()
 }
 
