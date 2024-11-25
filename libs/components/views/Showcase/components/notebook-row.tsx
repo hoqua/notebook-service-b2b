@@ -76,10 +76,6 @@ export function NotebookRow({
         <p>{notebook.display || <Minus />}</p>
       </RowItem>
 
-      <RowItem title="Батарея">
-        <p>{notebook.battery}</p>
-      </RowItem>
-
       <RowItem title="CPU">
         <p>{notebook.proc || <Minus />}</p>
       </RowItem>
@@ -94,6 +90,10 @@ export function NotebookRow({
 
       <RowItem title="SDD/HDD">
         <p>{notebook.hdd || <Minus />}</p>
+      </RowItem>
+
+      <RowItem title="Батарея">
+        <p>{notebook.battery}</p>
       </RowItem>
 
       <RowItem title="Цена">
