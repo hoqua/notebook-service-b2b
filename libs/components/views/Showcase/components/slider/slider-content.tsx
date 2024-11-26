@@ -42,14 +42,14 @@ export default function SliderContent({
   }
 
   return (
-    <DialogContent className="flex flex-col gap-2 items-center max-w-[800px]">
+    <DialogContent className="flex flex-col gap-2 p-2 items-center max-w-[800px] bg-white">
       <DialogHeader>
         <DialogTitle>{item_name}</DialogTitle>
       </DialogHeader>
 
-      <div className="flex items-center justify-center gap-5 w-full h-full relative ">
+      <div className="flex items-center justify-center gap-2 w-full h-full relative ">
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+          <div className="absolute inset-0 flex items-center justify-center z-10">
             <Loading />
           </div>
         )}

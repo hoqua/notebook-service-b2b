@@ -6,7 +6,6 @@ import { NotebookRow } from './notebook-row'
 import { LayoutGrid, LayoutList } from 'lucide-react'
 import { cn } from '../../../../utils/cn'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { stringToDate } from '../../../../utils/format-date'
 import { getExcelByCategory } from '../action'
 import { toast } from '../../../shared/ui/use-toast'
 import Image from 'next/image'
@@ -32,11 +31,7 @@ export default function ShowcaseNotebooks({
   userDiscount: number
 }) {
   const [showCards, setShowCards] = useState(false)
-  const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
-  const sortOption = searchParams.get('sort') || ''
-
-  const sortedNotebooks = sortNotebooks(sortOption, notebooks)
 
   function handleExportExcel() {
     startTransition(async () => {
@@ -100,7 +95,7 @@ export default function ShowcaseNotebooks({
       <div className="hidden lg:block">
         {showCards ? (
           <div className="notebook-card-grid">
-            {sortedNotebooks.map((notebook, index) => (
+            {notebooks.map((notebook, index) => (
               <NotebookCard
                 key={`${notebook.item_id}_${index}`}
                 notebook={notebook}
@@ -111,7 +106,7 @@ export default function ShowcaseNotebooks({
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            {sortedNotebooks.map((notebook, index) => (
+            {notebooks.map((notebook, index) => (
               <NotebookRow
                 key={`${notebook.item_id}_${index}`}
                 notebook={notebook}
@@ -124,7 +119,7 @@ export default function ShowcaseNotebooks({
       </div>
 
       <div className="notebook-card-grid grid lg:hidden">
-        {sortedNotebooks.map((notebook, index) => (
+        {notebooks.map((notebook, index) => (
           <NotebookCard
             key={`${notebook.item_id}_${index}`}
             notebook={notebook}
@@ -137,28 +132,6 @@ export default function ShowcaseNotebooks({
   )
 }
 
-function sortNotebooks(sortBy: string, notebooks: Notebook[]) {
-  const sortedNotebooks = [...notebooks].sort((a, b) => {
-    const aStoreTime = stringToDate(a.store_time).getTime()
-    const bStoreTime = stringToDate(b.store_time).getTime()
-
-    switch (sortBy) {
-      case 'price_asc':
-        return a.item_price - b.item_price
-      case 'price_desc':
-        return b.item_price - a.item_price
-      case 'store_time_asc':
-        return aStoreTime - bStoreTime
-      case 'store_time_desc':
-        return bStoreTime - aStoreTime
-      default:
-        return 0
-    }
-  })
-
-  return sortedNotebooks
-}
-
 function SelectItemsSize() {
   const router = useRouter()
   const pathname = usePathname()
@@ -168,6 +141,7 @@ function SelectItemsSize() {
   function handleSelectItemsChange(value: string) {
     const newSearchParams = new URLSearchParams(searchParams.toString())
     newSearchParams.set('itemsPerPage', value)
+    newSearchParams.delete('page')
     router.push(pathname + '?' + newSearchParams.toString())
   }
 
