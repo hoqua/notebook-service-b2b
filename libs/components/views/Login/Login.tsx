@@ -11,8 +11,7 @@ import { PublicContentContainer } from '../../shared/styled/PublicContentContain
 import { Input } from '../../shared/ui/input'
 import { cn } from '../../../utils/cn'
 import { toast } from '../../shared/ui/use-toast'
-import { useRouter } from 'next/navigation'
-import { ToastAction } from '../../shared/ui/toast'
+import { useSearchParams } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 
 export const defaultFormState = {
@@ -21,7 +20,8 @@ export const defaultFormState = {
 }
 
 export default function SignIn() {
-  const router = useRouter()
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
   const [isLoading, startTransition] = useTransition()
   const {
     register,
@@ -36,26 +36,31 @@ export default function SignIn() {
     startTransition(async () => {
       const response = await signIn('credentials', {
         ...data,
-        redirect: false
+        callbackUrl: '/showcase'
       })
 
       if (!response || !response?.ok) {
         toast({
           title:
             'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
-          variant: 'destructive',
-          action: <ToastAction altText="OK">OK</ToastAction>
+          variant: 'destructive'
         })
       }
 
-      toast({
-        title: 'Вы успешно авторизовались',
-        variant: 'default'
-      })
-
-      if (response?.ok) {
-        router.push('/showcase')
+      if (!error) {
+        toast({
+          title: 'Вы успешно авторизовались',
+          variant: 'default'
+        })
       }
+    })
+  }
+
+  if (error) {
+    toast({
+      title:
+        'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
+      variant: 'destructive'
     })
   }
 

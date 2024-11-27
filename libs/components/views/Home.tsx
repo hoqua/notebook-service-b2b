@@ -29,6 +29,7 @@ export default async function Home() {
             <div className="flex gap-x-4">
               {session?.jwt ? (
                 <Link
+                  prefetch
                   className="text-center text-white rounded-lg transition-all py-2 px-5 bg-blue-500 hover:bg-blue-600 duration-300"
                   href="/showcase"
                 >

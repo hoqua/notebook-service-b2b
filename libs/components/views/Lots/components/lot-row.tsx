@@ -1,53 +1,49 @@
 import React from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '../../../shared/ui/table'
 import { Lot } from '../../../../utils-schema/lots.schema'
 import { Minus } from 'lucide-react'
+import { NotebookPowerOn } from '../../Showcase/components/notebook-poweron'
+import { renderSpecs } from '../../../shared/render-specs'
+import DisplayCondition from '../../Showcase/components/dispaly-condition'
+import { NotebookNote } from '../../Showcase/components/notebook-card'
 
 export default function LotRow({ lots }: { lots: Lot[] }) {
   return (
-    <Table className="overscroll-contain">
-      <TableHeader>
-        <TableRow className="text-xs font-normal text-secondary-foreground">
-          <TableHead>№</TableHead>
-          <TableHead>Название</TableHead>
-          <TableHead>Состояние</TableHead>
-          <TableHead>Экран</TableHead>
-          <TableHead>CPU</TableHead>
-          <TableHead>GPU</TableHead>
-          <TableHead>RAM</TableHead>
-          <TableHead>HDD/SSD</TableHead>
-          <TableHead>Батарея</TableHead>
-          <TableHead>Прим.:</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {lots.map((lot, index) => (
-          <TableRow
-            className="whitespace-nowrap text-base"
-            key={lot.serial_num}
-          >
-            <TableCell>{index + 1}</TableCell>
-            <TableCell>{lot.item_name}</TableCell>
-            <TableCell>
-              {lot.poweron === 'Да' ? 'Рабочий' : 'Не вкл-ся'}
-            </TableCell>
-            <TableCell>{lot.display}</TableCell>
-            <TableCell>{lot.proc || <Minus />}</TableCell>
-            <TableCell>{lot.video || lot.integ_video || <Minus />}</TableCell>
-            <TableCell>{lot.ram}</TableCell>
-            <TableCell>{lot.hdd}</TableCell>
-            <TableCell>{lot.battery}</TableCell>
-            <TableCell>{lot.note || <Minus />}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <ul className="flex flex-col">
+      {lots.map((lot) => (
+        <li
+          key={lot.serial_num}
+          className="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12  items-center border-b gap-5 py-3 "
+        >
+          <p className="font-md md:col-span-2">{lot.item_name}</p>
+          <p className="flex gap-2 items-center md:col-span-2">
+            {lot.display_cond ? (
+              <DisplayCondition condition={lot.display_cond} />
+            ) : (
+              <span>Экран</span>
+            )}
+            <span>{lot.display || <Minus />}</span>
+          </p>
+          <p className="md:col-span-2">
+            <NotebookPowerOn
+              powerOn={lot.poweron}
+              className="text-base text-black"
+            />
+          </p>
+          <p className="md:col-span-7 lg:col-span-5 text-secondary-foreground">
+            {renderSpecs(lot.proc)} {renderSpecs(lot.ram)}{' '}
+            {renderSpecs(lot.hdd)}
+            {renderSpecs(lot.video || lot.integ_video)}
+            {lot.battery && lot.battery !== 'Есть'
+              ? renderSpecs(lot.battery)
+              : ''}
+          </p>
+          {lot.note && (
+            <div className="place-self-end">
+              <NotebookNote note={lot.note} />
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
   )
 }

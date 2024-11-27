@@ -53,7 +53,8 @@ export const DisplayConditions: Record<string, string> = {
   Good: 'Хорошая',
   Defective: 'С дефектом',
   Questionable: 'Под вопросом',
-  Bad: 'Плохая'
+  Bad: 'Плохая',
+  no: 'Нет'
 }
 
 export const LookoutConditions: Record<string, string> = {

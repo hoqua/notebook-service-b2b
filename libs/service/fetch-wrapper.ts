@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { API_ROOT, GET_USER } from '../constants/constants'
 import { nextAuthOptions } from './auth-options'
 import { User } from '../utils-schema/auth.schema'
+import { redirect } from 'next/navigation'
 
 export type FetchOptions<D> = {
   url: string
@@ -13,7 +14,7 @@ export type FetchOptions<D> = {
 export async function getAuthSessionOrThrow() {
   const session = await getServerSession(nextAuthOptions)
   if (!session?.jwt) {
-    throw new Error('User not authenticated')
+    redirect('/sign-in')
   }
 
   return {

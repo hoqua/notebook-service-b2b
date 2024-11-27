@@ -49,5 +49,10 @@ const iconConditionMap = {
     icon: XIcon,
     title: 'Экран поврежден,отсутствует',
     style: 'text-red-500'
+  },
+  [DisplayConditions.no]: {
+    icon: XIcon,
+    title: 'Не указано',
+    style: 'text-gray-400'
   }
 }

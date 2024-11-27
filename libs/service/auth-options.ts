@@ -7,7 +7,8 @@ import { stringToDate } from '../utils/format-date'
 export const nextAuthOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: '/sign-in'
+    signIn: '/sign-in',
+    error: '/sign-in'
   },
   providers: [
     CredentialsProvider({
@@ -38,7 +39,6 @@ export const nextAuthOptions: NextAuthOptions = {
         )
 
         if (!response.ok) {
-          console.log(await response.text())
           return null
         }
 
