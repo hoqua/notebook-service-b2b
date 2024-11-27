@@ -15,6 +15,7 @@ import {
 } from '../../../shared/ui/popover'
 import NotebookLookout from './notebook-lookout'
 import { NotebookPowerOn } from './notebook-poweron'
+import { renderSpecs } from '../../../shared/render-specs'
 
 export default function NotebookCard({
   notebook,
@@ -120,15 +121,7 @@ export default function NotebookCard({
   )
 }
 
-function renderSpecs(value: string) {
-  if (!value || value === 'Нет') {
-    return ''
-  } else {
-    return value + '/'
-  }
-}
-
-function NotebookNote({ note }: { note: string }) {
+export function NotebookNote({ note }: { note: string }) {
   return (
     <Popover>
       <PopoverTrigger>
