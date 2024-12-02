@@ -47,7 +47,7 @@ export default function LotRow({ lots }: { lots: Lot[] }) {
 }
 
 function renderBattery(battery?: string) {
-  return !battery || battery === 'Нет'
+  return battery === 'Нет'
     ? 'АКБ Отсутствует'
     : battery === 'Есть'
       ? 'АКБ Присутствует'
