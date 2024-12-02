@@ -33,9 +33,7 @@ export default function LotRow({ lots }: { lots: Lot[] }) {
             {renderSpecs(lot.proc)} {renderSpecs(lot.ram)}{' '}
             {renderSpecs(lot.hdd)}
             {renderSpecs(lot.video || lot.integ_video)}
-            {lot.battery && lot.battery !== 'Есть'
-              ? renderSpecs(lot.battery)
-              : ''}
+            {renderBattery(lot.battery)}
           </p>
           {lot.note && (
             <div className="place-self-end">
@@ -46,4 +44,12 @@ export default function LotRow({ lots }: { lots: Lot[] }) {
       ))}
     </ul>
   )
+}
+
+function renderBattery(battery?: string) {
+  return battery === 'Нет'
+    ? 'АКБ Отсутствует'
+    : battery === 'Есть'
+      ? 'АКБ Присутствует'
+      : renderSpecs(battery)
 }

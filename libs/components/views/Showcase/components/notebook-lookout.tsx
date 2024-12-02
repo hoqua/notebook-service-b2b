@@ -9,7 +9,8 @@ import {
 } from '../../../shared/ui/popover'
 
 export default function NotebookLookout({ lookout }: { lookout: string }) {
-  const { title, style } = iconConditionMap[lookout]
+  const { title, style } =
+    iconConditionMap[lookout] || iconConditionMap[LookoutConditions.unknown]
   return (
     <Popover>
       <PopoverTrigger>
@@ -43,5 +44,11 @@ const iconConditionMap = {
     title:
       'Экран с видимыми дефектами, возможны пятна, полосы, трещины, но они не должны критически влиять на комфорт использования.',
     style: 'bg-[#AFAE72]'
+  },
+
+  [LookoutConditions.unknown]: {
+    title:
+      'Состояние экрана не определено или не соответствует указанным категориям.',
+    style: 'bg-[#D9D9D9]'
   }
 }
