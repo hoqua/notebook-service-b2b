@@ -1,4 +1,4 @@
-export function renderSpecs(value: string) {
+export function renderSpecs(value?: string) {
   if (!value || value === 'Нет') {
     return ''
   } else {

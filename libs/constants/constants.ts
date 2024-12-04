@@ -60,7 +60,8 @@ export const DisplayConditions: Record<string, string> = {
 export const LookoutConditions: Record<string, string> = {
   classA: 'Класс A',
   classB: 'Класс B',
-  classC: 'Класс C'
+  classC: 'Класс C',
+  unknown: 'Неизвестно'
 }
 
 export const DisplayFiltersTypes: Record<FiltersEnum, string> = {
