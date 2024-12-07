@@ -5,6 +5,7 @@ import './global.css'
 import ProvideSession from '../libs/components/shared/layouts/session-provider'
 import { Toaster } from '../libs/components/shared/ui/toaster'
 import { cn } from '../libs/utils/cn'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: 'Notebook service',
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={cn(ubuntu.className, 'bg-[#F3F6FB]')}>
         <ProvideSession>{children}</ProvideSession>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   )
