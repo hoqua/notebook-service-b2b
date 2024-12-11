@@ -10,13 +10,12 @@ export function ManagerCard({ managerInfo }: { managerInfo: ManagerDto }) {
         {managerInfo?.mngr_name}
       </p>
 
-      <div className="w-full aspect-square relative">
-        <Image
-          src={'data:image/png;base64,' + managerInfo?.mngr_photo}
-          alt="Photo of the manager"
-          fill
-        />
-      </div>
+      <Image
+        src={`${process.env['NEXT_PUBLIC_MEDIA_URL']}/img/mngr_photos/${managerInfo.mngr_telegram}/icon.jpg`}
+        alt="Photo of the manager"
+        width={462}
+        height={593}
+      />
 
       {managerInfo?.mngr_phone && (
         <p className="flex items-center gap-2">

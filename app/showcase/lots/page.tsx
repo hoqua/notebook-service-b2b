@@ -38,7 +38,9 @@ export default async function Lots() {
             <div className="flex items-center justify-end gap-2">
               <div className="flex flex-col gap-1">
                 <p className="text-secondary-foreground text-sm">Цена лота</p>
-                <span className="font-medium">{lot.lot_sum}</span>
+                <span className="font-medium">
+                  {lot.items.length} шт/{lot.lot_sum}$
+                </span>
               </div>
               <AddToCartLotSection
                 userActive={user.active}
