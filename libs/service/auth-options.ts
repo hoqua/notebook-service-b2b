@@ -19,17 +19,17 @@ export const nextAuthOptions: NextAuthOptions = {
       },
 
       async authorize(credentials) {
-        if (!credentials) {
-          return null
-        }
-
-        const creds = LoginDto.safeParse(credentials).data
-
-        if (!creds) {
-          return null
-        }
-
         try {
+          if (!credentials) {
+            throw new Error('No credentials provided')
+          }
+
+          const creds = LoginDto.safeParse(credentials).data
+
+          if (!creds) {
+            throw new Error('Invalid credentials type provided')
+          }
+
           const { email, password } = creds
 
           const response = await fetch(
@@ -40,7 +40,8 @@ export const nextAuthOptions: NextAuthOptions = {
           )
 
           if (!response.ok) {
-            throw new Error(JSON.stringify(await response.text(), undefined, 2))
+            const errorText = await response.text()
+            throw new Error(errorText)
           }
 
           const result = await response.json()
@@ -51,9 +52,9 @@ export const nextAuthOptions: NextAuthOptions = {
 
           return result
         } catch (err) {
-          const message = `Failed to login to ${credentials.email} because ${(err as Error).message}`
+          const message = `Failed to login to ${credentials?.email} because ${(err as Error).message}`
           console.log(message)
-          Sentry.captureException(message)
+          Sentry.captureException(err)
           return null
         }
       }
