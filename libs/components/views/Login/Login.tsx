@@ -1,5 +1,5 @@
 'use client'
-import React, { useTransition } from 'react'
+import React, { useEffect, useTransition } from 'react'
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { LoginDto } from '../../../utils-schema/auth.schema'
@@ -32,6 +32,16 @@ export default function SignIn() {
     resolver: zodResolver(LoginDto)
   })
 
+  useEffect(() => {
+    if (error) {
+      toast({
+        title:
+          'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
+        variant: 'destructive'
+      })
+    }
+  }, [error])
+
   function onsubmit(data: LoginDto) {
     startTransition(async () => {
       const response = await signIn('credentials', {
@@ -53,14 +63,6 @@ export default function SignIn() {
           variant: 'default'
         })
       }
-    })
-  }
-
-  if (error) {
-    toast({
-      title:
-        'Ошибка авторизации, проверьте правильность данных и попробуйте снова',
-      variant: 'destructive'
     })
   }
 

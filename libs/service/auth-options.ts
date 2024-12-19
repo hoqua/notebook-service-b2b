@@ -3,7 +3,7 @@ import { API_ROOT } from '../constants/constants'
 import { LoginDto, LoginResponse } from '../utils-schema/auth.schema'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { stringToDate } from '../utils/format-date'
-
+import * as Sentry from '@sentry/nextjs'
 export const nextAuthOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
@@ -19,36 +19,44 @@ export const nextAuthOptions: NextAuthOptions = {
       },
 
       async authorize(credentials) {
-        if (!credentials) {
-          return null
-        }
-
-        const creds = LoginDto.safeParse(credentials).data
-
-        if (!creds) {
-          return null
-        }
-
-        const { email, password } = creds
-
-        const response = await fetch(
-          `${API_ROOT}/login.php?u=${email}&p=${password}`,
-          {
-            cache: 'no-store'
+        try {
+          if (!credentials) {
+            throw new Error('No credentials provided')
           }
-        )
 
-        if (!response.ok) {
+          const creds = LoginDto.safeParse(credentials).data
+
+          if (!creds) {
+            throw new Error('Invalid credentials type provided')
+          }
+
+          const { email, password } = creds
+
+          const response = await fetch(
+            `${API_ROOT}/login.php?u=${email}&p=${password}`,
+            {
+              cache: 'no-store'
+            }
+          )
+
+          if (!response.ok) {
+            const errorText = await response.text()
+            throw new Error(errorText)
+          }
+
+          const result = await response.json()
+
+          if (result.error !== 0) {
+            throw new Error(result.err_msg)
+          }
+
+          return result
+        } catch (err) {
+          const message = `Failed to login to ${credentials?.email} because ${(err as Error).message}`
+          console.log(message)
+          Sentry.captureException(err)
           return null
         }
-
-        const result = await response.json()
-
-        if (result.error !== 0) {
-          return null
-        }
-
-        return result
       }
     })
   ],

@@ -5,12 +5,8 @@ export default withAuth(
     const token = req.nextauth?.token
     const baseUrl = req.nextUrl.origin
     if (!token || token.expired) {
-      const response = NextResponse.redirect(`${baseUrl}/sign-in`)
-      response.cookies.set('next-auth.session-token', '', { maxAge: 0 })
-      response.cookies.set('next-auth.csrf-token', '', { maxAge: 0 })
-      return response
+      return NextResponse.redirect(`${baseUrl}/sign-in`)
     }
-
     return NextResponse.next()
   },
   {
