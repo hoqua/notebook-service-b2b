@@ -28,7 +28,7 @@ export function NotebookRow({
   return (
     <div
       className={cn(
-        'w-full relative p-2 shadow-lg rounded-lg bg-white h-fit gap-2',
+        'w-full relative p-2 shadow-lg rounded-lg bg-white h-fit gap-1',
         isUserHasPermission
           ? 'notebook-row-grid'
           : 'notebook-row-grid-not-active'
@@ -121,7 +121,10 @@ export function NotebookRow({
         <>
           <div />
           <div />
-          <RowItem className="col-span-5" title="Прим:">
+          <div />
+          <div />
+          <div />
+          <RowItem className="col-span-5 -mt-5">
             <p>{notebook.note}</p>
           </RowItem>
         </>
@@ -140,7 +143,7 @@ export function RowItem({
   className?: string
 }) {
   return (
-    <div className={cn('h-full w-full flex flex-col gap-3', className || '')}>
+    <div className={cn('h-full w-full flex flex-col gap-2', className || '')}>
       {typeof title === 'string' ? ( // render styled paragraph if string provided
         <p className="text-secondary-foreground text-xs">{title}</p>
       ) : (
