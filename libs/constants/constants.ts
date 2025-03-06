@@ -54,6 +54,7 @@ export const DisplayConditions: Record<string, string> = {
   Defective: 'С дефектом',
   Questionable: 'Под вопросом',
   Bad: 'Плохая',
+  Minimal: 'Mин. дефект',
   no: 'Нет'
 }
 
