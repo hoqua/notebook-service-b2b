@@ -8,7 +8,11 @@ import {
   PopoverTrigger
 } from '../../../shared/ui/popover'
 
-export default function DisplayCondition({ condition }: { condition: string }) {
+export default function DisplayCondition({
+  condition = DisplayConditions.no
+}: {
+  condition: string
+}) {
   const { icon: Icon, title, style } = iconConditionMap[condition]
   return (
     <Popover>
@@ -48,8 +52,7 @@ const iconConditionMap = {
   [DisplayConditions.Minimal]: {
     icon: CheckIcon,
     style: 'text-yellow-500',
-    title:
-      'Экран в хорошем состоянии, но с небольшими косметическими дефектами, возможны мелкие потертости или минимальные засветы, заметные только при внимательном рассмотрении.'
+    title: 'Минимальный дефект экрана, микрозасвет или небольшая потертость.'
   },
   [DisplayConditions.Bad]: {
     icon: XIcon,
