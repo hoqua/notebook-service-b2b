@@ -3,7 +3,7 @@ import createMiddleware from 'next-intl/middleware'
 import { NextFetchEvent, NextRequest } from 'next/server'
 import { routing } from './libs/service/i18n/routing'
 
-const publicPages = ['/', '/sign-in']
+const publicPages = ['/', '/sign-in', '/sign-up']
 
 const handleI18nRouting = createMiddleware(routing)
 
