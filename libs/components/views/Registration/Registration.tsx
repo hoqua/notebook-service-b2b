@@ -77,7 +77,7 @@ export default function SignUp() {
             <div className="w-full flex items-center">
               <div className="w-full h-full flex flex-col gap-10">
                 <div className="mt-auto flex flex-col gap-2">
-                  <h1 className="text-2xl font-medium">{t('registration')}</h1>
+                  <h1 className="text-2xl font-medium">{t('title')}</h1>
 
                   <form
                     onSubmit={handleSubmit(onsubmit)}

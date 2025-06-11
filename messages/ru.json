@@ -8,6 +8,7 @@
   },
   "auth": {
     "registration": {
+      "title": "Регистрация",
       "companyName": "Название фирмы",
       "fullName": "Имя и фамилия",
       "email": "Эл. почта (login)",

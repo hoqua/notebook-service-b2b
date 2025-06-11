@@ -9,6 +9,7 @@
   "auth": {
     "registration": {
       "companyName": "Назва компанії",
+      "title": "Реєстрація",
       "fullName": "Ім’я та прізвище",
       "email": "Ел. пошта (логін)",
       "password": "Пароль",
